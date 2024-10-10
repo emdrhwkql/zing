@@ -1,7 +1,5 @@
-import React from "react";
-
 function HoonPage() {
-	return <div>page</div>;
+	return <main>page</main>;
 }
 
 export default HoonPage;
