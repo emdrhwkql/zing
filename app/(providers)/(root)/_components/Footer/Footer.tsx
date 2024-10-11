@@ -1,5 +1,5 @@
 function Footer() {
-	return <footer className="mx-10 pt-10 bottom-0">Footer</footer>;
+	return <div className="mx-10">Footer</div>;
 }
 
 export default Footer;

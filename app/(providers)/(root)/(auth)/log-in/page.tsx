@@ -1,16 +1,13 @@
 import Page from "@/components/Page";
-import LogInForm from "./_components/LogInForm";
+import LoginForm from "./_components/LoginForm";
 
-function LogInPage() {
+function LoginPage() {
 	return (
 		<Page>
-			<h1 className="text-center mb-10 pt-10 font-bold text-2xl">
-				로그인
-			</h1>
-
-			<LogInForm />
+			<h1 className="text-center my-10 font-bold text-2xl">로그인</h1>
+			<LoginForm />
 		</Page>
 	);
 }
 
-export default LogInPage;
+export default LoginPage;
