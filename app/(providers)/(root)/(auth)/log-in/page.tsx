@@ -7,10 +7,10 @@ function LogInPage() {
 			<h1 className="text-center mb-10 pt-10 font-bold text-2xl">
 				로그인
 			</h1>
-
 			<LogInForm />
 		</Page>
 	);
 }
+
 
 export default LogInPage;
