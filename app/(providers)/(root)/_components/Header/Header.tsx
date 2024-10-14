@@ -32,6 +32,13 @@ function Header() {
 					<FaBell className="text-2xl" />
 				</Link>
 
+				<Link
+					href={"/sign-up"}
+					className="font-medium text-base rounded-[15px] border border-white py-1.5 px-2.5"
+				>
+					로그인/회원가입
+				</Link>
+
 
 				{isLoggedIn ? (
 					<button onClick={handleClickLogOut}>로그아웃</button>
