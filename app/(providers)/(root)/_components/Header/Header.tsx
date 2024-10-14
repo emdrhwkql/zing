@@ -1,7 +1,16 @@
+"use client"
+
+import supabase from "@/supabase/client";
+import { useAuthStore } from "@/zustand/auth.store";
 import Link from "next/link";
+import { useEffect } from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
 
 function Header() {
+	const isLoggedIn = useAuthStore(state => state.isLoggedIn)
+
+	const handleClickLogOut = () => supabase.auth.signOut();
+
 	return (
 		<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-gray-700 text-white">
 			<div className="ml-5 font-bold text-5xl text-center leading-4">
@@ -19,7 +28,7 @@ function Header() {
 					<FaSearch />
 				</div>
 
-				<Link href={"/MessageList"}>
+				< Link href={"/MessageList"}>
 					<FaBell className="text-2xl" />
 				</Link>
 
@@ -30,11 +39,25 @@ function Header() {
 					로그인/회원가입
 				</Link>
 
-				{/* <Link href="/log-in">로그인</Link>
 
+				{isLoggedIn ? (
+					<button onClick={handleClickLogOut}>로그아웃</button>
+				) : (
+
+					<>
+						<Link
+							href={"/auth"}
+							className="font-medium text-base rounded-[15px] border border-white py-1.5 px-2.5"
+						>
+							로그인/회원가입
+						</Link>
+					</>
+				)}
+				{/* <Link href="/log-in">로그인</Link>
+	
 				<Link href="/sign-up">회원가입</Link> */}
 			</div>
-		</header>
+		</header >
 	);
 }
 
