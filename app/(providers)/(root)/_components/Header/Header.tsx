@@ -24,7 +24,7 @@ function Header() {
 				</Link>
 
 				<Link
-					href={"/auth"}
+					href={"/sign-up"}
 					className="font-medium text-base rounded-[15px] border border-white py-1.5 px-2.5"
 				>
 					로그인/회원가입

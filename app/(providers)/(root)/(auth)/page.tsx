@@ -1,13 +1,11 @@
-import LoginPage from "./log-in/page";
+import Page from "@/components/Page";
 import SignUpPage from "./sign-up/page";
 
 function AuthPage() {
 	return (
-		<div className="flex flex-row gap-x-10">
+		<Page>
 			<SignUpPage />
-
-			<LoginPage />
-		</div>
+		</Page>
 	);
 }
 
