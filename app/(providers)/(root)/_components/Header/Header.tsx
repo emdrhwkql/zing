@@ -1,15 +1,22 @@
-"use client"
+"use client";
 
 import supabase from "@/supabase/client";
 import { useAuthStore } from "@/zustand/auth.store";
 import Link from "next/link";
-import { useEffect } from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
 
 function Header() {
-	const isLoggedIn = useAuthStore(state => state.isLoggedIn)
+	const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
 	const handleClickLogOut = () => supabase.auth.signOut();
+
+	// const handleClickProfile = () => {
+	// 	return (
+	// 		<div>
+	// 			<button onClick={handleClickLogOut}>로그아웃</button>
+	// 		</div>
+	// 	);
+	// };
 
 	return (
 		<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-gray-700 text-white">
@@ -28,36 +35,32 @@ function Header() {
 					<FaSearch />
 				</div>
 
-				< Link href={"/MessageList"}>
-					<FaBell className="text-2xl" />
+				<Link href={"/MessageList"}>
+					<FaBell className="text-3xl" />
 				</Link>
-
-				<Link
-					href={"/sign-up"}
-					className="font-medium text-base rounded-[15px] border border-white py-1.5 px-2.5"
-				>
-					로그인/회원가입
-				</Link>
-
 
 				{isLoggedIn ? (
-					<button onClick={handleClickLogOut}>로그아웃</button>
+					<div className="group w-10 h-10 bg-white rounded-full hover:">
+						<div className="w-80 h-full absolute top-0 -right-0 bg-slate-400 opacity-0 group-hover:opacity-70">
+							<button onClick={handleClickLogOut} className="">
+								로그아웃
+							</button>
+						</div>
+					</div>
 				) : (
-
-					<>
+					<div>
 						<Link
-							href={"/auth"}
+							href={"/sign-up"}
 							className="font-medium text-base rounded-[15px] border border-white py-1.5 px-2.5"
 						>
 							로그인/회원가입
 						</Link>
-					</>
+					</div>
 				)}
-				{/* <Link href="/log-in">로그인</Link>
-	
-				<Link href="/sign-up">회원가입</Link> */}
+
+				{/* <TiThMenu className="text-4xl" /> */}
 			</div>
-		</header >
+		</header>
 	);
 }
 
