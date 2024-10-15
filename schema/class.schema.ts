@@ -1,3 +1,5 @@
+import { Tables } from "@/supabase/database.types";
+
 export type ClassApiTypes = {
   currentCount: number;
   data: HobbyClassListTypes[];
@@ -19,3 +21,5 @@ export type HobbyClassListTypes = {
   "클래스 커리큘럼": string;
   "클래스 타이틀": string;
 };
+
+export type Lecture = Tables<"lectures">;
