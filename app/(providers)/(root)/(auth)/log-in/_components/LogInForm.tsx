@@ -4,50 +4,50 @@ import Input from "@/components/Input";
 import supabase from "@/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { ComponentProps } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { ImYelp } from "react-icons/im";
 
+type HandleSubmitLogInFormEvent = React.FormEvent<HTMLFormElement> & {
+	target: HTMLFormElement & {
+		firstName: HTMLInputElement;
+		lastName: HTMLInputElement;
+		email: HTMLInputElement;
+		password: HTMLInputElement;
+		passwordConfirmInputRef: HTMLInputElement;
+	};
+};
+
 function LogInForm() {
 	const router = useRouter();
-	const [formData, setFormData] = useState({
-		email: "",
-		password: "",
-	});
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setFormData((prevData) => ({
-			...prevData,
-			[name]: value,
-		}));
-	};
-
-	const handleSubmitLoginForm = async (
-		e: React.FormEvent<HTMLFormElement>
+	const handleSubmitLoginForm: ComponentProps<"form">["onSubmit"] = async (
+		e: HandleSubmitLogInFormEvent
 	) => {
 		e.preventDefault();
 
-		const { email, password } = formData;
+		const email = e.target.email.value;
+		const password = e.target.password.value;
 
-		if (!email) {
-			return alert("이메일을 입력하세요");
-		}
+		// 예외 처리
+		if (!email) return alert("이메일 주소를 입력해 주세요.");
+		if (!password) return alert("비밀번호를 입력해 주세요.");
+		if (!email.includes("@"))
+			return alert("올바른 이메일 주소를 적어 주세요.");
+		if (password.length < 8)
+			return alert("비밀번호는 8글자 이상이어야 합니다.");
 
-		if (!password) {
-			return alert("비밀번호를 입력하세요");
-		}
-
-		const { data, error } = await supabase.auth.signInWithPassword({
-			email: email,
-			password: password,
+		const response = await supabase.auth.signInWithPassword({
+			email,
+			password,
 		});
 
-		if (data?.session) {
-			alert("로그인 성공");
+		if (response.data.user) {
+			alert("축하합니다. 로그인에 성공하였습니다.");
+
 			router.push("/");
 		} else {
-			alert(`로그인 실패: ${error?.message}`);
+			alert("로그인에 실패하였습니다.");
 		}
 	};
 
@@ -91,7 +91,7 @@ function LogInForm() {
 
 					<div className="my-6 flex flex-row gap-x-3 text-sm font-semibold">
 						<p className="text-white/70">
-							Already have an account?
+							Don't have an account yet?
 						</p>
 
 						<Link
@@ -103,7 +103,7 @@ function LogInForm() {
 					</div>
 
 					<form
-						// onSubmit={handleSubmitSignUpForm}
+						onSubmit={handleSubmitLoginForm}
 						className="w-96 grid grid-cols-1 gap-y-4"
 					>
 						{/* 이메일 */}
@@ -126,7 +126,7 @@ function LogInForm() {
 							type="submit"
 							className="bg-slate-800 text-white font-normal text-lg p-4 rounded-md"
 						>
-							Create account
+							Let's be together
 						</button>
 
 						<div className="flex flex-row justify-center items-center">

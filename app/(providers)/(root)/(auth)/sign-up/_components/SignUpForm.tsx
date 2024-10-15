@@ -32,14 +32,6 @@ function SignUpForm() {
 		const password = e.target.password.value;
 		const passwordConfirm = e.target.password.value;
 
-		const response = await supabase.auth.signUp({
-			email,
-			password,
-			options: { data: { nickname: "신규유저" } },
-		});
-
-		console.log(response.data);
-
 		// 예외 처리
 		if (!firstName) return alert("이름를 입력해 주세요.");
 		if (!lastName) return alert("성을 입력해 주세요.");
@@ -53,6 +45,12 @@ function SignUpForm() {
 		if (password !== passwordConfirm)
 			return alert("비밀번호와 같지 않습니다.");
 
+		const response = await supabase.auth.signUp({
+			email,
+			password,
+			options: { data: { nickname: "신규유저" } },
+		});
+
 		if (response.data.user) {
 			// 가입되었음을 사용자에게 알려주기
 			alert("축하합니다. 회원가입에 성공했습니다.");
@@ -62,24 +60,6 @@ function SignUpForm() {
 		} else {
 			alert("회원가입에 실패하였습니다.");
 		}
-
-		// const { data, error } = await supabase.auth.signUp({
-		// 	email: email,
-		// 	password: password,
-		// 	options: {
-		// 		data: {
-		// 			user_name: name,
-		// 			avatar_url: null,
-		// 		},
-		// 	},
-		// });
-
-		// if (data.user) {
-		// 	alert("회원가입 성공");
-		// 	router.push("/");
-		// } else {
-		// 	alert(`회원가입 실패: ${error?.message}`);
-		// }
 	};
 
 	return (
@@ -117,7 +97,7 @@ function SignUpForm() {
 			<div className="grid place-items-center">
 				<div className="flex flex-col justify-center">
 					<h1 className="font-bold text-4xl text-white">
-						Create an account
+						The journey begins
 					</h1>
 
 					<div className="my-6 flex flex-row gap-x-3 text-sm font-semibold">
