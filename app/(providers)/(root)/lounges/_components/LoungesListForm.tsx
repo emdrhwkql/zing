@@ -1,7 +1,7 @@
 import SideBox from "@/components/SideBox";
 import Link from "next/link";
 
-function PopularLoungeList() {
+function LoungesListForm() {
 	const loungeId = 1;
 
 	return (
@@ -10,7 +10,7 @@ function PopularLoungeList() {
 				<h1>인기 라운지 TOP5</h1>
 
 				<p className="text-sm opacity-60">
-					<Link href={"/LoungesList/LoungesListPage"}>더보기</Link>
+					<Link href={"/lounges/loungesList"}>더보기</Link>
 				</p>
 			</div>
 
@@ -101,4 +101,4 @@ function PopularLoungeList() {
 	);
 }
 
-export default PopularLoungeList;
+export default LoungesListForm;
