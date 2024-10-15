@@ -1,23 +1,31 @@
+"use client";
+
 import PostBox from "@/components/PostBox";
-import supabase from "@/supabase/client";
+import { Lecture } from "@/schema/class.schema";
 import dayjs from "dayjs";
 import Link from "next/link";
-// 더보기 페이지
-async function HobbyClassList() {
+
+type HobbyClassListProps = {
+  lectures: Lecture[];
+  isMoreShow: boolean;
+};
+
+function HobbyClassLists({ lectures, isMoreShow }: HobbyClassListProps) {
   const time = dayjs().format("YYYY-MM-DD");
-  const randomNumbs = Math.floor(Math.random() * 1000);
-  const response = await supabase.from("lectures").select().limit(randomNumbs);
-  const lectures = response.data;
   const classId = 1;
-  console.log(response.data);
-  if (!lectures) return console.log("에러");
+  if (!lectures) return null;
+
   return (
     <PostBox>
       <div className="mb-4 pb-4 flex flex-row justify-between items-center font-bold text-2xl border-b">
         <h1>함께 배우는 취미</h1>
+        {isMoreShow ? (
+          <p className="text-sm opacity-60">
+            <Link href={"/HobbyClassList/HobbyClassListPage"}>더보기</Link>
+          </p>
+        ) : null}
       </div>
-
-      <ul className="grid grid-cols-4 gap-4">
+      <ul className="grid grid-cols-2 gap-4">
         {lectures.map((lecture) => (
           <li key={lecture["lectureTitle"]} className="relative bg-black">
             <Link href={`/HobbyClassList/${classId}/HobbyClassListDetailPage`}>
@@ -57,4 +65,4 @@ async function HobbyClassList() {
   );
 }
 
-export default HobbyClassList;
+export default HobbyClassLists;

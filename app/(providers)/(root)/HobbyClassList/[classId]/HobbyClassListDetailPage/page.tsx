@@ -7,7 +7,6 @@ async function HobbyClassListDetailPage() {
   console.log(classes);
   const class_with = nanoid();
   console.log(class_with);
-
   return (
     <ul>
       {classes.map((_class_) => (
