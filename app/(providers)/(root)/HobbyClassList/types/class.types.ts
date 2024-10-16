@@ -22,4 +22,6 @@ export type HobbyClassListTypes = {
   "클래스 타이틀": string;
 };
 
+export type HobbyClassListTypes = {};
+
 export type Lecture = Tables<"lectures">;

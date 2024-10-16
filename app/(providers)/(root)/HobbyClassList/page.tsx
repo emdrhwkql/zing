@@ -8,7 +8,6 @@ async function HobbyClassList() {
   const randomNumbs = Math.floor(Math.random() * 1000);
   const response = await supabase.from("lectures").select().limit(randomNumbs);
   const lectures = response.data;
-  const classId = 1;
   console.log(response.data);
   if (!lectures) return console.log("에러");
   return (
@@ -20,7 +19,9 @@ async function HobbyClassList() {
       <ul className="grid grid-cols-4 gap-4">
         {lectures.map((lecture) => (
           <li key={lecture["lectureTitle"]} className="relative bg-black">
-            <Link href={`/HobbyClassList/${classId}/HobbyClassListDetailPage`}>
+            <Link
+              href={`/HobbyClassList/${lecture.id}/HobbyClassListDetailPage`}
+            >
               <img
                 src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/_class_images/${lecture.imageUrl}`}
                 className="w-full h-40 object-cover opacity-80"
