@@ -9,6 +9,48 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      addition: {
+        Row: {
+          content: string
+          createdAt: string
+          id: number
+          title: string
+        }
+        Insert: {
+          content?: string
+          createdAt?: string
+          id?: number
+          title?: string
+        }
+        Update: {
+          content?: string
+          createdAt?: string
+          id?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      category: {
+        Row: {
+          categoryImg: string | null
+          categoryName: string
+          createdAt: string
+          id: number
+        }
+        Insert: {
+          categoryImg?: string | null
+          categoryName: string
+          createdAt?: string
+          id?: number
+        }
+        Update: {
+          categoryImg?: string | null
+          categoryName?: string
+          createdAt?: string
+          id?: number
+        }
+        Relationships: []
+      }
       lectures: {
         Row: {
           categoryOne: string
@@ -69,114 +111,93 @@ export type Database = {
         }
         Relationships: []
       }
-      message: {
+      lounges: {
         Row: {
-          created_at: string
+          categoryId: number
           id: number
-          id_deleted: boolean
-          receiver: string
-          sender: string
+          name: string
+          userId: string
         }
         Insert: {
-          created_at?: string
+          categoryId: number
           id?: number
-          id_deleted: boolean
-          receiver: string
-          sender: string
+          name: string
+          userId?: string
         }
         Update: {
-          created_at?: string
+          categoryId?: number
           id?: number
-          id_deleted?: boolean
-          receiver?: string
-          sender?: string
+          name?: string
+          userId?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "lounges_categoryId_fkey"
+            columns: ["categoryId"]
+            isOneToOne: false
+            referencedRelation: "category"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      post_one: {
+      posts: {
+        Row: {
+          authorId: string
+          content: string
+          createdAt: string
+          id: number
+          loungeId: number
+          title: string
+        }
+        Insert: {
+          authorId?: string
+          content?: string
+          createdAt?: string
+          id?: number
+          loungeId: number
+          title?: string
+        }
+        Update: {
+          authorId?: string
+          content?: string
+          createdAt?: string
+          id?: number
+          loungeId?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "posts_loungeId_fkey"
+            columns: ["loungeId"]
+            isOneToOne: false
+            referencedRelation: "lounges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
         Row: {
           content: string
           createdAt: string
           id: number
-          isCompleted: boolean
+          string: string
+          title: string
         }
         Insert: {
-          content: string
+          content?: string
           createdAt?: string
-          id: number
-          isCompleted?: boolean
+          id?: number
+          string?: string
+          title?: string
         }
         Update: {
           content?: string
           createdAt?: string
           id?: number
-          isCompleted?: boolean
+          string?: string
+          title?: string
         }
         Relationships: []
-      }
-      user: {
-        Row: {
-          createdAt: string
-          email: string
-          id: string
-          nickname: string
-          password: string
-        }
-        Insert: {
-          createdAt?: string
-          email: string
-          id: string
-          nickname: string
-          password: string
-        }
-        Update: {
-          createdAt?: string
-          email?: string
-          id?: string
-          nickname?: string
-          password?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      userinfo: {
-        Row: {
-          email: string | null
-          id: string
-          image_url: string | null
-          message: string | null
-          username: string | null
-        }
-        Insert: {
-          email?: string | null
-          id: string
-          image_url?: string | null
-          message?: string | null
-          username?: string | null
-        }
-        Update: {
-          email?: string | null
-          id?: string
-          image_url?: string | null
-          message?: string | null
-          username?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "userinfo_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
       }
     }
     Views: {
@@ -274,4 +295,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
