@@ -2,7 +2,7 @@ import PostBox from "@/components/PostBox";
 import dayjs from "dayjs";
 import Link from "next/link";
 
-function LoungesList() {
+function LoungesPostListForm() {
 	const time = dayjs().format("YYYY-MM-DD");
 
 	const loungeId = 1;
@@ -12,7 +12,7 @@ function LoungesList() {
 			<div className="mb-4 pb-4 flex flex-row justify-between items-center font-bold text-2xl border-b">
 				<h1>라운지 인기 게시글</h1>
 				<p className="text-sm opacity-60">
-					<Link href={"/LoungesList/LoungesListPage"}>더보기</Link>
+					<Link href={"/lounges/loungesList"}>더보기</Link>
 				</p>
 			</div>
 
@@ -132,4 +132,4 @@ function LoungesList() {
 	);
 }
 
-export default LoungesList;
+export default LoungesPostListForm;
