@@ -1,7 +1,7 @@
 import Page from "@/components/Page";
 import NewCategoryForm from "../_components/NewCategoryForm/NewCategoryForm";
 
-function NewCategoryPage() {
+function CreateCategoryPage() {
 	return (
 		<div>
 			<Page>
@@ -11,4 +11,4 @@ function NewCategoryPage() {
 	);
 }
 
-export default NewCategoryPage;
+export default CreateCategoryPage;

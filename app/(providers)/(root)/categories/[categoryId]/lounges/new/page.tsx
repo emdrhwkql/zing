@@ -1,7 +1,7 @@
 import NewLoungeForm from "../_components/NewLoungeForm/NewLoungeForm";
 
-function NewLoungePage() {
+function CreateLoungePage() {
 	return <NewLoungeForm />;
 }
 
-export default NewLoungePage;
+export default CreateLoungePage;
