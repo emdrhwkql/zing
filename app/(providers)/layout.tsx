@@ -1,7 +1,7 @@
-import { PropsWithChildren } from "react";
+import TanstackQueryProvider from "@/tanstack/query/client";
 
-function ProvidersLayout({ children }: PropsWithChildren) {
-	return <div>{children}</div>;
+function ProvidersLayout({ children }: { children: React.ReactNode }) {
+	return <TanstackQueryProvider>{children}</TanstackQueryProvider>;
 }
 
 export default ProvidersLayout;
