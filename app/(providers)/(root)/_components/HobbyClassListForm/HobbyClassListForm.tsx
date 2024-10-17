@@ -2,17 +2,17 @@
 
 import PostBox from "@/components/PostBox";
 import { Lecture } from "@/schema/class.schema";
+
 import dayjs from "dayjs";
 import Link from "next/link";
 
-type HobbyClassListProps = {
+export type HobbyClassListProps = {
   lectures: Lecture[];
   isMoreShow: boolean;
 };
 
-function HobbyClassLists({ lectures, isMoreShow }: HobbyClassListProps) {
+function HobbyClassListForm({ lectures, isMoreShow }: HobbyClassListProps) {
   const time = dayjs().format("YYYY-MM-DD");
-  const classId = 1;
   if (!lectures) return null;
 
   return (
@@ -28,7 +28,9 @@ function HobbyClassLists({ lectures, isMoreShow }: HobbyClassListProps) {
       <ul className="grid grid-cols-2 gap-4">
         {lectures.map((lecture) => (
           <li key={lecture["lectureTitle"]} className="relative bg-black">
-            <Link href={`/HobbyClassList/${classId}/HobbyClassListDetailPage`}>
+            <Link
+              href={`/HobbyClassList/${lecture.id}/HobbyClassListDetailPage`}
+            >
               <img
                 src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/_class_images/${lecture.imageUrl}`}
                 className="w-full h-40 object-cover opacity-80"
@@ -65,4 +67,4 @@ function HobbyClassLists({ lectures, isMoreShow }: HobbyClassListProps) {
   );
 }
 
-export default HobbyClassLists;
+export default HobbyClassListForm;
