@@ -30,24 +30,27 @@ export type Database = {
         }
         Relationships: []
       }
-      category: {
+      categories: {
         Row: {
           categoryImg: string | null
           categoryName: string
           createdAt: string
           id: number
+          isCompleted: boolean
         }
         Insert: {
           categoryImg?: string | null
           categoryName: string
           createdAt?: string
           id?: number
+          isCompleted?: boolean
         }
         Update: {
           categoryImg?: string | null
           categoryName?: string
           createdAt?: string
           id?: number
+          isCompleted?: boolean
         }
         Relationships: []
       }
@@ -115,18 +118,21 @@ export type Database = {
         Row: {
           categoryId: number
           id: number
+          isCompleted: boolean
           name: string
           userId: string
         }
         Insert: {
           categoryId: number
           id?: number
+          isCompleted?: boolean
           name: string
           userId?: string
         }
         Update: {
           categoryId?: number
           id?: number
+          isCompleted?: boolean
           name?: string
           userId?: string
         }
@@ -135,7 +141,7 @@ export type Database = {
             foreignKeyName: "lounges_categoryId_fkey"
             columns: ["categoryId"]
             isOneToOne: false
-            referencedRelation: "category"
+            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
         ]
