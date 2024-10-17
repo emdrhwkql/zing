@@ -1,5 +1,5 @@
 import supabase from "@/supabase/client";
-import HobbyClassLists from "../_components/HobbyClassLists";
+import HobbyClassListForm from "../../_components/HobbyClassListForm/HobbyClassListForm";
 
 async function HobbyClassListPage() {
   const randomNumbs = Math.floor(Math.random() * 1000);
@@ -12,7 +12,7 @@ async function HobbyClassListPage() {
   const slicedLectures = lectures.slice(0);
   return (
     <div>
-      <HobbyClassLists lectures={slicedLectures} isMoreShow={isMoreShow} />
+      <HobbyClassListForm lectures={slicedLectures} isMoreShow={isMoreShow} />
     </div>
   );
 }
