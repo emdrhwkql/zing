@@ -1,16 +1,30 @@
 import { Lounge } from "@/schema/lounges.schema";
 import supabase from "@/supabase/client";
 
-async function createLounge(name: string, categoryId: number) {
+async function createLounge(
+	name: string,
+	categoryId: number,
+	introduction: string
+) {
 	const { data } = await supabase.auth.getUser();
 	const user = data.user!;
 
 	await supabase
 		.from("lounges")
-		.insert({ name, userId: user.id, categoryId });
+		.insert({ name, userId: user.id, categoryId, introduction });
 }
 
-async function getLounges() {
+async function getAllLounges() {
+	const response = await supabase.from("lounges").select("*");
+
+	const lounges = response.data;
+
+	if (!lounges) return [];
+
+	return lounges;
+}
+
+async function getLoungesICreated() {
 	const { data } = await supabase.auth.getUser();
 	const user = data.user!;
 
@@ -26,11 +40,17 @@ async function getLounges() {
 	return lounges;
 }
 
-async function toggleIsCompleted(lounge: Lounge) {
-	await supabase
+async function getLoungesByCategoryId(categoryId: number) {
+	const response = await supabase
 		.from("lounges")
-		.update({ isCompleted: !lounge.isCompleted })
-		.eq("id", lounge.id);
+		.select("*")
+		.eq("categoryId", categoryId);
+
+	const lounges = response.data;
+
+	if (!lounges) return [];
+
+	return lounges;
 }
 
 async function deleteLounge(lounge: Lounge) {
@@ -39,8 +59,9 @@ async function deleteLounge(lounge: Lounge) {
 
 const loungesAPI = {
 	createLounge,
-	getLounges,
-	toggleIsCompleted,
+	getAllLounges,
+	getLoungesICreated,
+	getLoungesByCategoryId,
 	deleteLounge,
 };
 

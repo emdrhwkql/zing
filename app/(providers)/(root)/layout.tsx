@@ -1,5 +1,5 @@
 import React from "react";
-import AuthProvider from "./_components/AuthProvider";
+import AuthProvider from "./_components/AuthProvider/AuthProvider";
 import Footer from "./_components/Footer/Footer";
 import Header from "./_components/Header/Header";
 import SideBar from "./_components/SideBar/SideBar";

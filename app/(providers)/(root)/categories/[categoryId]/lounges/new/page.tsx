@@ -1,7 +1,7 @@
-import NewLoungeForm from "../_components/NewLoungeForm/NewLoungeForm";
+import NewLoungeForm from "@/app/(providers)/(root)/_components/lounge/NewLoungeForm/NewLoungeForm";
 
-function CreateLoungePage() {
+function NewLoungePage() {
 	return <NewLoungeForm />;
 }
 
-export default CreateLoungePage;
+export default NewLoungePage;
