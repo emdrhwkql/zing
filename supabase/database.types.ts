@@ -34,23 +34,44 @@ export type Database = {
         Row: {
           categoryImg: string | null
           categoryName: string
-          createdAt: string
           id: number
           isCompleted: boolean
         }
         Insert: {
           categoryImg?: string | null
           categoryName: string
-          createdAt?: string
           id?: number
           isCompleted?: boolean
         }
         Update: {
           categoryImg?: string | null
           categoryName?: string
-          createdAt?: string
           id?: number
           isCompleted?: boolean
+        }
+        Relationships: []
+      }
+      inbox: {
+        Row: {
+          content: string
+          createdAt: string
+          id: number
+          title: string
+          userId: string
+        }
+        Insert: {
+          content?: string
+          createdAt?: string
+          id?: number
+          title?: string
+          userId?: string
+        }
+        Update: {
+          content?: string
+          createdAt?: string
+          id?: number
+          title?: string
+          userId?: string
         }
         Relationships: []
       }
@@ -117,21 +138,27 @@ export type Database = {
       lounges: {
         Row: {
           categoryId: number
+          createdAt: string
           id: number
+          introduction: string
           isCompleted: boolean
           name: string
           userId: string
         }
         Insert: {
           categoryId: number
+          createdAt?: string
           id?: number
+          introduction: string
           isCompleted?: boolean
           name: string
           userId?: string
         }
         Update: {
           categoryId?: number
+          createdAt?: string
           id?: number
+          introduction?: string
           isCompleted?: boolean
           name?: string
           userId?: string
@@ -148,28 +175,28 @@ export type Database = {
       }
       posts: {
         Row: {
-          authorId: string
           content: string
           createdAt: string
           id: number
           loungeId: number
           title: string
+          userId: string
         }
         Insert: {
-          authorId?: string
           content?: string
           createdAt?: string
           id?: number
           loungeId: number
           title?: string
+          userId?: string
         }
         Update: {
-          authorId?: string
           content?: string
           createdAt?: string
           id?: number
           loungeId?: number
           title?: string
+          userId?: string
         }
         Relationships: [
           {
@@ -180,6 +207,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      profile: {
+        Row: {
+          createdAt: string
+          id: number
+          profileDesc: string
+          profileImg: string
+          userId: string
+          userName: string
+        }
+        Insert: {
+          createdAt?: string
+          id?: number
+          profileDesc?: string
+          profileImg?: string
+          userId?: string
+          userName?: string
+        }
+        Update: {
+          createdAt?: string
+          id?: number
+          profileDesc?: string
+          profileImg?: string
+          userId?: string
+          userName?: string
+        }
+        Relationships: []
       }
       users: {
         Row: {
