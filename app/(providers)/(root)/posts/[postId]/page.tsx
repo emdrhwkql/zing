@@ -1,5 +1,5 @@
 function PostDetailPage() {
-	return <div>page</div>;
+	return <div>adasd</div>;
 }
 
 export default PostDetailPage;

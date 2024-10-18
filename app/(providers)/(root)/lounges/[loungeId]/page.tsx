@@ -1,3 +1,5 @@
+"use client";
+
 import Page from "@/components/Page";
 import PostBox from "@/components/PostBox";
 import SideBox from "@/components/SideBox";
@@ -43,10 +45,11 @@ function LoungeDetailPage() {
 						</button>
 
 						<Link
-							href={"/lounges/newPost"}
+							href={`/lounges/91/posts/new`}
 							className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
 						>
 							<LuFilePlus />
+
 							<p>글 쓰기</p>
 						</Link>
 					</div>

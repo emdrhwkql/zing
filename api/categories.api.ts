@@ -1,9 +1,5 @@
 import supabase from "@/supabase/client";
 
-async function createCategory(categoryName: string) {
-	await supabase.from("categories").insert({ categoryName });
-}
-
 async function getCategory() {
 	const randomNumbs = Math.floor(Math.random() * 1000);
 
@@ -20,7 +16,6 @@ async function getCategory() {
 }
 
 const categoriesAPI = {
-	createCategory,
 	getCategory,
 };
 

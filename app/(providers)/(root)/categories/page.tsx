@@ -1,7 +1,12 @@
-import CategoriesList from "./_components/CategoryList/CategoriesList";
+import Page from "@/components/Page";
+import CategoriesList from "../_components/category/CategoryList/CategoriesList";
 
 async function CategoriesListPage() {
-	return <CategoriesList isShowList={false} isShowSeeMore={false} />;
+	return (
+		<Page>
+			<CategoriesList isShowSeeMore={false} />
+		</Page>
+	);
 }
 
 export default CategoriesListPage;
