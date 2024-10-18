@@ -29,23 +29,25 @@ function LoungesList({
 
 			{isShowMore ? (
 				<ul className="grid grid-cols-1 gap-y-5">
-					{lounges.map((lounge) => (
-						<li
-							key={lounge.id}
-							className="bg-slate-100 rounded-md h-14 px-2 grid items-center"
-						>
-							<Link href={`/laounges/${lounge.id}`}>
-								<div className="flex flex-row items-center">
-									<div className="w-10 h-10 bg-gray-300" />
+					{lounges
+						.map((lounge) => (
+							<li
+								key={lounge.id}
+								className="bg-slate-100 rounded-md h-14 px-2 grid items-center"
+							>
+								<Link href={`/lounges/${lounge.id}`}>
+									<div className="flex flex-row items-center">
+										<div className="w-10 h-10 bg-gray-300" />
 
-									<div className="ml-3 flex flex-col">
-										<p>{lounge.name}</p>
-										<p>{lounge.introduction}</p>
+										<div className="ml-3 flex flex-col">
+											<p>{lounge.name}</p>
+											<p>{lounge.introduction}</p>
+										</div>
 									</div>
-								</div>
-							</Link>
-						</li>
-					))}
+								</Link>
+							</li>
+						))
+						.slice(0, 10)}
 				</ul>
 			) : (
 				<ul className="grid grid-cols-1 gap-y-5">

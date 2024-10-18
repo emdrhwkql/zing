@@ -6,3 +6,10 @@ export type Lounges = {
 	isCompleted: boolean;
 	introduction: string;
 }[];
+
+export type LoungeIdPropsType = {
+	params: {
+		loungeId: string;
+		searchParams: {};
+	};
+};

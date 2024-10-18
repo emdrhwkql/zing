@@ -1,10 +1,8 @@
-"use client";
-
 import PostBox from "@/components/PostBox";
 import { Posts } from "@/types/posts.types";
 import Link from "next/link";
 
-function PostList({ posts }: { posts: Posts }) {
+function FreeLoungeList({ posts }: { posts: Posts }) {
 	return (
 		<PostBox>
 			<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
@@ -34,4 +32,4 @@ function PostList({ posts }: { posts: Posts }) {
 	);
 }
 
-export default PostList;
+export default FreeLoungeList;

@@ -1,14 +1,20 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
 import PostBox from "@/components/PostBox";
-import PostsList from "../PostsList/page";
 import CategoriesList from "../_components/category/CategoryList/CategoriesList";
-import LoungesList from "../_components/lounge/LoungeList/LoungeList";
+import LoungesList from "../_components/lounge/LoungesList/LoungesList";
+import PostsList from "../_components/post/PostsList/PostsList";
 
 export const revalidate = 0;
 
 export default async function HomePage() {
 	const lounges = await api.lounges.getAllLounges();
+
+	const posts = await api.posts.getAllPosts();
+
+	// console.log(posts);
+
+	// const freePost = 0
 
 	// console.log(lounges);
 
@@ -16,14 +22,13 @@ export default async function HomePage() {
 		<Page>
 			<div className="flex flex-row gap-x-10 justify-center">
 				<div className="bg-gray-600 flex flex-col items-center gap-y-10 p-4 rounded-md">
-					<PostsList />
+					<PostsList posts={posts} freeLounge={true} />
 
 					<LoungesList lounges={lounges} pageTitle={true} />
 
 					<CategoriesList isShowList={true} isShowSeeMore={true} />
 
 					<PostBox />
-
 					{/* <LecturesListPage /> */}
 				</div>
 
