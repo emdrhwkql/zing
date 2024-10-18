@@ -3,7 +3,7 @@ import api from "@/api/api";
 import Page from "@/components/Page";
 import { CategoryIdPropsType } from "@/types/category.types";
 import Link from "next/link";
-import LoungesList from "../../_components/lounge/LoungeList/LoungeList";
+import LoungesList from "../../_components/lounge/LoungesList/LoungesList";
 
 export const revalidate = 0;
 

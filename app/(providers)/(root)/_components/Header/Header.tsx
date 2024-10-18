@@ -40,13 +40,10 @@ function Header() {
 				</Link>
 
 				{isLoggedIn ? (
-					<div className="group w-10 h-10 bg-white rounded-full hover:">
-						<div className="w-80 h-full absolute top-0 -right-0 bg-slate-400 opacity-0 group-hover:opacity-70">
-							<button onClick={handleClickLogOut} className="">
-								로그아웃
-							</button>
-						</div>
-					</div>
+					<button
+						onClick={handleClickLogOut}
+						className="w-10 h-10 bg-white rounded-full text-black"
+					></button>
 				) : (
 					<div>
 						<Link
