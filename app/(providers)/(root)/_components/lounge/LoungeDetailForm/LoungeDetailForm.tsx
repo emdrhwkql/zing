@@ -1,15 +1,16 @@
+"use client";
+
 import api from "@/api/api";
 import Page from "@/components/Page";
 import SideBox from "@/components/SideBox";
 import { LoungeIdPropsType } from "@/types/lounge.types";
 import Link from "next/link";
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { LuFilePlus } from "react-icons/lu";
-import PostsList from "../../_components/post/PostsList/PostsList";
+import PostsList from "../../post/PostsList/PostsList";
 
-export const revalidate = 0;
-
-async function LoungeDetailPage(props: LoungeIdPropsType) {
+async function LoungeDetailForm(props: LoungeIdPropsType) {
 	const loungeId = props.params.loungeId;
 
 	const posts = await api.posts.getPostsByLoungeId(Number(loungeId));
@@ -24,16 +25,7 @@ async function LoungeDetailPage(props: LoungeIdPropsType) {
 		(lounge) => lounge.id === Number(loungeId) && lounge.introduction
 	);
 
-	// console.log(loungeName);
-
-	// 라운지 안의 회원들 목록
-	// 라운지 내의 작성된 게시글
-	// 라운지 내에 새 게시글을 작성할 버튼
-	// 라운지를 만든 사람일 경우에는, 라운지 수정하기나 삭제하기 버튼이 보여야 함
-	// 라운지를 만든 사람이 아니고, 동시에 라운지에 가입이 안된 사람이면 -> 라운지 가입하기 버튼이 보여야 함
-	// 라운지를 만든 사람이 아니고, 동시에 라운지에 가입된 사람이면 -> 라운지 탈퇴하기 버튼이 보여야 함
-
-	//////
+	const [isFollowLounge, setIsFollowLounge] = useState(false);
 
 	return (
 		<Page>
@@ -60,10 +52,28 @@ async function LoungeDetailPage(props: LoungeIdPropsType) {
 						<div>다섯번째</div>
 					</div>
 					<div className="ml-auto flex flex-row gap-x-3">
-						<button className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border">
-							<FaCheck />
-							<p>가입하기</p>
-						</button>
+						{isFollowLounge ? (
+							<button
+								onClick={() => {
+									setIsFollowLounge((e) => !e);
+								}}
+								className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
+							>
+								<FaCheck />
+								<p>가입하기</p>
+							</button>
+						) : (
+							<button
+								onClick={() => {
+									setIsFollowLounge((e) => !e);
+								}}
+								className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
+							>
+								<FaCheck />
+								<p>가입하기</p>
+							</button>
+						)}
+
 						<Link
 							href={`/lounges/${loungeId}/posts/new`}
 							className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
@@ -74,18 +84,12 @@ async function LoungeDetailPage(props: LoungeIdPropsType) {
 					</div>
 				</div>
 			</div>
-
 			<div className="flex flex-row gap-x-10 justify-center">
-				<div className="bg-[#DBC1AD] flex flex-col items-center gap-y-14 p-4 rounded-md">
+				<div className="bg-gray-600 flex flex-col items-center gap-y-14 p-4 rounded-md">
 					{/* <PopularLoungePostsPage /> */}
-					<PostsList
-						posts={posts}
-						freeLounge={true}
-						loungeDetailPost={true}
-					/>
+					<PostsList posts={posts} />
 				</div>
-
-				<div className="h-full bg-[#DBC1AD] flex flex-col items-center gap-y-6 p-3 rounded-md">
+				<div className="h-full bg-gray-600 flex flex-col items-center gap-y-6 p-3 rounded-md">
 					<SideBox />
 				</div>
 			</div>
@@ -93,4 +97,4 @@ async function LoungeDetailPage(props: LoungeIdPropsType) {
 	);
 }
 
-export default LoungeDetailPage;
+export default LoungeDetailForm;

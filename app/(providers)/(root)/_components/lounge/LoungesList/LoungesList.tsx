@@ -15,6 +15,8 @@ function LoungesList({
 }) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
+	const noFreeLounge = lounges?.filter((lounge) => lounge.categoryId !== 0);
+
 	return (
 		<PostBox>
 			{pageTitle ? (
@@ -29,11 +31,11 @@ function LoungesList({
 
 			{isShowMore ? (
 				<ul className="grid grid-cols-1 gap-y-5">
-					{lounges
+					{noFreeLounge
 						.map((lounge) => (
 							<li
 								key={lounge.id}
-								className="bg-slate-100 rounded-md h-14 px-2 grid items-center"
+								className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center"
 							>
 								<Link href={`/lounges/${lounge.id}`}>
 									<div className="flex flex-row items-center">
@@ -51,11 +53,11 @@ function LoungesList({
 				</ul>
 			) : (
 				<ul className="grid grid-cols-1 gap-y-5">
-					{lounges
+					{noFreeLounge
 						.map((lounge) => (
 							<li
 								key={lounge.id}
-								className="bg-slate-100 rounded-md h-14 px-2 grid items-center"
+								className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center"
 							>
 								<Link href={`/lounges/${lounge.id}`}>
 									<div className="flex flex-row items-center">

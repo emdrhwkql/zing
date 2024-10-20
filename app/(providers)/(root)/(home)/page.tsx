@@ -1,7 +1,7 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
-import PostBox from "@/components/PostBox";
 import CategoriesList from "../_components/category/CategoryList/CategoriesList";
+import LecturesList from "../_components/lectures/LecturesList/LecturesList";
 import LoungesList from "../_components/lounge/LoungesList/LoungesList";
 import PostsList from "../_components/post/PostsList/PostsList";
 
@@ -12,28 +12,28 @@ export default async function HomePage() {
 
 	const posts = await api.posts.getAllPosts();
 
-	// console.log(posts);
-
-	// const freePost = 0
-
-	// console.log(lounges);
-
 	return (
 		<Page>
 			<div className="flex flex-row gap-x-10 justify-center">
-				<div className="bg-gray-600 flex flex-col items-center gap-y-10 p-4 rounded-md">
-					<PostsList posts={posts} freeLounge={true} />
+				<div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
+					<PostsList
+						posts={posts}
+						freeLounge={true}
+						loungeDetailPost={false}
+					/>
 
 					<LoungesList lounges={lounges} pageTitle={true} />
 
 					<CategoriesList isShowList={true} isShowSeeMore={true} />
 
-					<PostBox />
-					{/* <LecturesListPage /> */}
+					<LecturesList isShowList={true} isShowSeeMore={true} />
 				</div>
 
-				<div className="h-full bg-gray-600 flex flex-col items-center gap-y-6 p-3 rounded-md">
-					<div className="rounded-xl w-96 h-56  bg-[#fdfbfc]" />
+				<div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
+					<div className="rounded-xl w-96 h-56  bg-white" />
+					<div className="rounded-xl w-96 h-56  bg-white" />
+					<div className="rounded-xl w-96 h-56  bg-white" />
+					<div className="rounded-xl w-96 h-56  bg-white" />
 				</div>
 			</div>
 		</Page>
