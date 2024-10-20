@@ -65,10 +65,10 @@ function SignUpForm() {
 
 	return (
 		<Page>
-			<div className="mx-auto w-[1000px] grid grid-cols-2 gap-x-4  bg-slate-600 p-4 rounded-xl">
+			<div className="mx-auto w-[1000px] grid grid-cols-2 gap-x-4  bg-[#433E49] p-4 rounded-xl">
 				<div className="bg-black relative rounded-lg">
 					<img
-						src="https://i.pinimg.com/enabled/564x/0a/61/64/0a6164ac2da2d20ee8b0768ca1d81dde.jpg"
+						src="https://i.pinimg.com/enabled/564x/00/02/26/000226c3b462aa5675b4a60bc73055bf.jpg"
 						className="w-full h-[800px] opacity-80 object-cover rounded-lg"
 					/>
 
@@ -109,7 +109,7 @@ function SignUpForm() {
 
 							<Link
 								href={"/log-in"}
-								className="border-b text-violet-900 border-violet-900"
+								className="border-b text-cyan-700 border-cyan-800"
 							>
 								Log in
 							</Link>
@@ -161,7 +161,7 @@ function SignUpForm() {
 
 							<button
 								type="submit"
-								className="bg-slate-800 text-white font-normal text-lg p-4 rounded-md"
+								className="bg-[#928490] text-white font-normal text-lg p-4 rounded-md"
 							>
 								Create account
 							</button>

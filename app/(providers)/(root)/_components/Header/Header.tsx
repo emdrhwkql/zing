@@ -19,7 +19,7 @@ function Header() {
 	// };
 
 	return (
-		<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-gray-700 text-white">
+		<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-[#433E49] text-white">
 			<div className="ml-5 font-bold text-5xl text-center leading-4">
 				<Link href="/">ZING</Link>
 			</div>

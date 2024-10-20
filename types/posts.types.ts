@@ -4,4 +4,5 @@ export type Posts = {
 	loungeId: number;
 	userId: string;
 	content: string;
+	createdAt: string;
 }[];

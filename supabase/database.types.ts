@@ -142,8 +142,9 @@ export type Database = {
           id: number
           introduction: string
           isCompleted: boolean
+          isLiked: boolean
           name: string
-          userId: string
+          userId: string | null
         }
         Insert: {
           categoryId: number
@@ -151,8 +152,9 @@ export type Database = {
           id?: number
           introduction: string
           isCompleted?: boolean
+          isLiked?: boolean
           name: string
-          userId?: string
+          userId?: string | null
         }
         Update: {
           categoryId?: number
@@ -160,8 +162,9 @@ export type Database = {
           id?: number
           introduction?: string
           isCompleted?: boolean
+          isLiked?: boolean
           name?: string
-          userId?: string
+          userId?: string | null
         }
         Relationships: [
           {
