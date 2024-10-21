@@ -11,36 +11,33 @@ import LoungesList from "../../_components/lounge/LoungesList/LoungesList";
 export const revalidate = 0;
 
 async function CategoriesDetailPage(props: CategoryIdPropsType) {
-	const categoryId = props.params.categoryId;
-	const lounges = await api.lounges.getLoungesByCategoryId(
-		Number(categoryId)
-	);
+  const categoryId = props.params.categoryId;
+  const lounges = await api.lounges.getLoungesByCategoryId(Number(categoryId));
 
-	const categories = await api.categories.getCategory();
+  const categories = await api.categories.getCategory();
 
-	// console.log(categories?.map((category) => category.categoryName));
+  // console.log(categories?.map((category) => category.categoryName));
 
-	const categoryName = categories?.map(
-		(category) =>
-			category.id === Number(categoryId) && category.categoryName
-	);
+  const categoryName = categories?.find(
+    (category) => category.id === Number(categoryId)
+  )?.categoryName;
 
-	const categoryImg = categories?.map(
-		(category) => category.id === Number(categoryId) && category.categoryImg
-	);
+  const categoryImg = categories?.find(
+    (category) => category.id === Number(categoryId)
+  )?.categoryImg;
 
-	// console.log(categoryImg);
+  console.log(categoryImg);
 
-	// console.log(props);
+  // console.log(props);
 
-	return (
-		<Page>
-			<div className="mb-10 px-[calc((100%-1429px)/2)] ">
-				<div className="pb-5 flex flex-row gap-x-4">
-					<img
-						src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_image/${categoryImg}`}
-						className="w-40 h-40 rounded-md object-cover"
-					/>
+  return (
+    <Page>
+      <div className="mb-10 px-[calc((100%-1429px)/2)] ">
+        <div className="pb-5 flex flex-row gap-x-4">
+          <img
+            src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_image/${categoryImg}`}
+            className="w-40 h-40 rounded-md object-cover"
+          />
 
 					<div className="mt-auto flex flex-col h-full">
 						<h1 className="font-bold text-4xl">{categoryName}</h1>
@@ -71,18 +68,18 @@ async function CategoriesDetailPage(props: CategoryIdPropsType) {
 				</div>
 			</div>
 
-			<div className="flex flex-row gap-x-10 justify-center">
-				<div className="bg-[#DBC1AD] flex flex-col items-center gap-y-14 p-4 rounded-md">
-					{/* <PopularLoungePostsPage /> */}
-					<LoungesList lounges={lounges} />
-				</div>
+      <div className="flex flex-row gap-x-10 justify-center">
+        <div className="bg-[#DBC1AD] flex flex-col items-center gap-y-14 p-4 rounded-md">
+          {/* <PopularLoungePostsPage /> */}
+          <LoungesList lounges={lounges} />
+        </div>
 
-				<div className="h-full bg-[#DBC1AD] flex flex-col items-center gap-y-6 p-3 rounded-md">
-					<SideBox />
-				</div>
-			</div>
-		</Page>
-	);
+        <div className="h-full bg-[#DBC1AD] flex flex-col items-center gap-y-6 p-3 rounded-md">
+          <SideBox />
+        </div>
+      </div>
+    </Page>
+  );
 }
 
 export default CategoriesDetailPage;

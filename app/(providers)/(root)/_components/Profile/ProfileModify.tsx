@@ -2,19 +2,29 @@
 
 import supabase from "@/supabase/client";
 import { Tables } from "@/supabase/database.types";
+import { useAuthStore } from "@/zustand/auth.store";
+import { useQuery } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
 import { useEffect, useState } from "react";
 
 function ProfileModify() {
   const [myProfile, setMyProfile] = useState<Tables<"profile"> | null>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | undefined>();
   const [profileDesc, setProfileDesc] = useState("");
   const [userName, setUserName] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const currentUser = useAuthStore((state) => state.currentUser);
+  console.log(currentUser);
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: () =>
+      supabase.from("profile").select("*").eq("userId", currentUser!.id),
+    enabled: !!currentUser,
+  });
+
+  console.log(profile);
 
   const handleClickUpdateImage = async () => {
     if (!imageFile) return;
-
     const response = await supabase.auth.getUser();
     const user = response.data.user!;
 
@@ -38,15 +48,12 @@ function ProfileModify() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase.auth.getUser();
-      const user = data.user;
-
-      if (!user) return;
+      if (!profile) return;
 
       const { data: profiles } = await supabase
         .from("profile")
         .select("*")
-        .eq("userId", user.id);
+        .eq("userId", profile);
 
       if (!profiles) return;
 
@@ -86,8 +93,7 @@ function ProfileModify() {
           type="file"
           className="border-black border-2 text-black"
           placeholder="당신의 프로필 이미지를 넣어주세요!"
-          value={profileImage}
-          onChange={(e) => setProfileImage(e.target.value)}
+          onChange={(e) => setImageFile(e.target.files?.[0])}
         />
 
         <button onClick={handleClickUpdateImage} className="bg-black">
