@@ -9,27 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      addition: {
-        Row: {
-          content: string
-          createdAt: string
-          id: number
-          title: string
-        }
-        Insert: {
-          content?: string
-          createdAt?: string
-          id?: number
-          title?: string
-        }
-        Update: {
-          content?: string
-          createdAt?: string
-          id?: number
-          title?: string
-        }
-        Relationships: []
-      }
       categories: {
         Row: {
           categoryImg: string | null
@@ -135,6 +114,32 @@ export type Database = {
         }
         Relationships: []
       }
+      likes: {
+        Row: {
+          id: number
+          postId: number
+          userId: string
+        }
+        Insert: {
+          id?: number
+          postId: number
+          userId?: string
+        }
+        Update: {
+          id?: number
+          postId?: number
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_postId_fkey"
+            columns: ["postId"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lounges: {
         Row: {
           categoryId: number
@@ -181,6 +186,7 @@ export type Database = {
           content: string
           createdAt: string
           id: number
+          likes: number
           loungeId: number
           title: string
           userId: string
@@ -189,6 +195,7 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
+          likes?: number
           loungeId: number
           title?: string
           userId?: string
@@ -197,6 +204,7 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
+          likes?: number
           loungeId?: number
           title?: string
           userId?: string
@@ -240,25 +248,22 @@ export type Database = {
       }
       users: {
         Row: {
-          content: string
-          createdAt: string
+          firstName: string
           id: number
-          string: string
-          title: string
+          lastName: string
+          userId: string
         }
         Insert: {
-          content?: string
-          createdAt?: string
+          firstName: string
           id?: number
-          string?: string
-          title?: string
+          lastName: string
+          userId?: string
         }
         Update: {
-          content?: string
-          createdAt?: string
+          firstName?: string
           id?: number
-          string?: string
-          title?: string
+          lastName?: string
+          userId?: string
         }
         Relationships: []
       }
