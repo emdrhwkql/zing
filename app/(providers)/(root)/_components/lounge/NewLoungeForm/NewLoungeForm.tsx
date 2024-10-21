@@ -48,7 +48,7 @@ function NewLoungeForm() {
 						</div>
 
 						<Input
-							wrapperClassName="h-[500px]"
+							inputClassName="h-[500px]"
 							ref={inputIntroductionRef}
 							type="text"
 							name="introduction"

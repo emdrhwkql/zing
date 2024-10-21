@@ -1,9 +1,11 @@
 import api from "@/api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useRef } from "react";
 
 function useNewPostForm() {
+	const router = useRouter();
+
 	const queryClient = useQueryClient();
 
 	const inputTitleRef = useRef<HTMLInputElement>(null);
@@ -36,6 +38,8 @@ function useNewPostForm() {
 		createPost({ title, content });
 		inputTitleRef.current!.value = "";
 		inputContentRef.current!.value = "";
+
+		router.push("/");
 	};
 
 	return {

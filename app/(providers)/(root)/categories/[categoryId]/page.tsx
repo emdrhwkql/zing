@@ -39,34 +39,34 @@ async function CategoriesDetailPage(props: CategoryIdPropsType) {
             className="w-40 h-40 rounded-md object-cover"
           />
 
-          <div className="mt-auto flex flex-col h-full">
-            <h1 className="font-bold text-4xl">{categoryName}</h1>
-            <p className="pt-10 pb-2 font-semibold text-xl">설명</p>
-          </div>
-        </div>
-        <div className="w-full px-8 rounded-md bg-[#4D4246] h-14 flex flex-row items-center text-white text-base font-bold text-center">
-          <div className="flex flex-row gap-x-4">
-            <div>첫번째</div>
-            <div>두번째</div>
-            <div>세번째</div>
-            <div>네번째</div>
-            <div>다섯번째</div>
-          </div>
-          <div className="ml-auto flex flex-row gap-x-3">
-            <button className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border">
-              <FaCheck />
-              <p>가입하기</p>
-            </button>
-            <Link
-              href={`/categories/${categoryId}/lounges/new`}
-              className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
-            >
-              <LuFilePlus />
-              <p>글 쓰기</p>
-            </Link>
-          </div>
-        </div>
-      </div>
+					<div className="mt-auto flex flex-col h-full">
+						<h1 className="font-bold text-4xl">{categoryName}</h1>
+						<p className="pt-10 pb-2 font-semibold text-xl">설명</p>
+					</div>
+				</div>
+				<div className="w-full px-8 rounded-md bg-[#4D4246] h-14 flex flex-row items-center text-white text-base font-bold text-center">
+					<div className="flex flex-row gap-x-4">
+						<div>첫번째</div>
+						<div>두번째</div>
+						<div>세번째</div>
+						<div>네번째</div>
+						<div>다섯번째</div>
+					</div>
+					<div className="ml-auto flex flex-row gap-x-3">
+						<button className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border">
+							<FaCheck />
+							<p>가입하기</p>
+						</button>
+						<Link
+							href={`/categories/${categoryId}/lounges/new`}
+							className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
+						>
+							<LuFilePlus />
+							<p>라운지 만들기</p>
+						</Link>
+					</div>
+				</div>
+			</div>
 
       <div className="flex flex-row gap-x-10 justify-center">
         <div className="bg-[#DBC1AD] flex flex-col items-center gap-y-14 p-4 rounded-md">

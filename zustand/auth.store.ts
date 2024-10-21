@@ -5,7 +5,8 @@ interface AuthStoreState {
   isLoggedIn: boolean;
   logIn: () => void;
   logOut: () => void;
-  currentUser: User | null;
+  currentUser: User | null
+	isLoggedIn: boolean;
   setCurrentUser: (user: User | null) => void;
 }
 
