@@ -36,7 +36,7 @@ function Header() {
 					<FaSearch />
 				</div>
 
-				<Link href={"/MessageList"}>
+				<Link href={"/inbox"}>
 					<FaBell className="text-3xl" />
 				</Link>
 

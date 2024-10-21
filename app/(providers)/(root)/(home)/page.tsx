@@ -1,9 +1,9 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
 import CategoriesList from "../_components/category/CategoryList/CategoriesList";
-import LecturesList from "../_components/lectures/LecturesList/LecturesList";
 import LoungesList from "../_components/lounge/LoungesList/LoungesList";
 import PostsList from "../_components/post/PostsList/PostsList";
+import LeturesList from "../lecturer/lecturesone/_components/LecturesList";
 
 export const revalidate = 0;
 
@@ -22,11 +22,11 @@ export default async function HomePage() {
 						loungeDetailPost={false}
 					/>
 
+					< LeturesList />
+
 					<LoungesList lounges={lounges} pageTitle={true} />
 
 					<CategoriesList isShowList={true} isShowSeeMore={true} />
-
-					<LecturesList isShowList={true} isShowSeeMore={true} />
 				</div>
 
 				<div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
