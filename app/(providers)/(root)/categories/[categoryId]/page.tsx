@@ -65,7 +65,7 @@ async function CategoriesDetailPage(props: CategoryIdPropsType) {
 							className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
 						>
 							<LuFilePlus />
-							<p>글 쓰기</p>
+							<p>라운지 만들기</p>
 						</Link>
 					</div>
 				</div>

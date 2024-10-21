@@ -1,9 +1,11 @@
 import api from "@/api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useRef } from "react";
 
 function useNewLoungeForm() {
+	const router = useRouter();
+
 	const queryClient = useQueryClient();
 
 	const inputNameRef = useRef<HTMLInputElement>(null);
@@ -36,6 +38,8 @@ function useNewLoungeForm() {
 		createLounge({ name, introduction });
 		inputNameRef.current!.value = "";
 		inputIntroductionRef.current!.value = "";
+
+		router.push("/categories/1");
 	};
 
 	return {
