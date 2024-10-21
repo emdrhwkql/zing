@@ -4,6 +4,7 @@ import supabase from "@/supabase/client";
 import { useAuthStore } from "@/zustand/auth.store";
 import Link from "next/link";
 import { FaBell, FaSearch } from "react-icons/fa";
+import { TiThMenu } from "react-icons/ti";
 
 function Header() {
 	const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -40,10 +41,12 @@ function Header() {
 				</Link>
 
 				{isLoggedIn ? (
-					<button
-						onClick={handleClickLogOut}
-						className="w-10 h-10 bg-white rounded-full text-black"
-					></button>
+					<Link
+						href={"/my-profile"}
+						className="w-10 h-10 bg-white rounded-full"
+					>
+						<img src="" alt="" />
+					</Link>
 				) : (
 					<div>
 						<Link
@@ -55,7 +58,9 @@ function Header() {
 					</div>
 				)}
 
-				{/* <TiThMenu className="text-4xl" /> */}
+				<button onClick={handleClickLogOut}>
+					<TiThMenu className="text-4xl" />
+				</button>
 			</div>
 		</header>
 	);
