@@ -53,10 +53,6 @@ async function deletePost(post: Post) {
 	await supabase.from("posts").delete().eq("id", post.id);
 }
 
-// async function addLikes(post: Post) {
-// 	await supabase.from("posts").update(likes: post.likes).eq("id", post.id);
-// }
-
 const postsAPI = {
 	createPost,
 	getAllPosts,

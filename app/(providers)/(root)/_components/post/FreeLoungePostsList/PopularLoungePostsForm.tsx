@@ -1,4 +1,4 @@
-import PostBox from "@/components/PostBox";
+import MainBox from "@/components/MainBox";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
@@ -9,7 +9,7 @@ function PopularLoungePostsForm() {
 	const loungeId = 1;
 
 	return (
-		<PostBox>
+		<MainBox>
 			<div className="mb-4 pb-4 flex flex-row justify-between items-center font-bold text-2xl border-b">
 				<h1>라운지 인기 게시글</h1>
 				<p className="flex flex-row text-sm opacity-60">
@@ -50,7 +50,7 @@ function PopularLoungePostsForm() {
 					<FaPlus className="p-3 w-14 h-14 bg-[#fdfbfc] drop-shadow-2xl rounded-full" />
 				</button>
 			</div>
-		</PostBox>
+		</MainBox>
 	);
 }
 

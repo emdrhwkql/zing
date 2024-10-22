@@ -189,7 +189,6 @@ export type Database = {
           content: string
           createdAt: string
           id: number
-          likes: number
           loungeId: number
           title: string
           userId: string
@@ -198,7 +197,6 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
-          likes?: number
           loungeId: number
           title?: string
           userId?: string
@@ -207,7 +205,6 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
-          likes?: number
           loungeId?: number
           title?: string
           userId?: string
@@ -248,6 +245,32 @@ export type Database = {
           userName?: string
         }
         Relationships: []
+      }
+      user_lounges: {
+        Row: {
+          id: number
+          loungeId: number
+          userId: string
+        }
+        Insert: {
+          id?: number
+          loungeId: number
+          userId?: string
+        }
+        Update: {
+          id?: number
+          loungeId?: number
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lounges_user_loungeId_fkey"
+            columns: ["loungeId"]
+            isOneToOne: false
+            referencedRelation: "lounges"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       users: {
         Row: {

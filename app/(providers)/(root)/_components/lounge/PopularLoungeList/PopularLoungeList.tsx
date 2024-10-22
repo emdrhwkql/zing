@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-function LoungesList({ lounges }: { lounges: Lounges }) {
+function PopularLoungeList({ lounges }: { lounges: Lounges }) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
 	const noFreeLounge = lounges?.filter((lounge) => lounge.categoryId !== 0);
@@ -14,7 +14,7 @@ function LoungesList({ lounges }: { lounges: Lounges }) {
 	return (
 		<MainBox>
 			<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
-				라운지 목록
+				인기 라운지 목록
 			</h1>
 
 			{isShowMore ? (
@@ -81,4 +81,4 @@ function LoungesList({ lounges }: { lounges: Lounges }) {
 	);
 }
 
-export default LoungesList;
+export default PopularLoungeList;
