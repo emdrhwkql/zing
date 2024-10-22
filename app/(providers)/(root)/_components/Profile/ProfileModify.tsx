@@ -1,27 +1,44 @@
 "use client";
 
 import supabase from "@/supabase/client";
-import { Tables } from "@/supabase/database.types";
 import { useAuthStore } from "@/zustand/auth.store";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function ProfileModify() {
-  const [myProfile, setMyProfile] = useState<Tables<"profile"> | null>(null);
   const [imageFile, setImageFile] = useState<File | undefined>();
   const [profileDesc, setProfileDesc] = useState("");
   const [userName, setUserName] = useState("");
   const currentUser = useAuthStore((state) => state.currentUser);
-  console.log(currentUser);
-  const { data: profile } = useQuery({
+  const queryClient = useQueryClient();
+
+  const { data: response } = useQuery({
     queryKey: ["profile"],
-    queryFn: () =>
-      supabase.from("profile").select("*").eq("userId", currentUser!.id),
+    queryFn: async () =>
+      await supabase
+        .from("profile")
+        .select("*")
+        .eq("userId", currentUser!.id)
+        .single(),
     enabled: !!currentUser,
   });
+  //
+  const { mutate: createProfile } = useMutation({
+    mutationFn: async () =>
+      await supabase
+        .from("profile")
+        .insert([{ profileDesc: profileDesc, userName: userName }])
+        .eq("userId", currentUser!.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+  });
+  const profile = response?.data;
 
-  console.log(profile);
+  const handleClickCreateProfile = () => {
+    createProfile();
+  };
 
   const handleClickUpdateImage = async () => {
     if (!imageFile) return;
@@ -42,33 +59,18 @@ function ProfileModify() {
 
     await supabase
       .from("profile")
-      .update({ profileImg: baseURL + data.fullPath })
+      .update({ profileImg: baseURL + data.fullPath, profileDesc, userName })
       .eq("userId", user.id);
+
+    await queryClient.invalidateQueries({ queryKey: ["profile"] });
   };
-
-  useEffect(() => {
-    (async () => {
-      if (!profile) return;
-
-      const { data: profiles } = await supabase
-        .from("profile")
-        .select("*")
-        .eq("userId", profile);
-
-      if (!profiles) return;
-
-      const myProfile = profiles[0];
-
-      setMyProfile(myProfile);
-    })();
-  }, []);
 
   return (
     <main>
       <div className="p-5">
         <section className="mt-20">
-          {myProfile ? (
-            <img src={`${myProfile.profileImg}`} className="" />
+          {profile ? (
+            <img src={`${profile.profileImg}`} className="" />
           ) : (
             "현재 프로필 사진이 없습니다."
           )}
@@ -96,9 +98,15 @@ function ProfileModify() {
           onChange={(e) => setImageFile(e.target.files?.[0])}
         />
 
-        <button onClick={handleClickUpdateImage} className="bg-black">
-          수정하기
-        </button>
+        {profile ? (
+          <button onClick={handleClickUpdateImage} className="bg-black">
+            수정하기
+          </button>
+        ) : (
+          <button onClick={handleClickCreateProfile} className="bg-black">
+            프로필 생성하기
+          </button>
+        )}
       </div>
     </main>
   );

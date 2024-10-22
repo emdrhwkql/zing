@@ -14,18 +14,21 @@ export type Database = {
           categoryImg: string | null
           categoryName: string
           id: number
+          introduction: string
           isCompleted: boolean
         }
         Insert: {
           categoryImg?: string | null
           categoryName: string
           id?: number
+          introduction?: string
           isCompleted?: boolean
         }
         Update: {
           categoryImg?: string | null
           categoryName?: string
           id?: number
+          introduction?: string
           isCompleted?: boolean
         }
         Relationships: []
