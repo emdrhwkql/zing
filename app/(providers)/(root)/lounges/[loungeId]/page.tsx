@@ -76,14 +76,7 @@ async function LoungeDetailPage(props: LoungeIdPropsType) {
 			</div>
 
 			<div className="flex flex-row gap-x-10 justify-center">
-				<div className="bg-[#DBC1AD] flex flex-col items-center gap-y-14 p-4 rounded-md">
-					{/* <PopularLoungePostsPage /> */}
-					<PostsList
-						posts={posts}
-						freeLounge={true}
-						loungeDetailPost={true}
-					/>
-				</div>
+				<PostsList posts={posts} />
 
 				<div className="h-full bg-[#DBC1AD] flex flex-col items-center gap-y-6 p-3 rounded-md">
 					<SideBox />

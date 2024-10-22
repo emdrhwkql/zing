@@ -1,32 +1,29 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
-import CategoriesList from "../_components/category/CategoryList/CategoriesList";
-import LoungesList from "../_components/lounge/LoungesList/LoungesList";
-import PostsList from "../_components/post/PostsList/PostsList";
-import LeturesList from "../lecturer/lecturesone/_components/LecturesList";
+import CategoriesHomeList from "../_components/category/CategoryList/CategoriesHomeList";
+import LecturesList from "../_components/lectures/LecturesList/LecturesList";
+import PopularLoungeList from "../_components/lounge/PopularLoungeList/PopularLoungeList";
+import FreeLoungePostsList from "../_components/post/FreeLoungePostsList/FreeLoungePostsList";
 
 export const revalidate = 0;
 
 export default async function HomePage() {
 	const lounges = await api.lounges.getAllLounges();
 
-	const posts = await api.posts.getAllPosts();
+	const loungeId = 0;
+	const posts = await api.posts.getPostsByLoungeId(loungeId);
 
 	return (
 		<Page>
 			<div className="flex flex-row gap-x-10 justify-center">
 				<div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
-					<PostsList
-						posts={posts}
-						freeLounge={true}
-						loungeDetailPost={false}
-					/>
+					<FreeLoungePostsList posts={posts} />
 
-					< LeturesList />
+					<PopularLoungeList lounges={lounges} />
 
-					<LoungesList lounges={lounges} pageTitle={true} />
+					<CategoriesHomeList />
 
-					<CategoriesList isShowList={true} isShowSeeMore={true} />
+					<LecturesList isShowList={true} isShowSeeMore={true} />
 				</div>
 
 				<div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
