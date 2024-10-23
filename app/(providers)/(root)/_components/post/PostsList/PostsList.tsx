@@ -1,6 +1,6 @@
 "use client";
 
-import MainBox from "@/components/MainBox";
+import Page from "@/components/Page";
 import { Posts } from "@/types/posts.types";
 import Link from "next/link";
 import { useState } from "react";
@@ -23,14 +23,14 @@ function PostsList({ posts }: { posts: Posts }) {
 	///
 
 	return (
-		<MainBox bgColor="none">
+		<Page>
 			<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
 				인기 게시물
 			</h1>
 
 			{isShowMore ? (
 				// 다 보여주기
-				<ul className="grid grid-cols-2 gap-10 place-items-center">
+				<ul className="grid grid-cols-2 gap-10">
 					{posts.map((post) => (
 						<li
 							key={post.id}
@@ -75,8 +75,8 @@ function PostsList({ posts }: { posts: Posts }) {
 					))}
 				</ul>
 			) : (
-				// 라운지 디테일 6개 짜리
-				<ul className="grid grid-cols-2 gap-10 place-items-center">
+				// 라운지 접힘 상태
+				<ul className="grid grid-cols-3 gap-10 place-items-center">
 					{posts
 						.map((post) => (
 							<li
@@ -142,7 +142,7 @@ function PostsList({ posts }: { posts: Posts }) {
 					)}
 				</button>
 			</div>
-		</MainBox>
+		</Page>
 	);
 }
 
