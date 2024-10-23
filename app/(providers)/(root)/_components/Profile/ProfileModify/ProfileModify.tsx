@@ -1,5 +1,6 @@
 "use client";
 
+import profilesAPI from "@/api/profile.api";
 import supabase from "@/supabase/client";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -13,17 +14,12 @@ function ProfileModify() {
   const currentUser = useAuthStore((state) => state.currentUser);
   const queryClient = useQueryClient();
 
-  const { data: response } = useQuery({
+  const { data: profile } = useQuery({
     queryKey: ["profile"],
-    queryFn: async () =>
-      await supabase
-        .from("profile")
-        .select("*")
-        .eq("userId", currentUser!.id)
-        .single(),
+    queryFn: async () => profilesAPI.getProfile(currentUser!),
     enabled: !!currentUser,
   });
-  //
+
   const { mutate: createProfile } = useMutation({
     mutationFn: async () =>
       await supabase
@@ -34,7 +30,6 @@ function ProfileModify() {
       queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
   });
-  const profile = response?.data;
 
   const handleClickCreateProfile = () => {
     createProfile();
