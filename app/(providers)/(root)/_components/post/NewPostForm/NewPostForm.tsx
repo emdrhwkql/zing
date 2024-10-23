@@ -2,6 +2,7 @@
 
 import Input from "@/components/Input";
 import Page from "@/components/Page";
+import Textarea from "@/components/Textarea";
 import { LuFilePlus } from "react-icons/lu";
 import { MdOutlineCreate } from "react-icons/md";
 import useNewPostForm from "./NewPostForm.hooks";
@@ -48,13 +49,10 @@ function NewPostForm() {
 							</div>
 						</div>
 
-						<Input
-							wrapperClassName="h-[500px]"
-							inputClassName="h-full"
+						<Textarea
 							ref={inputContentRef}
-							type="text"
 							name="content"
-							placeholder="내용을 넣어주세요."
+							placeholder="내용을 작성해주세요."
 						/>
 					</form>
 				</div>

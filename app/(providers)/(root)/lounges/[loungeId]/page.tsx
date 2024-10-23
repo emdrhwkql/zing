@@ -1,6 +1,5 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
-import SideBox from "@/components/SideBox";
 import { LoungeIdPropsType } from "@/types/lounge.types";
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa";
@@ -51,6 +50,7 @@ async function LoungeDetailPage(props: LoungeIdPropsType) {
 						</p>
 					</div>
 				</div>
+
 				<div className="w-full px-8 rounded-md bg-[#4D4246] h-14 flex flex-row items-center text-white text-base font-bold text-center">
 					<div className="flex flex-row gap-x-4">
 						<div>첫번째</div>
@@ -73,14 +73,8 @@ async function LoungeDetailPage(props: LoungeIdPropsType) {
 						</Link>
 					</div>
 				</div>
-			</div>
 
-			<div className="flex flex-row gap-x-10 justify-center">
 				<PostsList posts={posts} />
-
-				<div className="h-full bg-[#DBC1AD] flex flex-col items-center gap-y-6 p-3 rounded-md">
-					<SideBox />
-				</div>
 			</div>
 		</Page>
 	);

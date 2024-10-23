@@ -9,7 +9,7 @@ function useNewPostForm() {
 	const queryClient = useQueryClient();
 
 	const inputTitleRef = useRef<HTMLInputElement>(null);
-	const inputContentRef = useRef<HTMLInputElement>(null);
+	const inputContentRef = useRef<HTMLTextAreaElement>(null);
 
 	const params = useParams();
 	const loungeId = +params.loungeId;

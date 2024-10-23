@@ -2,6 +2,7 @@
 
 import Input from "@/components/Input";
 import Page from "@/components/Page";
+import Textarea from "@/components/Textarea";
 import { LuFilePlus } from "react-icons/lu";
 import { MdOutlineCreate } from "react-icons/md";
 import useNewLoungeForm from "./NewLoungeForm.hooks";
@@ -47,10 +48,8 @@ function NewLoungeForm() {
 							</div>
 						</div>
 
-						<Input
-							inputClassName="h-[500px]"
+						<Textarea
 							ref={inputIntroductionRef}
-							type="text"
 							name="introduction"
 							placeholder="소개글 적어"
 						/>
