@@ -1,4 +1,4 @@
-import { Post } from "@/schema/posts.schema";
+import { Posts } from "@/schema/posts.schema";
 import supabase from "@/supabase/client";
 
 async function createPost(title: string, content: string, loungeId: number) {
@@ -11,7 +11,20 @@ async function createPost(title: string, content: string, loungeId: number) {
 		.insert({ title, content, loungeId, userId: user.id });
 }
 
-async function getAllPosts() {
+async function getPost(postId: number) {
+	const response = await supabase
+		.from("posts")
+		.select("*")
+		.eq("id", postId)
+		.single();
+	const posts = response.data;
+
+	if (!posts) return null;
+
+	return posts;
+}
+
+async function getPosts() {
 	const response = await supabase.from("posts").select("*");
 	const posts = response.data;
 
@@ -49,13 +62,14 @@ async function getPostsByLoungeId(loungeId: number) {
 	return posts;
 }
 
-async function deletePost(post: Post) {
+async function deletePost(post: Posts) {
 	await supabase.from("posts").delete().eq("id", post.id);
 }
 
 const postsAPI = {
 	createPost,
-	getAllPosts,
+	getPost,
+	getPosts,
 	getPostsByLoungeId,
 	getPostsICreated,
 	deletePost,

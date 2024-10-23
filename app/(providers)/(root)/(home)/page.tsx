@@ -15,7 +15,7 @@ export default async function HomePage() {
 
 	return (
 		<Page>
-			<div className="flex flex-row gap-x-10 justify-center">
+			<div className="flex flex-row justify-center">
 				<div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
 					<FreeLoungePostsList posts={posts} />
 

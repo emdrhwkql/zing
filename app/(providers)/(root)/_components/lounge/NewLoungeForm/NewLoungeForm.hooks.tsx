@@ -39,7 +39,7 @@ function useNewLoungeForm() {
 		inputNameRef.current!.value = "";
 		inputIntroductionRef.current!.value = "";
 
-		router.push("/categories/1");
+		router.push(`/categories/${categoryId}`);
 	};
 
 	return {

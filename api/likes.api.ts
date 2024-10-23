@@ -1,15 +1,17 @@
-import { Like } from "@/schema/likes.schema";
 import supabase from "@/supabase/client";
 
-async function createLikeUser(postId: number) {
+async function addLikeUser(postId: number) {
 	const { data } = await supabase.auth.getUser();
 	const user = data.user!;
 
 	await supabase.from("likes").insert({ userId: user.id, postId });
 }
 
-async function getLikes() {
-	const response = await supabase.from("likes").select("*");
+async function getLikes(postId: number) {
+	const response = await supabase
+		.from("likes")
+		.select("*")
+		.eq("postId", postId);
 	const likes = response.data;
 
 	if (!likes) return null;
@@ -17,14 +19,14 @@ async function getLikes() {
 	return likes;
 }
 
-async function deleteLike(like: Like) {
-	await supabase.from("likes").delete().eq("id", like.id);
+async function deleteLikeUser(postId: number) {
+	await supabase.from("likes").delete().eq("postId", postId);
 }
 
 const likesAPI = {
-	createLikeUser,
+	addLikeUser,
 	getLikes,
-	deleteLike,
+	deleteLikeUser,
 };
 
 export default likesAPI;

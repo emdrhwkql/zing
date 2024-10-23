@@ -6,3 +6,10 @@ export type Posts = {
 	content: string;
 	createdAt: string;
 }[];
+
+export type PostsIdPropsType = {
+	params: {
+		postId: string;
+		searchParams: {};
+	};
+};
