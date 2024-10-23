@@ -11,11 +11,8 @@ import { ImYelp } from "react-icons/im";
 
 type HandleSubmitLogInFormEvent = React.FormEvent<HTMLFormElement> & {
 	target: HTMLFormElement & {
-		firstName: HTMLInputElement;
-		lastName: HTMLInputElement;
 		email: HTMLInputElement;
 		password: HTMLInputElement;
-		passwordConfirmInputRef: HTMLInputElement;
 	};
 };
 
@@ -30,7 +27,6 @@ function LogInForm() {
 		const email = e.target.email.value;
 		const password = e.target.password.value;
 
-		// 예외 처리
 		if (!email) return alert("이메일 주소를 입력해 주세요.");
 		if (!password) return alert("비밀번호를 입력해 주세요.");
 		if (!email.includes("@"))
@@ -38,17 +34,47 @@ function LogInForm() {
 		if (password.length < 8)
 			return alert("비밀번호는 8글자 이상이어야 합니다.");
 
-		const response = await supabase.auth.signInWithPassword({
+		const { data, error } = await supabase.auth.signInWithPassword({
 			email,
 			password,
 		});
 
-		if (response.data.user) {
+		if (data.user) {
 			alert("축하합니다. 로그인에 성공하였습니다.");
-
 			router.push("/");
 		} else {
 			alert("로그인에 실패하였습니다.");
+		}
+	};
+
+
+	const handleGoogleLogin = async () => {
+		const { error } = await supabase.auth.signInWithOAuth({
+			provider: 'google',
+			options: {
+				queryParams: {
+					access_type: 'offline',
+					prompt: 'consent',
+				},
+			},
+		})
+
+		if (error) {
+			alert("구글 로그인에 실패하였습니다.")
+			console.error("Kakao login error:", error.message)
+		}
+	}
+
+
+
+	const handleKakaoLogin = async () => {
+		const { error } = await supabase.auth.signInWithOAuth({
+			provider: 'kakao',
+		});
+
+		if (error) {
+			alert("카카오 로그인에 실패하였습니다.");
+			console.error("Kakao login error:", error.message);
 		}
 	};
 
@@ -60,11 +86,9 @@ function LogInForm() {
 						src="https://i.pinimg.com/enabled/564x/00/02/26/000226c3b462aa5675b4a60bc73055bf.jpg"
 						className="w-full h-[800px] opacity-80 object-cover rounded-lg"
 					/>
-
 					<div className="absolute top-4 left-4 text-white text-4xl">
 						<ImYelp />
 					</div>
-
 					<div className="absolute top-4 right-4 w-36 h-7">
 						<div className="bg-white/30 rounded-full text-sm text-white">
 							<Link href={"/"}>
@@ -75,7 +99,6 @@ function LogInForm() {
 							</Link>
 						</div>
 					</div>
-
 					<div className="w-full absolute bottom-10 left-2/4 translate-x-[-50%] text-white">
 						<p className="text-center font-medium text-2xl">
 							Enjoying your hobbies,
@@ -90,12 +113,10 @@ function LogInForm() {
 						<h1 className="font-bold text-4xl text-white">
 							Create an account
 						</h1>
-
 						<div className="my-6 flex flex-row gap-x-3 text-sm font-semibold">
 							<p className="text-white/70">
 								Don't have an account yet?
 							</p>
-
 							<Link
 								href={"/sign-up"}
 								className="border-b text-cyan-700 border-cyan-800"
@@ -140,15 +161,20 @@ function LogInForm() {
 							</div>
 
 							<div className="flex flex-row gap-x-4 text-white">
-								<button className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
-									google
+								<button
+									onClick={handleKakaoLogin}
+									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
+									kakao
 								</button>
 
-								<button className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
-									naver
+								<button
+									onClick={handleGoogleLogin}
+									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
+									google
 								</button>
 							</div>
 						</form>
+
 					</div>
 				</div>
 			</div>
