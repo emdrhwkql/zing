@@ -8,6 +8,7 @@ type InputProps = {
 	helpText?: string;
 } & Omit<ComponentProps<"input">, "className">;
 
+// forwardRef를 사용하기 위해 const 를 사용
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
 	(
 		{
@@ -54,6 +55,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 	}
 );
 
-Input.displayName = "Input";
+// Input.displayName = "Input";
 
 export default Input;

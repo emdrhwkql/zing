@@ -15,7 +15,6 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 	const [isLike, setIsLike] = useState(false);
 
 	const handleClickLikeBtn = () => {
-		console.log(isLike);
 		setIsLike(!isLike);
 	};
 
@@ -57,6 +56,7 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 										{isLike ? (
 											<button
 												onClick={handleClickLikeBtn}
+												
 											>
 												<AiFillHeart color="red" />
 											</button>

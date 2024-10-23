@@ -40,7 +40,7 @@ function NewLoungeForm() {
 								ref={inputNameRef}
 								type="text"
 								name="name"
-								placeholder="이름적어"
+								placeholder="라운지 이름"
 							/>
 							<div className="ml-5 text-white  border py-2 px-4">
 								이미지 추가
