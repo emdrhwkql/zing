@@ -53,13 +53,42 @@ function SignUpForm() {
 		});
 
 		if (response.data.user) {
-			// 가입되었음을 사용자에게 알려주기
+
 			alert("축하합니다. 회원가입에 성공했습니다.");
 
-			// 로그인 이후의 화면을 보여주거나 이동시켜줄 것
 			router.push("/");
 		} else {
 			alert("회원가입에 실패하였습니다.");
+		}
+	};
+
+	const handleGoogleLogin = async () => {
+		const { error } = await supabase.auth.signInWithOAuth({
+			provider: 'google',
+			options: {
+				queryParams: {
+					access_type: 'offline',
+					prompt: 'consent',
+				},
+			},
+		})
+
+		if (error) {
+			alert("구글 로그인에 실패하였습니다.")
+			console.error("Kakao login error:", error.message)
+		}
+	}
+
+
+
+	const handleKakaoLogin = async () => {
+		const { error } = await supabase.auth.signInWithOAuth({
+			provider: 'kakao',
+		});
+
+		if (error) {
+			alert("카카오 로그인에 실패하였습니다.");
+			console.error("Kakao login error:", error.message);
 		}
 	};
 
@@ -175,12 +204,16 @@ function SignUpForm() {
 							</div>
 
 							<div className="flex flex-row gap-x-4 text-white">
-								<button className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
-									google
+								<button
+									onClick={handleKakaoLogin}
+									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
+									kakao
 								</button>
 
-								<button className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
-									naver
+								<button
+									onClick={handleGoogleLogin}
+									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
+									google
 								</button>
 							</div>
 						</form>
