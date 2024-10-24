@@ -5,7 +5,6 @@ import Page from "@/components/Page";
 import { FaShareAlt } from "react-icons/fa";
 
 async function PostDetailForm({ postId }: { postId: number }) {
-	// console.log(postId);
 	const post = await api.posts.getPost(postId);
 
 	return (

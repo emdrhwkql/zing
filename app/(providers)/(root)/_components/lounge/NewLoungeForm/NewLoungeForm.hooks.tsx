@@ -21,7 +21,7 @@ function useNewLoungeForm() {
 
 	const { mutate: createLounge, isPending: isCreateOnProcess } = useMutation({
 		mutationFn: (args: { name: string; introduction: string }) =>
-			api.lounges.createLounge(args.name, categoryId, args.introduction),
+			api.lounges.createLounge(args.name, args.introduction, categoryId),
 		onSuccess: () =>
 			queryClient.invalidateQueries({ queryKey: ["lounges"] }),
 	});
@@ -29,12 +29,8 @@ function useNewLoungeForm() {
 	const handleClickAddLounge = async () => {
 		if (isCreateOnProcess) return;
 
-		// 라운지 이름 중복 비허용 Added function to prevent duplication of lounge names
-
 		// 라운지 이름 input 값
 		const name = inputNameRef.current!.value;
-
-		console.log(name);
 
 		// 라운지 이름 비교를 위한 테이블 불러오기
 		const lounges = await api.lounges.getAllLounges();
@@ -50,14 +46,16 @@ function useNewLoungeForm() {
 				(inputIntroductionRef.current!.value = "")
 			);
 
-		// 라운지 이름 비작성시 안내문
+		// 라운지 이름 미작성시 안내문
 		if (!name) return alert("라운지 이름을 작성해주세요.");
 
 		// 라운지 소개글 input 값
 		const introduction = inputIntroductionRef.current!.value;
 
-		// 라운지 소개글 비작성시 안내문
+		// 라운지 소개글 미작성시 안내문
 		if (!introduction) return alert("라운지 소개글을 작성해주세요.");
+
+		console.log("name:", name, "introduction:", introduction);
 
 		// 라운지 생성시 넣어줄 값
 		createLounge({ name: name, introduction: introduction });

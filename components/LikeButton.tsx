@@ -13,22 +13,15 @@ interface LikeButtonProps {
 function LikeButton({ postId }: LikeButtonProps) {
 	const queryClient = useQueryClient();
 
-	const { data: likes } = useQuery({
+	const { data: { likes, count } = {} } = useQuery({
 		queryKey: ["likes", { postId }],
-		queryFn: () => api.likes.getLikes(postId),
+		queryFn: () => api.likes.getLikesByPostId(postId),
 	});
 
 	const { mutate: addLikeUser } = useMutation({
 		mutationFn: api.likes.addLikeUser,
 		onSuccess: () => queryClient.invalidateQueries({ queryKey: ["likes"] }),
 	});
-
-	// const { mutate: createLikeUser, isPending: isCreateOnProcess } =
-	// 	useMutation({
-	// 		mutationFn: () => api.likes.addLikeUser(postId),
-	// 		onSuccess: () =>
-	// 			queryClient.invalidateQueries({ queryKey: ["posts"] }),
-	// 	});
 
 	const { mutate: deleteLikeUser } = useMutation({
 		mutationFn: api.likes.deleteLikeUser,
@@ -37,8 +30,6 @@ function LikeButton({ postId }: LikeButtonProps) {
 
 	const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 	const currentUser = useAuthStore((state) => state.currentUser);
-
-	// const [isLike, setIsLike] = useState(false);
 
 	const isLike = currentUser
 		? !!likes?.find((like) => like.userId === currentUser.id)
@@ -52,13 +43,26 @@ function LikeButton({ postId }: LikeButtonProps) {
 		} else {
 			addLikeUser(postId);
 		}
-
-		// setIsLike(!isLike);
 	};
 
 	return (
-		<button onClick={handleClickLikeBtn}>
-			{isLike ? <AiFillHeart color="red" /> : <FaRegHeart color="red" />}
+		<button
+			onClick={handleClickLikeBtn}
+			className="items-center group relative"
+		>
+			<div>
+				{isLike ? (
+					<AiFillHeart color="red" />
+				) : (
+					<FaRegHeart color="red" />
+				)}
+			</div>
+
+			<div className="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-hover:delay-150 group-hover:ease-in-out group-hover:duration-300">
+				<div className="w-5 h-6 border rounded-md text-base text-center leading-tight">
+					<p className="pointer-events-none">{count}</p>
+				</div>
+			</div>
 		</button>
 	);
 }

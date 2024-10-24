@@ -1,22 +1,16 @@
 "use client";
 
+import LikeButton from "@/components/LikeButton";
 import MainBox from "@/components/MainBox";
 import { Posts } from "@/types/posts.types";
 import Link from "next/link";
 import { useState } from "react";
-import { AiFillHeart } from "react-icons/ai";
-import { FaMinus, FaPlus, FaRegHeart, FaShareAlt } from "react-icons/fa";
+import { FaMinus, FaPlus, FaShareAlt } from "react-icons/fa";
 
 function FreeLoungePostsList({ posts }: { posts: Posts }) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
 	const isUserNameSlice = true;
-
-	const [isLike, setIsLike] = useState(false);
-
-	const handleClickLikeBtn = () => {
-		setIsLike(!isLike);
-	};
 
 	return (
 		<MainBox>
@@ -53,20 +47,8 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 									</span>
 
 									<div className="ml-auto flex flex-row gap-x-3">
-										{isLike ? (
-											<button
-												onClick={handleClickLikeBtn}
-												
-											>
-												<AiFillHeart color="red" />
-											</button>
-										) : (
-											<button
-												onClick={handleClickLikeBtn}
-											>
-												<FaRegHeart color="red" />
-											</button>
-										)}
+										<LikeButton postId={post.id} />
+
 										<FaShareAlt />
 									</div>
 								</div>
@@ -102,20 +84,9 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 										{post.createdAt.slice(0, 10)}
 									</span>
 
-									<div className="ml-auto flex flex-row gap-x-3">
-										{isLike ? (
-											<button
-												onClick={handleClickLikeBtn}
-											>
-												<AiFillHeart color="red" />
-											</button>
-										) : (
-											<button
-												onClick={handleClickLikeBtn}
-											>
-												<FaRegHeart color="red" />
-											</button>
-										)}
+									<div className="ml-auto flex flex-row gap-x-2 items-center">
+										<LikeButton postId={post.id} />
+
 										<FaShareAlt />
 									</div>
 								</div>
