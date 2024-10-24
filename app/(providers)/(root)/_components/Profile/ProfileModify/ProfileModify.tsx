@@ -52,6 +52,20 @@ function ProfileModify() {
     },
   });
 
+  const { mutate: setBaseImage } = useMutation({
+    mutationFn: async (imageUrl: string) =>
+      profilesAPI.setBaseImage(currentUser!, imageUrl),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
+    },
+  });
+
+  const handleClickBaseImage = () => {
+    const baseImageURL =
+      "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/profile_image/base.png";
+    setBaseImage(baseImageURL);
+  };
+
   const handleClickUpdateImage = async () => {
     if (!imageFile) return;
     const response = await supabase.auth.getUser();
@@ -72,15 +86,7 @@ function ProfileModify() {
 
   return (
     <main>
-      <div className="p-5">
-        <section className="mt-20">
-          {profile ? (
-            <img src={`${profile.profileImg}`} className="" />
-          ) : (
-            "현재 프로필 사진이 없습니다."
-          )}
-        </section>
-      </div>
+      <div className="p-5"></div>
       <div className="text-white">
         <input
           type="text"
@@ -104,9 +110,14 @@ function ProfileModify() {
         />
 
         {profile ? (
-          <button onClick={handleClickUpdateImage} className="bg-black">
-            수정하기
-          </button>
+          <>
+            <button onClick={handleClickUpdateImage} className="bg-black">
+              수정하기
+            </button>
+            <button onClick={handleClickBaseImage} className="bg-black ml-8">
+              기본 이미지로 설정하기
+            </button>
+          </>
         ) : (
           <button onClick={handleClickCreateProfile} className="bg-black">
             프로필 생성하기
