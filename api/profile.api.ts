@@ -30,6 +30,13 @@ async function setProfileImage(filepath: string, imageFile: File) {
   return profileImage;
 }
 
+async function setBaseImage(currentUser: User, imageUrl: string) {
+  await supabase
+    .from("profile")
+    .update({ profileImg: imageUrl })
+    .eq("userId", currentUser.id);
+}
+
 async function updateProfile(
   currentUser: User,
   profileDesc: string,
@@ -56,6 +63,7 @@ const profilesAPI = {
   setProfileImage,
   updateProfile,
   getProfileImage,
+  setBaseImage,
 };
 
 export default profilesAPI;

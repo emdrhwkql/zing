@@ -1,27 +1,34 @@
 "use client";
 
+import profilesAPI from "@/api/profile.api";
 import supabase from "@/supabase/client";
 import { useAuthStore } from "@/zustand/auth.store";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FaBell, FaSearch } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
-import { useState, ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
-
 
 function Header() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const [searchTerm, setSearchTerm] = useState('')
-  const router = useRouter()
+  const [searchTerm, setSearchTerm] = useState("");
+  const currentUser = useAuthStore((state) => state.currentUser);
+  const router = useRouter();
+
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => profilesAPI.getProfile(currentUser!),
+  });
 
   const handleClickLogOut = () => supabase.auth.signOut();
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchTerm.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`)
+      router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
     }
-  }
+  };
 
   // const handleClickProfile = () => {
   // 	return (
@@ -30,8 +37,6 @@ function Header() {
   // 		</div>
   // 	);
   // };
-
-
 
   return (
     <header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-[#433E49] text-white">
@@ -54,7 +59,6 @@ function Header() {
           <Link href={`/search?q=${encodeURIComponent(searchTerm.trim())}`}>
             <FaSearch />
           </Link>
-
         </div>
 
         <Link href={"/inbox"}>
@@ -62,11 +66,12 @@ function Header() {
         </Link>
 
         {isLoggedIn ? (
-          <Link
-            href={"/my-profile"}
-            className="w-10 h-10 bg-white rounded-full"
-          >
-            <img src="" alt="" />
+          <Link href={"/my-profile"} className="">
+            <img
+              src={`${profile?.profileImg}`}
+              alt=""
+              className="w-10 h-10 rounded-full bg-black"
+            />
           </Link>
         ) : (
           <div>
