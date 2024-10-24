@@ -5,11 +5,23 @@ import { useAuthStore } from "@/zustand/auth.store";
 import Link from "next/link";
 import { FaBell, FaSearch } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
+import { useState, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+
 
 function Header() {
 	const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+	const [searchTerm, setSearchTerm] = useState('')
+	const router = useRouter()
 
 	const handleClickLogOut = () => supabase.auth.signOut();
+
+	const handleSearch = (e: React.FormEvent) => {
+		e.preventDefault()
+		if (searchTerm.trim()) {
+			router.push(`/search?q=${encodeURIComponent(searchTerm.trim())}`)
+		}
+	}
 
 	// const handleClickProfile = () => {
 	// 	return (
@@ -19,6 +31,8 @@ function Header() {
 	// 	);
 	// };
 
+
+
 	return (
 		<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-[#433E49] text-white">
 			<div className="ml-5 font-bold text-5xl text-center leading-4">
@@ -27,13 +41,20 @@ function Header() {
 
 			<div className="ml-auto flex flex-row items-center gap-x-5 font-medium text-md ">
 				<div className="w-64 h-8 bg-[#e0dde4]/75 rounded-full flex flex-row items-center justify-around">
-					<input
-						name="search"
-						type="text"
-						className="w-48 bg-transparent outline-none text-black"
-					/>
+					<form onSubmit={handleSearch} className="flex items-center">
+						<input
+							name="search"
+							type="text"
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
+							className="w-48 bg-transparent outline-none text-black"
+						/>
+					</form>
 
-					<FaSearch />
+					<Link href={`/search?q=${encodeURIComponent(searchTerm.trim())}`}>
+						<FaSearch />
+					</Link>
+
 				</div>
 
 				<Link href={"/inbox"}>
