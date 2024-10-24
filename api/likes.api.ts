@@ -7,16 +7,30 @@ async function addLikeUser(postId: number) {
 	await supabase.from("likes").insert({ userId: user.id, postId });
 }
 
-async function getLikes(postId: number) {
+async function getLikes() {
 	const response = await supabase
 		.from("likes")
-		.select("*")
-		.eq("postId", postId);
+		.select("*", { count: "exact" });
 	const likes = response.data;
+	const count = response.count;
 
-	if (!likes) return null;
+	if (!likes) return [];
 
-	return likes;
+	return { likes, count };
+}
+
+async function getLikesByPostId(postId: number) {
+	const response = await supabase
+		.from("likes")
+		.select("*", { count: "exact" })
+		.eq("postId", postId);
+
+	const likes = response.data;
+	const count = response.count!;
+
+	if (!likes) return {};
+
+	return { likes, count };
 }
 
 async function deleteLikeUser(postId: number) {
@@ -26,6 +40,7 @@ async function deleteLikeUser(postId: number) {
 const likesAPI = {
 	addLikeUser,
 	getLikes,
+	getLikesByPostId,
 	deleteLikeUser,
 };
 

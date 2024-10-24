@@ -1,32 +1,21 @@
 "use client";
 
-import Page from "@/components/Page";
+import LikeButton from "@/components/LikeButton";
 import { Posts } from "@/types/posts.types";
 import Link from "next/link";
 import { useState } from "react";
-import { AiFillHeart } from "react-icons/ai";
-import { FaMinus, FaPlus, FaRegHeart, FaShareAlt } from "react-icons/fa";
+import { FaMinus, FaPlus, FaShareAlt } from "react-icons/fa";
 
 export const revalidate = 0;
 
 function PostsList({ posts }: { posts: Posts }) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
-	const isUserNameSlice = true;
-
-	/// like
-	const [isLike, setIsLike] = useState(false);
-
-	const handleClickLikeBtn = () => {
-		setIsLike(!isLike);
-	};
-	///
-
 	return (
-		<Page>
-			<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
+		<div>
+			{/* <h1 className="mb-4 pb-4 font-bold text-2xl border-b">
 				인기 게시물
-			</h1>
+			</h1> */}
 
 			{isShowMore ? (
 				// 다 보여주기
@@ -39,9 +28,7 @@ function PostsList({ posts }: { posts: Posts }) {
 							<div className="flex flex-row gap-x-2 items-center pb-2">
 								<div className="w-10 h-10 bg-gray-500 rounded-md" />
 
-								{isUserNameSlice ? (
-									<p>{post.userId.slice(0, 10)} • • •</p>
-								) : null}
+								<p>{post.userId}</p>
 							</div>
 
 							<Link href={`/posts/${post.id}`}>
@@ -50,7 +37,13 @@ function PostsList({ posts }: { posts: Posts }) {
 									{post.title}
 								</h1>
 
-								<p className="text-lg">{post.content}</p>
+								{post.content.length > 15 ? (
+									<p className="text-lg">
+										{post.content.slice(0, 15)} • • •
+									</p>
+								) : (
+									<p className="text-lg">{post.content}</p>
+								)}
 							</Link>
 
 							<div className="flex flex-row items-center mt-2 pt-2 border-t text-md">
@@ -59,15 +52,7 @@ function PostsList({ posts }: { posts: Posts }) {
 								</span>
 
 								<div className="ml-auto flex flex-row gap-x-3 text-2xl">
-									{isLike ? (
-										<button onClick={handleClickLikeBtn}>
-											<AiFillHeart color="red" />
-										</button>
-									) : (
-										<button onClick={handleClickLikeBtn}>
-											<FaRegHeart color="red" />
-										</button>
-									)}
+									<LikeButton postId={post.id} />
 									<FaShareAlt />
 								</div>
 							</div>
@@ -86,9 +71,7 @@ function PostsList({ posts }: { posts: Posts }) {
 								<div className="flex flex-row gap-x-2 items-center pb-2">
 									<div className="w-10 h-10 bg-gray-500 rounded-md" />
 
-									{isUserNameSlice ? (
-										<p>{post.userId.slice(0, 10)} • • •</p>
-									) : null}
+									<p>{post.userId}</p>
 								</div>
 
 								<Link href={`/posts/${post.id}`}>
@@ -97,7 +80,15 @@ function PostsList({ posts }: { posts: Posts }) {
 										{post.title}
 									</h1>
 
-									<p className="text-lg">{post.content}</p>
+									{post.content.length > 15 ? (
+										<p className="text-lg">
+											{post.content.slice(0, 15)} • • •
+										</p>
+									) : (
+										<p className="text-lg">
+											{post.content}
+										</p>
+									)}
 								</Link>
 
 								<div className="flex flex-row items-center mt-2 pt-2 border-t text-md">
@@ -106,19 +97,7 @@ function PostsList({ posts }: { posts: Posts }) {
 									</span>
 
 									<div className="ml-auto flex flex-row gap-x-3 text-2xl">
-										{isLike ? (
-											<button
-												onClick={handleClickLikeBtn}
-											>
-												<AiFillHeart color="red" />
-											</button>
-										) : (
-											<button
-												onClick={handleClickLikeBtn}
-											>
-												<FaRegHeart color="red" />
-											</button>
-										)}
+										<LikeButton postId={post.id} />
 										<FaShareAlt />
 									</div>
 								</div>
@@ -142,7 +121,7 @@ function PostsList({ posts }: { posts: Posts }) {
 					)}
 				</button>
 			</div>
-		</Page>
+		</div>
 	);
 }
 
