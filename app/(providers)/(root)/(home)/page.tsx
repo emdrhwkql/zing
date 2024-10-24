@@ -1,5 +1,3 @@
-"use client";
-
 import api from "@/api/api";
 import Page from "@/components/Page";
 import CategoriesHomeList from "../_components/category/CategoryList/CategoriesHomeList";

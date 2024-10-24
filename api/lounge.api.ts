@@ -1,5 +1,3 @@
-"use client";
-
 import { Lounge } from "@/schema/lounges.schema";
 import supabase from "@/supabase/client";
 import { User } from "@supabase/supabase-js";

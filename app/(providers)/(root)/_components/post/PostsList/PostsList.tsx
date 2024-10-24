@@ -6,8 +6,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaMinus, FaPlus, FaShareAlt } from "react-icons/fa";
 
-export const revalidate = 0;
-
 function PostsList({ posts }: { posts: Posts }) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
