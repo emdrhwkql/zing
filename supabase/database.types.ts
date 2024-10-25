@@ -184,11 +184,30 @@ export type Database = {
           },
         ]
       }
+      manager: {
+        Row: {
+          id: number
+          name: string
+          userId: string
+        }
+        Insert: {
+          id?: number
+          name: string
+          userId: string
+        }
+        Update: {
+          id?: number
+          name?: string
+          userId?: string
+        }
+        Relationships: []
+      }
       posts: {
         Row: {
           content: string
           createdAt: string
           id: number
+          imageUrl: string | null
           loungeId: number
           title: string
           userId: string
@@ -197,6 +216,7 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
+          imageUrl?: string | null
           loungeId: number
           title?: string
           userId?: string
@@ -205,6 +225,7 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
+          imageUrl?: string | null
           loungeId?: number
           title?: string
           userId?: string
@@ -218,33 +239,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      profile: {
-        Row: {
-          createdAt: string
-          id: number
-          profileDesc: string
-          profileImg: string
-          userId: string
-          userName: string
-        }
-        Insert: {
-          createdAt?: string
-          id?: number
-          profileDesc?: string
-          profileImg?: string
-          userId?: string
-          userName?: string
-        }
-        Update: {
-          createdAt?: string
-          id?: number
-          profileDesc?: string
-          profileImg?: string
-          userId?: string
-          userName?: string
-        }
-        Relationships: []
       }
       user_lounges: {
         Row: {
@@ -274,22 +268,28 @@ export type Database = {
       }
       users: {
         Row: {
-          firstName: string
+          createdAt: string
           id: number
-          lastName: string
+          profileDesc: string | null
+          profileImg: string | null
           userId: string
+          userName: string
         }
         Insert: {
-          firstName: string
+          createdAt?: string
           id?: number
-          lastName: string
+          profileDesc?: string | null
+          profileImg?: string | null
           userId?: string
+          userName?: string
         }
         Update: {
-          firstName?: string
+          createdAt?: string
           id?: number
-          lastName?: string
+          profileDesc?: string | null
+          profileImg?: string | null
           userId?: string
+          userName?: string
         }
         Relationships: []
       }
