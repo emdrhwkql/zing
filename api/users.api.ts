@@ -20,47 +20,68 @@ async function getUser(currentUser: User) {
 }
 
 async function setProfileImage(filepath: string, imageFile: File) {
-	const { data: profileImage } = await supabase.storage
-		.from("profile_image")
+	const { data: userImg } = await supabase.storage
+		.from("users_image")
 		.upload(filepath, imageFile, { upsert: true });
 
-	return profileImage;
+	return userImg;
 }
 
-async function setBaseImage(currentUser: User, imageUrl: string) {
-	await supabase
-		.from("profile")
-		.update({ profileImg: imageUrl })
-		.eq("userId", currentUser.id);
-}
+// async function updateProfile(
+// 	currentUser: User,
+// 	profileDesc: string,
+// 	userName: string,
+// 	imageUrl: string
+// ) {
+// 	await supabase
+// 		.from("profile")
+// 		.update({
+// 			profileImg: imageUrl,
+// 			profileDesc: profileDesc,
+// 			userName: userName,
+// 		})
+// 		.eq("userId", currentUser!.id);
+// }
 
-async function updateProfile(
-	currentUser: User,
-	profileDesc: string,
-	userName: string,
-	imageUrl: string
-) {
+async function updateUserImg(currentUser: User, profileImg: string) {
 	await supabase
-		.from("profile")
+		.from("users")
 		.update({
-			profileImg: imageUrl,
-			profileDesc: profileDesc,
-			userName: userName,
+			profileImg,
+		})
+		.eq("userId", currentUser!.id);
+}
+
+async function updateUserName(currentUser: User, userName: string) {
+	await supabase
+		.from("users")
+		.update({
+			userName,
+		})
+		.eq("userId", currentUser!.id);
+}
+
+async function updateUserDesc(currentUser: User, profileDesc: string) {
+	await supabase
+		.from("users")
+		.update({
+			profileDesc,
 		})
 		.eq("userId", currentUser!.id);
 }
 
 async function getProfileImage() {
-	await supabase.storage.from("profile_image").download;
+	await supabase.storage.from("users_image").download;
 }
 
 const profilesAPI = {
-	getProfile: getUser,
+	getUser,
+	updateUserName,
+	updateUserDesc,
 	createUser,
 	setProfileImage,
-	updateProfile,
+	updateUserImg,
 	getProfileImage,
-	setBaseImage,
 };
 
 export default profilesAPI;
