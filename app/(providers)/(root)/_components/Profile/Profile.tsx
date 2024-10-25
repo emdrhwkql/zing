@@ -3,6 +3,7 @@
 import loungesAPI from "@/api/lounge.api";
 import postsAPI from "@/api/posts.api";
 // import profilesAPI from "@/api/profile.api";
+import api from "@/api/api";
 import supabase from "@/supabase/client";
 import { queryClient } from "@/tanstack/query/client";
 import { useAuthStore } from "@/zustand/auth.store";
@@ -25,7 +26,7 @@ function Profile() {
 
 	const { data: profile } = useQuery({
 		queryKey: ["profile"],
-		queryFn: async () => await profilesAPI.getProfile(currentUser!),
+		queryFn: async () => await api.users.getUser(currentUser!),
 		enabled: !!currentUser,
 	});
 
@@ -105,6 +106,12 @@ function Profile() {
 				)}
 				<section className="flex justify-between">
 					<div className="bg-indigo-700 w-[300px] h-full rounded-lg pt-1 mb-4 mr-4 mt-4">
+						<img
+							src="https://i.pinimg.com/enabled/564x/3a/c8/2d/3ac82dfc0e349f84d3afe91093959b81.jpg"
+							alt=""
+							className="w-[250px] h-[250px] rounded-full mx-4"
+						/>
+
 						<h2 className="text-white text-center m-4 ">
 							{profile?.userName}님이 작성한 게시글을
 							보여드릴게요!
