@@ -6,19 +6,19 @@ import Link from "next/link";
 import useCategoriesList from "./CategoriesList.hooks";
 
 function CategoriesList({
-  isShowSeeMore,
-  isShowList,
+	isShowSeeMore,
+	isShowList,
 }: {
-  isShowSeeMore: boolean;
-  isShowList?: boolean;
+	isShowSeeMore: boolean;
+	isShowList?: boolean;
 }) {
-  const { categories } = useCategoriesList();
+	const { categories } = useCategoriesList();
 
-  // 카테고리 목록에서 자유 게시판 안보이게 처리
-  const noFreeCategory = categories?.filter((category) => category.id !== 0);
+	// 카테고리 목록에서 자유 게시판 안보이게 처리
+	const noFreeCategory = categories?.filter((category) => category.id !== 0);
 
-  // console.log(noFreeCategory);
-
+	// console.log(noFreeCategory);
+  
   return (
     <div>
       {isShowList ? (
@@ -72,19 +72,19 @@ function CategoriesList({
                         className="w-32 h-32 bg-[#fdfbfc] rounded-full opacity-90"
                       />
 
-                      <p className="font-bold text-2xl text-white text-center pt-2">
-                        {category.categoryName}
-                      </p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </Page>
-      )}
-    </div>
-  );
+											<p className="font-bold text-2xl text-white text-center pt-2">
+												{category.categoryName}
+											</p>
+										</Link>
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
+				</Page>
+			)}
+		</div>
+	);
 }
 
 export default CategoriesList;
