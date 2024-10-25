@@ -11,7 +11,7 @@ function ProfileLounge({ lounge }: { lounge: LoungeWithCategory }) {
     <li>
       <Link href={`/lounges/${lounge.id}`} className="">
         <img
-          src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_image/${lounge.category?.categoryImg}`}
+          src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_images/${lounge.category?.categoryImg}`}
           alt=""
           className="h-[130px] w-[130px] z-50 rounded-xl ml-[26px]"
         />

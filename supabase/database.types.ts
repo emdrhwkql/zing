@@ -148,6 +148,7 @@ export type Database = {
           categoryId: number
           createdAt: string
           id: number
+          imageUrl: string | null
           introduction: string
           isCompleted: boolean
           isLiked: boolean
@@ -158,6 +159,7 @@ export type Database = {
           categoryId: number
           createdAt?: string
           id?: number
+          imageUrl?: string | null
           introduction: string
           isCompleted?: boolean
           isLiked?: boolean
@@ -168,6 +170,7 @@ export type Database = {
           categoryId?: number
           createdAt?: string
           id?: number
+          imageUrl?: string | null
           introduction?: string
           isCompleted?: boolean
           isLiked?: boolean
@@ -207,7 +210,8 @@ export type Database = {
           content: string
           createdAt: string
           id: number
-          imageUrl: string | null
+          imageUrl: string
+          likesCount: number | null
           loungeId: number
           title: string
           userId: string
@@ -216,7 +220,8 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
-          imageUrl?: string | null
+          imageUrl?: string
+          likesCount?: number | null
           loungeId: number
           title?: string
           userId?: string
@@ -225,7 +230,8 @@ export type Database = {
           content?: string
           createdAt?: string
           id?: number
-          imageUrl?: string | null
+          imageUrl?: string
+          likesCount?: number | null
           loungeId?: number
           title?: string
           userId?: string
@@ -270,24 +276,24 @@ export type Database = {
         Row: {
           createdAt: string
           id: number
-          profileDesc: string | null
-          profileImg: string | null
+          profileDesc: string
+          profileImg: string
           userId: string
           userName: string
         }
         Insert: {
           createdAt?: string
           id?: number
-          profileDesc?: string | null
-          profileImg?: string | null
+          profileDesc?: string
+          profileImg?: string
           userId?: string
           userName?: string
         }
         Update: {
           createdAt?: string
           id?: number
-          profileDesc?: string | null
-          profileImg?: string | null
+          profileDesc?: string
+          profileImg?: string
           userId?: string
           userName?: string
         }

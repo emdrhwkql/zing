@@ -26,6 +26,7 @@ function useNewPostForm() {
 
 	const handleClickAddPost = async () => {
 		if (isCreateOnProcess) return;
+    console.log(postImageUrl);
 
 		// 게시물 제목 input 값
 		const title = inputTitleRef.current!.value;

@@ -1,42 +1,76 @@
+"use client";
+
+import api from "@/api/api";
 import Page from "@/components/Page";
+import { useAuthStore } from "@/zustand/auth.store";
+import { useQuery } from "@tanstack/react-query";
 import Profile from "../_components/Profile/Profile";
-import ProfileModify from "../_components/Profile/ProfileModify/ProfileModify";
+import ProfileModDesc from "../_components/Profile/ProfileModDesc/ProfileModDesc";
+import ProfileModImage from "../_components/Profile/ProfileModImage/ProfileModImage";
+import ProfileModUserName from "../_components/Profile/ProfileModUserName/ProfileModUserName";
 
 function MyProfilePage() {
-	// 내 프로필 정보,  내가 가입한 라운지들을 간략하게 몇 개만 보여주는 페이지.
-	//
+  const currentUser = useAuthStore((state) => state.currentUser);
 
-	// getUser
+  const { data: user } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => api.users.getUser(currentUser!),
+  });
+  const baseURL =
+    "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/";
 
-	// baseurl =
+  const baseImagePath = "user_images/base.png";
 
-	// 	return (
-	// 		<Page>
-	// 			<div className="grid grid-cols-1">
-	// 				<div>
-	// user.img === baseurl ? (
+  const response = user?.profileImg === baseURL + baseImagePath;
+  // 내 프로필 정보,  내가 가입한 라운지들을 간략하게 몇 개만 보여주는 페이지.
+  //
 
-	//           <img src="base" alt="" />
-	// ) ? (img src=`${super.img}`)
+  // getUser
 
-	//           userImgModal
-	//         </div>
-	// 				<div>
-	//           user.name
+  // baseurl =
 
-	//         </div>
-	// 				<div>소개글</div>
-	// 			</div>
+  // 	return (
+  // 		<Page>
+  // 			<div className="grid grid-cols-1">
+  // 				<div>
+  // user.img === baseurl ? (
 
-	// <div>
-	//   <LoungesList />
-	// </div>
-	return (
-		<Page>
-			<Profile />
-			<ProfileModify />
-		</Page>
-	);
+  //           <img src="base" alt="" />
+  // ) ? (img src=`${super.img}`)
+
+  //           userImgModal
+  //         </div>
+  // 				<div>
+  //           user.name
+
+  //         </div>
+  // 				<div>소개글</div>
+  // 			</div>
+
+  // <div>
+  //   <LoungesList />
+  // </div>
+  return (
+    <Page>
+      <Profile />
+      <ProfileModUserName />
+      <ProfileModDesc />
+      <div>
+        {response ? (
+          <img
+            src="https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/user_images/base.png"
+            alt=""
+          />
+        ) : (
+          <img
+            src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/${user?.profileImg}`}
+            alt=""
+          />
+        )}
+      </div>
+      <ProfileModImage />
+    </Page>
+  );
 }
 
 export default MyProfilePage;

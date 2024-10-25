@@ -17,17 +17,15 @@ function LoungesList({
 
 	const noFreeLounge = lounges?.filter((lounge) => lounge.categoryId !== 0);
 
-	return (
-		<MainBox>
-			{pageTitle ? (
-				<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
-					인기 라운지 목록
-				</h1>
-			) : (
-				<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
-					라운지 목록
-				</h1>
-			)}
+  return (
+    <MainBox>
+      {pageTitle ? (
+        <h1 className="mb-4 pb-4 font-bold text-2xl border-b">
+          인기 라운지 목록
+        </h1>
+      ) : (
+        <h1 className="mb-4 pb-4 font-bold text-2xl border-b">라운지 목록</h1>
+      )}
 
 			{isShowMore ? (
 				<ul className="grid grid-cols-1 gap-y-5">
@@ -75,22 +73,23 @@ function LoungesList({
 				</ul>
 			)}
 
-			<div className="mt-3 flex justify-center relative">
-				<button
-					onClick={() => {
-						setIsShowMore((e) => !e);
-					}}
-					className="absolute top-0 left-50 -translate-x-1/2 bg-[#fdfbfc] rounded-full p-3 shadow-[0_4px_4px_rgb(75,85,99)]"
-				>
-					{isShowMore ? (
-						<FaMinus className="text-2xl" />
-					) : (
-						<FaPlus className="text-2xl" />
-					)}
-				</button>
-			</div>
-		</MainBox>
-	);
+      <div className="mt-3 flex justify-center relative">
+        <button
+          onClick={() => {
+            setIsShowMore((e) => !e);
+          }}
+          className="absolute top-0 left-50 -translate-x-1/2 bg-[#fdfbfc] rounded-full p-3 shadow-[0_4px_4px_rgb(75,85,99)]"
+        >
+          {isShowMore ? (
+            <FaMinus className="text-2xl" />
+          ) : (
+            <FaPlus className="text-2xl" />
+          )}
+        </button>
+      </div>
+    </MainBox>
+  );
+
 }
 
 export default LoungesList;
