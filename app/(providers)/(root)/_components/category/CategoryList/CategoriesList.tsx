@@ -1,5 +1,6 @@
 "use client";
 
+import MainBox from "@/components/MainBox";
 import Page from "@/components/Page";
 import Link from "next/link";
 import useCategoriesList from "./CategoriesList.hooks";
@@ -21,7 +22,7 @@ function CategoriesList({
   return (
     <div>
       {isShowList ? (
-        <PostBox bgColor="pink">
+        <MainBox bgColor="pink">
           <div className="flex flex-col gap-y-3 border-b pb-4">
             {isShowSeeMore && (
               <div className="mb-4 pb-4 flex flex-row justify-between items-center font-bold text-2xl border-b text-white">
@@ -38,7 +39,7 @@ function CategoriesList({
                   <li key={category.id}>
                     <Link href={`/categories/${category.id}`}>
                       <img
-                        src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_image/${category.categoryImg}`}
+                        src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_images/${category.categoryImg}`}
                         className="w-32 h-32 bg-[#fdfbfc] rounded-full opacity-90"
                       />
                     </Link>
@@ -50,7 +51,7 @@ function CategoriesList({
                 .slice(0, 6)}
             </ul>
           </div>
-        </PostBox>
+        </MainBox>
       ) : (
         <Page>
           <div className="mx-[calc((100%-1429px)/2)] grid grid-cols-1">
@@ -67,7 +68,7 @@ function CategoriesList({
                       className="grid grid-cols-1 place-items-center"
                     >
                       <img
-                        src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_image/${category.categoryImg}`}
+                        src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_images/${category.categoryImg}`}
                         className="w-32 h-32 bg-[#fdfbfc] rounded-full opacity-90"
                       />
 

@@ -1,5 +1,6 @@
 "use client";
 
+import MainBox from "@/components/MainBox";
 import { Lounges } from "@/types/lounge.types";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,7 +18,7 @@ function LoungesList({
   const noFreeLounge = lounges?.filter((lounge) => lounge.categoryId !== 0);
 
   return (
-    <PostBox>
+    <MainBox>
       {pageTitle ? (
         <h1 className="mb-4 pb-4 font-bold text-2xl border-b">
           인기 라운지 목록
@@ -86,7 +87,7 @@ function LoungesList({
           )}
         </button>
       </div>
-    </PostBox>
+    </MainBox>
   );
 }
 
