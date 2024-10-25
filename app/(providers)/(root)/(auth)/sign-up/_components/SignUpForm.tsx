@@ -1,18 +1,19 @@
 "use client";
 
+import api from "@/api/api";
 import Input from "@/components/Input";
 import Page from "@/components/Page";
 import supabase from "@/supabase/client";
+import { useAuthStore } from "@/zustand/auth.store";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ComponentProps } from "react";
+import React, { ComponentProps, useRef } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { ImYelp } from "react-icons/im";
 
 type HandleSubmitSignUpFormEvent = React.FormEvent<HTMLFormElement> & {
 	target: HTMLFormElement & {
-		firstName: HTMLInputElement;
-		lastName: HTMLInputElement;
 		email: HTMLInputElement;
 		password: HTMLInputElement;
 		passwordConfirmInputRef: HTMLInputElement;
@@ -22,20 +23,34 @@ type HandleSubmitSignUpFormEvent = React.FormEvent<HTMLFormElement> & {
 function SignUpForm() {
 	const router = useRouter();
 
+	const queryClient = useQueryClient();
+
+	const inputUserNameRef = useRef<HTMLInputElement>(null);
+
+	const currentUser = useAuthStore((state) => state.currentUser);
+
+	const { mutate: createUser, isPending: isCreateOnProcess } = useMutation({
+		mutationFn: (userName: string) =>
+			api.users.createUser(userName, currentUser!),
+		onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
+	});
+
 	const handleSubmitSignUpForm: ComponentProps<"form">["onSubmit"] = async (
 		e: HandleSubmitSignUpFormEvent
 	) => {
 		e.preventDefault();
 
-		const firstName = e.target.firstName.value;
-		const lastName = e.target.lastName.value;
+		if (isCreateOnProcess) return;
+
+		const userName = inputUserNameRef.current!.value;
+
 		const email = e.target.email.value;
 		const password = e.target.password.value;
 		const passwordConfirm = e.target.password.value;
 
 		// 예외 처리
-		if (!firstName) return alert("이름를 입력해 주세요.");
-		if (!lastName) return alert("성을 입력해 주세요.");
+		if (!userName) return alert("닉네임을 입력해 주세요.");
+
 		if (!email) return alert("이메일 주소를 입력해 주세요.");
 		if (!password) return alert("비밀번호를 입력해 주세요.");
 		if (!passwordConfirm) return alert("비밀번호 확인을 입력해 주세요.");
@@ -52,8 +67,9 @@ function SignUpForm() {
 			options: { data: { nickname: "신규유저" } },
 		});
 
-		if (response.data.user) {
+		createUser(userName);
 
+		if (response.data.user) {
 			alert("축하합니다. 회원가입에 성공했습니다.");
 
 			router.push("/");
@@ -64,26 +80,24 @@ function SignUpForm() {
 
 	const handleGoogleLogin = async () => {
 		const { error } = await supabase.auth.signInWithOAuth({
-			provider: 'google',
+			provider: "google",
 			options: {
 				queryParams: {
-					access_type: 'offline',
-					prompt: 'consent',
+					access_type: "offline",
+					prompt: "consent",
 				},
 			},
-		})
+		});
 
 		if (error) {
-			alert("구글 로그인에 실패하였습니다.")
-			console.error("Kakao login error:", error.message)
+			alert("구글 로그인에 실패하였습니다.");
+			console.error("Kakao login error:", error.message);
 		}
-	}
-
-
+	};
 
 	const handleKakaoLogin = async () => {
 		const { error } = await supabase.auth.signInWithOAuth({
-			provider: 'kakao',
+			provider: "kakao",
 		});
 
 		if (error) {
@@ -148,22 +162,14 @@ function SignUpForm() {
 							onSubmit={handleSubmitSignUpForm}
 							className="w-96 grid grid-cols-1 gap-y-4"
 						>
-							<div className="grid grid-cols-2 gap-x-4">
-								{/* 이름 */}
-								<Input
-									type="text"
-									name="firstName"
-									helpText="이름을 입력해주세요."
-									placeholder="first name"
-								/>
-								{/* 성 */}
-								<Input
-									type="text"
-									name="lastName"
-									helpText="성을 입력해주세요."
-									placeholder="last name"
-								/>
-							</div>
+							{/* 닉네임 */}
+							<Input
+								ref={inputUserNameRef}
+								type="text"
+								name="firstName"
+								helpText="이름을 입력해주세요."
+								placeholder="first name"
+							/>
 
 							{/* 이메일 */}
 							<Input
@@ -206,13 +212,15 @@ function SignUpForm() {
 							<div className="flex flex-row gap-x-4 text-white">
 								<button
 									onClick={handleKakaoLogin}
-									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
+									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center"
+								>
 									kakao
 								</button>
 
 								<button
 									onClick={handleGoogleLogin}
-									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
+									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center"
+								>
 									google
 								</button>
 							</div>
