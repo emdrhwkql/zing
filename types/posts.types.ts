@@ -5,6 +5,7 @@ export type Posts = {
 	userId: string;
 	content: string;
 	createdAt: string;
+	userName: string;
 }[];
 
 export type PostsIdPropsType = {

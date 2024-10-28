@@ -10,7 +10,7 @@ import { FaMinus, FaPlus, FaShareAlt } from "react-icons/fa";
 function FreeLoungePostsList({ posts }: { posts: Posts }) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
-	const isUserNameSlice = true;
+	// posts.sort((postA, postB) => postB.like.length - postA.)
 
 	return (
 		<MainBox>
@@ -27,9 +27,7 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 								<div className="flex flex-row gap-x-2 items-center pb-2">
 									<div className="w-4 h-4 bg-gray-500 rounded-md" />
 
-									{isUserNameSlice ? (
-										<p>{post.userId.slice(0, 10)} • • •</p>
-									) : null}
+									<p>{post.userId.slice(0, 10)} • • •</p>
 								</div>
 
 								<Link href={`/posts/${post.id}`}>
@@ -65,9 +63,7 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 								<div className="flex flex-row gap-x-2 items-center pb-2">
 									<div className="w-4 h-4 bg-gray-500 rounded-md" />
 
-									{isUserNameSlice ? (
-										<p>{post.userId.slice(0, 10)} • • •</p>
-									) : null}
+									<p>{post.userId.slice(0, 10)} • • •</p>
 								</div>
 
 								<Link href={`/posts/${post.id}`}>
