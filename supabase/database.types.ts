@@ -33,6 +33,38 @@ export type Database = {
         }
         Relationships: []
       }
+      comments: {
+        Row: {
+          content: string
+          createdAt: string | null
+          id: number
+          postId: number | null
+          userId: string
+        }
+        Insert: {
+          content?: string
+          createdAt?: string | null
+          id?: number
+          postId?: number | null
+          userId?: string
+        }
+        Update: {
+          content?: string
+          createdAt?: string | null
+          id?: number
+          postId?: number | null
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_postid_fkey"
+            columns: ["postId"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       inbox: {
         Row: {
           content: string
@@ -148,10 +180,9 @@ export type Database = {
           categoryId: number
           createdAt: string
           id: number
-          imageUrl: string | null
+          imageUrl: string
           introduction: string
           isCompleted: boolean
-          isLiked: boolean
           name: string
           userId: string | null
         }
@@ -159,10 +190,9 @@ export type Database = {
           categoryId: number
           createdAt?: string
           id?: number
-          imageUrl?: string | null
+          imageUrl?: string
           introduction: string
           isCompleted?: boolean
-          isLiked?: boolean
           name: string
           userId?: string | null
         }
@@ -170,10 +200,9 @@ export type Database = {
           categoryId?: number
           createdAt?: string
           id?: number
-          imageUrl?: string | null
+          imageUrl?: string
           introduction?: string
           isCompleted?: boolean
-          isLiked?: boolean
           name?: string
           userId?: string | null
         }
@@ -215,6 +244,7 @@ export type Database = {
           loungeId: number
           title: string
           userId: string
+          userName: string
         }
         Insert: {
           content?: string
@@ -225,6 +255,7 @@ export type Database = {
           loungeId: number
           title?: string
           userId?: string
+          userName?: string
         }
         Update: {
           content?: string
@@ -235,6 +266,7 @@ export type Database = {
           loungeId?: number
           title?: string
           userId?: string
+          userName?: string
         }
         Relationships: [
           {
