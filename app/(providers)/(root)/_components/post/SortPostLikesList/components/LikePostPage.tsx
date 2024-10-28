@@ -18,12 +18,12 @@ function PostsList({ posts }: { posts: Posts }) {
                 posts.map(post => likesAPI.getLikesByPostId(post.id))
             );
             const countMap = likesData.reduce((acc: { [key: number]: number }, { count }, index) => {
-                acc[posts[index].id] = count || 0; // 기본값 0으로 설정
+                acc[posts[index].id] = count || 0; 
                 return acc;
             }, {});
 
             setLikesCountMap(countMap);
-            setSortedPosts(posts.slice().sort((a, b) => (countMap[b.id] || 0) - (countMap[a.id] || 0))); // 좋아요 수로 정렬
+            setSortedPosts(posts.slice().sort((a, b) => (countMap[b.id] || 0) - (countMap[a.id] || 0))); 
         };
 
         fetchLikesCount();
