@@ -92,17 +92,17 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 				</ul>
 			)}
 
-			<div className="mt-3 flex justify-center relative">
+			<div className="mt-3 flex justify-center relative ">
 				<button
 					onClick={() => {
 						setIsShowMore((e) => !e);
 					}}
-					className="absolute top-0 left-1/2 -translate-x-1/2 bg-[#fdfbfc] rounded-full p-3 shadow-[0_4px_4px_rgb(75,85,99)]"
+					className="absolute top-0 left-1/2 -translate-x-1/2 bg-[#fdfbfc] rounded-full p-2 shadow-[0_4px_4px_rgb(75,85,99)] active:scale-125 active:duration-75"
 				>
 					{isShowMore ? (
-						<FaMinus className="text-2xl" />
+						<FaMinus className="text-lg " />
 					) : (
-						<FaPlus className="text-2xl" />
+						<FaPlus className="text-lg" />
 					)}
 				</button>
 			</div>
