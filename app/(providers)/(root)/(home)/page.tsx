@@ -2,10 +2,12 @@ import api from "@/api/api";
 import Page from "@/components/Page";
 import CategoriesHomeList from "../_components/category/CategoryList/CategoriesHomeList";
 import LecturesList from "../_components/lectures/LecturesList/LecturesList";
-import FreeLoungePostsList from "../_components/post/FreeLoungePostsList/FreeLoungePostsList";
+import PopularLoungesList from "../_components/lounge/LoungesList/PopularLoungesList";
+import FreeLoungePostsList from "../_components/post/PostsList/FreeLoungePostsList";
+import PopularPostsList from "../_components/post/PostsList/PopularPostsList";
 
 async function HomePage() {
-  const lounges = await api.lounges.getAllLounges();
+	const lounges = await api.lounges.getAllLounges();
 
 	const loungeId = 0;
 	const freePosts = await api.posts.getPostsByLoungeId(loungeId);
@@ -17,10 +19,12 @@ async function HomePage() {
 	noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
 
 	return (
-		<Page>  
+		<Page>
 			<div className="flex flex-row justify-center">
 				<div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
 					<FreeLoungePostsList posts={freePosts} />
+
+					<PopularPostsList posts={posts} />
 
 					<CategoriesHomeList />
 
