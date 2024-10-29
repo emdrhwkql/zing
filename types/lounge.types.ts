@@ -5,7 +5,6 @@ export type Lounge = {
 	userId: string | null;
 	isCompleted: boolean;
 	introduction: string;
-	isLiked: boolean;
 };
 
 export type Lounges = Lounge[];
