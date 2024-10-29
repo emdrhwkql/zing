@@ -1,8 +1,9 @@
 "use client";
 
 import api from "@/api/api";
+import Input from "@/components/Input";
 import { useAuthStore } from "@/zustand/auth.store";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 
@@ -12,6 +13,10 @@ function ProfileModImage() {
   const queryClient = useQueryClient();
 
   // storage에 user_image 값 변경
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => api.users.getUser(currentUser!),
+  });
   const { mutateAsync: setProfileImage } = useMutation({
     mutationFn: async ({
       filepath,
@@ -36,7 +41,7 @@ function ProfileModImage() {
   // 기본 이미지로 변경
   const handleClickBaseImage = () => {
     const baseImageURL =
-      "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/profile_image/base.png";
+      "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/user_images/base.png";
 
     updateImg(baseImageURL);
   };
@@ -44,6 +49,8 @@ function ProfileModImage() {
   // 수정한 이미지로 변경
   const handleSubmitUpdateUserImg = async () => {
     if (!imageFile) return;
+
+    console.log(user?.profileImg);
 
     const extension = imageFile.name.split(".").slice(-1)[0];
     const filepath = `${nanoid()}.${extension}`;
@@ -65,9 +72,10 @@ function ProfileModImage() {
   return (
     <main>
       <div className="text-white">
-        <input
+        <Input
           type="file"
-          className="border-black border-2 text-black"
+          wrapperClassName=""
+          inputClassName=""
           placeholder="당신의 프로필 이미지를 넣어주세요!"
           onChange={(e) => setImageFile(e.target.files?.[0])}
         />

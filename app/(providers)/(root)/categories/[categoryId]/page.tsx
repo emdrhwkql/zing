@@ -28,8 +28,6 @@ async function CategoriesDetailPage(props: CategoryIdPropsType) {
 
   console.log(categoryImg);
 
-  // console.log(props);
-
   return (
     <Page>
       <div className="mb-10 px-[calc((100%-1429px)/2)] ">

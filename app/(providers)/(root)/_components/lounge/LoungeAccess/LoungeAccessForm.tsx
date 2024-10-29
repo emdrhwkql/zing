@@ -4,7 +4,7 @@ import supabase from "@/supabase/client";
 import { FaCheck } from "react-icons/fa";
 
 function LoungeAccessForm({ loungeId }: { loungeId: number }) {
-  console.log(loungeId);
+  // console.log(loungeId);
   const handleClickAccess = async () => {
     await supabase.from("user_lounges").insert({ loungeId: Number(loungeId) });
   };

@@ -28,6 +28,8 @@ function ProfileModDesc() {
       // user 테이블에
       updateDesc(desc);
     }
+
+    inputDescRef.current!.value = "";
   };
 
   return (

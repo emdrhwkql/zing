@@ -148,7 +148,7 @@ export type Database = {
           categoryId: number
           createdAt: string
           id: number
-          imageUrl: string | null
+          imageUrl: string
           introduction: string
           isCompleted: boolean
           isLiked: boolean
@@ -159,7 +159,7 @@ export type Database = {
           categoryId: number
           createdAt?: string
           id?: number
-          imageUrl?: string | null
+          imageUrl?: string
           introduction: string
           isCompleted?: boolean
           isLiked?: boolean
@@ -170,7 +170,7 @@ export type Database = {
           categoryId?: number
           createdAt?: string
           id?: number
-          imageUrl?: string | null
+          imageUrl?: string
           introduction?: string
           isCompleted?: boolean
           isLiked?: boolean

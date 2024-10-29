@@ -4,6 +4,9 @@ import Link from "next/link";
 import { LuFilePlus } from "react-icons/lu";
 import PostsList from "../../post/PostsList/PostsList";
 import LoungeAccessForm from "../LoungeAccess/LoungeAccessForm";
+import LoungeModImg from "../LoungeMod/LoungeModImg/LoungeModImg";
+import LoungeModIntroduction from "../LoungeMod/LoungeModIntroduction/LoungeModIntroduction";
+import LoungeModName from "../LoungeMod/LoungeModName/LoungeModName";
 
 async function LoungeDetailForm({ loungeId }: { loungeId: number }) {
   const posts = await api.posts.getPostsByLoungeId(Number(loungeId));
@@ -14,7 +17,7 @@ async function LoungeDetailForm({ loungeId }: { loungeId: number }) {
     <Page>
       <div className="pb-5 flex flex-row gap-x-4">
         <img
-          src="https://i.pinimg.com/enabled/736x/a9/fd/8b/a9fd8bb681530997947d2740daa11425.jpg"
+          src={lounge?.imageUrl}
           className="w-40 h-40 rounded-md object-cover"
         />
 
@@ -23,6 +26,11 @@ async function LoungeDetailForm({ loungeId }: { loungeId: number }) {
           <p className="pt-10 pb-2 font-semibold text-xl">
             {lounge?.introduction}
           </p>
+        </div>
+        <div className="bg-black text-white">
+          <LoungeModImg />
+          <LoungeModName />
+          <LoungeModIntroduction />
         </div>
       </div>
 
@@ -35,6 +43,8 @@ async function LoungeDetailForm({ loungeId }: { loungeId: number }) {
           <div>다섯번째</div>
         </div>
         <div className="ml-auto flex flex-row gap-x-3">
+          {/* 모달로 띄우기 */}
+
           <LoungeAccessForm loungeId={loungeId} />
           <Link
             href={`/lounges/${loungeId}/posts/new`}
