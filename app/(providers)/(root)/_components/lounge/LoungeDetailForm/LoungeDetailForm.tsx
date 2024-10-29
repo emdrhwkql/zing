@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LuFilePlus } from "react-icons/lu";
 import PostsList from "../../post/PostsList/PostsList";
 import LoungeAccessForm from "../LoungeAccess/LoungeAccessForm";
+import LoungeDelete from "../LoungeDelete/LoungeDelete";
 import LoungeModImg from "../LoungeMod/LoungeModImg/LoungeModImg";
 import LoungeModIntroduction from "../LoungeMod/LoungeModIntroduction/LoungeModIntroduction";
 import LoungeModName from "../LoungeMod/LoungeModName/LoungeModName";
@@ -51,6 +52,7 @@ async function LoungeDetailForm({
           <LoungeModName />
           <LoungeModIntroduction />
         </div>
+        <LoungeDelete />
       </div>
 
       <div className="w-full px-8 rounded-md bg-[#73020b9d] h-14 flex flex-row items-center text-white text-base font-bold text-center">

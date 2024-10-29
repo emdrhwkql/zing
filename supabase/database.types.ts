@@ -354,12 +354,38 @@ export type Database = {
         }
         Relationships: []
       }
+      views: {
+        Row: {
+          cotent: string
+          id: number
+          title: string
+          view: string
+        }
+        Insert: {
+          cotent: string
+          id?: number
+          title: string
+          view?: string
+        }
+        Update: {
+          cotent?: string
+          id?: number
+          title?: string
+          view?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      views: {
+        Args: {
+          id: number
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
