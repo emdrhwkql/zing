@@ -65,6 +65,32 @@ export type Database = {
           },
         ]
       }
+      follow_categories: {
+        Row: {
+          categoryId: number
+          id: number
+          userId: string
+        }
+        Insert: {
+          categoryId: number
+          id?: number
+          userId: string
+        }
+        Update: {
+          categoryId?: number
+          id?: number
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "follow_category_categoryId_fkey"
+            columns: ["categoryId"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       inbox: {
         Row: {
           content: string

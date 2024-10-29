@@ -147,6 +147,17 @@ async function getMyLounges(currentUser: User) {
   return myLounges;
 }
 
+async function checkIfUserJoinedToLounge(loungeId: number, currentUser: User) {
+  const { data: checkMyLounges } = await supabase
+    .from("user_lounges")
+    .select("*")
+    .eq("loungeId", loungeId)
+    .eq("userId", currentUser!.id)
+    .maybeSingle();
+
+  return checkMyLounges;
+}
+
 const loungesAPI = {
   createLounge,
   getLounge,
@@ -160,6 +171,7 @@ const loungesAPI = {
   updateLoungeIntroduction,
   updateLoungeName,
   getLoungeByName,
+  checkIfUserJoinedToLounge,
 };
 
 export default loungesAPI;

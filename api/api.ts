@@ -1,4 +1,5 @@
 import categoriesAPI from "./categories.api";
+import followLoungesAPI from "./followLounge.api";
 import lecturesAPI from "./lectures.api";
 import likesAPI from "./likes.api";
 import loungesAPI from "./lounge.api";
@@ -12,6 +13,7 @@ const api = {
   lectures: lecturesAPI,
   likes: likesAPI,
   users: profilesAPI,
+  followLounges: followLoungesAPI,
 };
 
 export default api;
