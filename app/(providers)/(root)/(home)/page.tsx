@@ -2,7 +2,7 @@ import api from "@/api/api";
 import Page from "@/components/Page";
 import CategoriesHomeList from "../_components/category/CategoryList/CategoriesHomeList";
 import LecturesList from "../_components/lectures/LecturesList/LecturesList";
-import PopularLoungeList from "../_components/lounge/PopularLoungeList/PopularLoungeList";
+import LoungesList from "../_components/lounge/LoungesList/LoungesList";
 import FreeLoungePostsList from "../_components/post/FreeLoungePostsList/FreeLoungePostsList";
 
 async function HomePage() {
@@ -18,6 +18,7 @@ async function HomePage() {
           <FreeLoungePostsList posts={freePosts} />
 
           <PopularLoungeList lounges={lounges} />
+
 
           <CategoriesHomeList />
 
