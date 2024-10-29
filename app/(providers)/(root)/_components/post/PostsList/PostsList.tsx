@@ -1,7 +1,9 @@
 "use client";
 
+import api from "@/api/api";
 import LikeButton from "@/components/LikeButton";
 import { Posts } from "@/types/posts.types";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
 import { FaMinus, FaPlus, FaShareAlt } from "react-icons/fa";

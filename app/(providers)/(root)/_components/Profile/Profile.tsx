@@ -2,10 +2,8 @@
 
 // import profilesAPI from "@/api/profile.api";
 import api from "@/api/api";
-import supabase from "@/supabase/client";
-import { queryClient } from "@/tanstack/query/client";
 import { useAuthStore } from "@/zustand/auth.store";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import ProfileLounge from "./ProfileLounge/ProfileLounge";
@@ -18,32 +16,19 @@ function Profile() {
 
   const { data: myLounges } = useQuery({
     queryKey: ["myLounges"],
-    queryFn: async () => api.lounges.getMyLounges(currentUser!),
+    queryFn: async () => await api.lounges.getMyLounges(currentUser!),
     enabled: !!currentUser,
   });
 
   const { data: user } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => await api.users.getUser(currentUser!),
-    enabled: !!currentUser,
+    queryKey: ["users"],
+    queryFn: async () => api.users.getUser(currentUser!),
   });
 
   const { data: posts } = useQuery({
     queryKey: ["posts"],
-    queryFn: async () => await api.posts.getPostsICreated(),
+    queryFn: async () => await api.posts.getPostsICreated(currentUser!),
     enabled: !!currentUser,
-  });
-
-  const { mutate: selectProfile } = useMutation({
-    mutationFn: async () =>
-      await supabase.from("users").select("*").eq("userId", currentUser!.id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["user"] }),
-  });
-
-  const { mutate: selectPost } = useMutation({
-    mutationFn: async () =>
-      await supabase.from("posts").select("*").eq("userId", currentUser!.id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["posts"] }),
   });
 
   useEffect(() => {
@@ -52,11 +37,11 @@ function Profile() {
         router.push("/");
         return;
       }
+      console.log(user?.profileImg);
     })();
-    selectPost();
-    selectProfile();
   }, []);
 
+  // 컴포넌트 가장 바깥에 있는 이미지를 SideBox컴포넌트로 둔다
   return (
     <main className="flex-none gap-5">
       <ul className="ml-24 bg-indigo-300 w-[1340px] h-full rounded-lg flex justify-center mt-4">
@@ -76,11 +61,13 @@ function Profile() {
         {user?.profileImg ? (
           <li key={user.id} className="flex mt-4 w-full justify-between">
             <strong className="text-4xl text-left ml-4">{user.userName}</strong>
-            <img
-              src={`${user.profileImg}`}
-              alt=""
-              className="w-[250px] h-[250px] rounded-full mx-4"
-            />
+            <div>
+              <img
+                src={`${user!.profileImg}`}
+                alt=""
+                className="w-[250px] h-[250px] rounded-full mx-4"
+              />
+            </div>
             <p className="p-4 text-black mr-8 flex items-end">
               <span>{user.profileDesc}</span>
             </p>

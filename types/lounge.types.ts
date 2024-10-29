@@ -1,10 +1,12 @@
 export type Lounge = {
-	id: number;
-	name: string;
-	categoryId: number;
-	userId: string | null;
-	isCompleted: boolean;
-	introduction: string;
+  categoryId: number;
+  createdAt: string;
+  id: number;
+  imageUrl: string;
+  introduction: string;
+  isCompleted: boolean;
+  name: string;
+  userId: string;
 };
 
 export type Lounges = Lounge[];

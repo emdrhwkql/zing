@@ -18,8 +18,6 @@ async function CategoriesDetailPage(props: CategoryIdPropsType) {
 
 	const categories = await api.categories.getCategory();
 
-	// console.log(categories?.map((category) => category.categoryName));
-
 	const categoryName = categories?.find(
 		(category) => category.id === Number(categoryId)
 	)?.categoryName;
@@ -27,10 +25,6 @@ async function CategoriesDetailPage(props: CategoryIdPropsType) {
 	const categoryImg = categories?.find(
 		(category) => category.id === Number(categoryId)
 	)?.categoryImg;
-
-	console.log(categoryImg);
-
-	// console.log(props);
 
 	return (
 		<Page>
