@@ -8,9 +8,15 @@ async function createPost(
   loungeId: number,
   currentUser: User
 ) {
-  await supabase
+  const response = await supabase
     .from("posts")
-    .insert({ title, content, loungeId, userId: currentUser!.id });
+    .insert({ title, content, loungeId, userId: currentUser!.id })
+    .select("*")
+    .single();
+
+  const post = response.data;
+
+  return post;
 }
 
 async function getPost(postId: number) {
@@ -19,6 +25,7 @@ async function getPost(postId: number) {
     .select("*")
     .eq("id", postId)
     .single();
+
   const posts = response.data;
 
   if (!posts) return null;
@@ -43,31 +50,46 @@ async function setPostImage(filepath: string, imageFile: File) {
   return postImg;
 }
 
-async function updatePostImg(currentUser: User, imageUrl: string) {
+async function updatePostImg(
+  currentUser: User,
+  imageUrl: string,
+  loungeId: number
+) {
   await supabase
     .from("posts")
     .update({
       imageUrl,
     })
-    .eq("userId", currentUser!.id);
+    .eq("userId", currentUser!.id)
+    .eq("id", loungeId);
 }
 
-async function updatePostTitle(currentUser: User, title: string) {
+async function updatePostTitle(
+  currentUser: User,
+  title: string,
+  loungeId: number
+) {
   await supabase
     .from("posts")
     .update({
       title,
     })
-    .eq("userId", currentUser!.id);
+    .eq("userId", currentUser!.id)
+    .eq("id", loungeId);
 }
 
-async function updatePostContent(currentUser: User, content: string) {
+async function updatePostContent(
+  currentUser: User,
+  content: string,
+  loungeId: number
+) {
   await supabase
     .from("posts")
     .update({
       content,
     })
-    .eq("userId", currentUser!.id);
+    .eq("userId", currentUser!.id)
+    .eq("id", loungeId);
 }
 
 async function getPostsICreated(currentUser: User) {
@@ -84,12 +106,10 @@ async function getPostsICreated(currentUser: User) {
 }
 
 async function getPostsByLoungeId(loungeId: number) {
-
-	const response = await supabase
-		.from("posts")
-		.select("*, likes (id)")
-		.eq("loungeId", loungeId);
-
+  const response = await supabase
+    .from("posts")
+    .select("*, likes (id)")
+    .eq("loungeId", loungeId);
 
   const posts = response.data;
 

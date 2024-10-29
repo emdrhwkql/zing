@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface updateIntroduction {
+interface UpdateIntroduction {
   introduction: string;
   loungeId: number;
 }
@@ -26,7 +26,7 @@ function LoungeModIntroduction() {
 
   const loungeId = Number(params.loungeId);
   const { mutate: updateIntroduction } = useMutation({
-    mutationFn: async ({ introduction, loungeId }: updateIntroduction) =>
+    mutationFn: async ({ introduction, loungeId }: UpdateIntroduction) =>
       api.lounges.updateLoungeIntroduction(
         currentUser!,
         introduction,

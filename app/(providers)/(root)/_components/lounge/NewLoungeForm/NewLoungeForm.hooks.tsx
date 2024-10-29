@@ -61,7 +61,7 @@ function useNewLoungeForm() {
     }: {
       filepath: string;
       imageFile: File;
-    }) => api.lounges.setLoungeImage(filepath, imageFile),
+    }) => api.posts.setPostImage(filepath, imageFile),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },

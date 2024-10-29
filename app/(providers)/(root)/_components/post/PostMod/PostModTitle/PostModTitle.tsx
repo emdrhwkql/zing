@@ -9,20 +9,20 @@ import { useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface UpdateName {
-  name: string;
+interface UpdateTitle {
+  title: string;
   loungeId: number;
 }
 
-function LoungeModName() {
+function PostModTitle() {
   const currentUser = useAuthStore((state) => state.currentUser);
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const params = useParams();
 
-  const loungeId = Number(params.loungeId);
-  const { mutate: updateName } = useMutation({
-    mutationFn: async ({ name, loungeId }: UpdateName) =>
-      api.lounges.updateLoungeName(currentUser!, name, loungeId),
+  const postId = Number(params.postId);
+  const { mutate: updateTitle } = useMutation({
+    mutationFn: async ({ title, loungeId }: UpdateTitle) =>
+      api.posts.updatePostTitle(currentUser!, title, loungeId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
@@ -32,22 +32,22 @@ function LoungeModName() {
     if (!currentUser) return;
 
     (async () => {
-      const { data: lounges } = await supabase
-        .from("lounges")
+      const { data: posts } = await supabase
+        .from("posts")
         .select("*")
         .eq("userId", currentUser!.id);
-      console.log("lounges", lounges);
+      console.log("posts", posts);
 
-      if (!lounges) return;
+      if (!posts) return;
 
-      const lounge = lounges[loungeId];
+      const post = posts[postId];
     })();
   }, [currentUser]);
 
-  const handleClickModName = () => {
-    updateName({
-      name: name,
-      loungeId: loungeId!,
+  const handleClickModTitle = () => {
+    updateTitle({
+      title: title,
+      loungeId: postId!,
     });
   };
 
@@ -55,19 +55,19 @@ function LoungeModName() {
     <>
       <Input
         type="text"
-        name="name"
-        onChange={(e) => setName(e.target.value)}
+        name="title"
+        onChange={(e) => setTitle(e.target.value)}
         inputClassName="text-black"
       />
 
       <button
         className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
-        onClick={handleClickModName}
+        onClick={handleClickModTitle}
       >
-        <p>이름 수정하기</p>
+        <p>제목 수정하기</p>
       </button>
     </>
   );
 }
 
-export default LoungeModName;
+export default PostModTitle;

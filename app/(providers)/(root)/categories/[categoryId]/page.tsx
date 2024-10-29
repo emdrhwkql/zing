@@ -12,7 +12,7 @@ export const revalidate = 0;
 
 async function CategoriesDetailPage(props: CategoryIdPropsType) {
   const categoryId = props.params.categoryId;
-  const lounges = await api.lounges.getLoungesByCategoryId(Number(categoryId));
+  const lounges = await api.posts.getLoungesByCategoryId(Number(categoryId));
 
   const categories = await api.categories.getCategory();
 
