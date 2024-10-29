@@ -1,4 +1,3 @@
-import { Lounge } from "@/schema/lounges.schema";
 import supabase from "@/supabase/client";
 import { User } from "@supabase/supabase-js";
 
@@ -134,8 +133,12 @@ async function getLoungesByCategoryId(categoryId: number) {
   return lounges;
 }
 
-async function deleteLounge(lounge: Lounge) {
-  await supabase.from("lounges").delete().eq("id", lounge.id);
+async function deleteLounge(loungeId: number, currentUser: User) {
+  await supabase
+    .from("lounges")
+    .delete()
+    .eq("id", loungeId)
+    .eq("userId", currentUser!.id);
 }
 
 async function getMyLounges(currentUser: User) {
