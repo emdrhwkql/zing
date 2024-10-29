@@ -1,13 +1,12 @@
 import { Tables } from "@/supabase/database.types";
 
-export type Post = {
-	content: string;
+export type User = {
 	createdAt: string;
 	id: number;
-	loungeId: number;
-	title: string;
+	profileDesc: string;
+	profileImg: string;
 	userId: string;
 	userName: string;
 };
 
-export type Posts = Tables<"posts">;
+export type Users = Tables<"users">;

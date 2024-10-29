@@ -66,7 +66,7 @@ async function updateUserDesc(currentUser: User, profileDesc: string) {
     .from("users")
     .update({
       profileDesc,
-    })
+    })  
     .eq("userId", currentUser!.id);
 }
 

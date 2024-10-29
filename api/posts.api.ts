@@ -84,10 +84,12 @@ async function getPostsICreated(currentUser: User) {
 }
 
 async function getPostsByLoungeId(loungeId: number) {
-  const response = await supabase
-    .from("posts")
-    .select("*")
-    .eq("loungeId", loungeId);
+
+	const response = await supabase
+		.from("posts")
+		.select("*, likes (id)")
+		.eq("loungeId", loungeId);
+
 
   const posts = response.data;
 

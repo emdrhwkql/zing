@@ -5,7 +5,6 @@ export type Lounge = {
   imageUrl: string;
   introduction: string;
   isCompleted: boolean;
-  isLiked: boolean;
   name: string;
   userId: string;
 };
@@ -13,8 +12,10 @@ export type Lounge = {
 export type Lounges = Lounge[];
 
 export type LoungeIdPropsType = {
-  params: {
-    loungeId: string;
-    searchParams: {};
-  };
+	params: {
+		loungeId: string;
+	};
+	searchParams: {
+		type?: "popular" | "newest" | undefined;
+	};
 };
