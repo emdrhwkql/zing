@@ -2,12 +2,13 @@
 
 import api from "@/api/api";
 import Page from "@/components/Page";
+import SideBox from "@/components/SideBox";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useQuery } from "@tanstack/react-query";
-import Profile from "../_components/Profile/Profile";
 import ProfileModDesc from "../_components/Profile/ProfileModDesc/ProfileModDesc";
 import ProfileModImage from "../_components/Profile/ProfileModImage/ProfileModImage";
 import ProfileModUserName from "../_components/Profile/ProfileModUserName/ProfileModUserName";
+import MyLoungesList from "../_components/lounge/MyLoungesList/MyLoungesList";
 
 function MyProfilePage() {
   const currentUser = useAuthStore((state) => state.currentUser);
@@ -22,53 +23,51 @@ function MyProfilePage() {
   const baseImagePath = "user_images/base.png";
 
   const response = user?.profileImg === baseURL + baseImagePath;
-  // 내 프로필 정보,  내가 가입한 라운지들을 간략하게 몇 개만 보여주는 페이지.
-  //
 
-  // getUser
-
-  // baseurl =
-
-  // 	return (
-  // 		<Page>
-  // 			<div className="grid grid-cols-1">
-  // 				<div>
-  // user.img === baseurl ? (
-
-  //           <img src="base" alt="" />
-  // ) ? (img src=`${super.img}`)
-
-  //           userImgModal
-  //         </div>
-  // 				<div>
-  //           user.name
-
-  //         </div>
-  // 				<div>소개글</div>
-  // 			</div>
-
-  // <div>
-  //   <LoungesList />
-  // </div>
+  console.log("user", user);
   return (
     <Page>
-      <Profile />
-      <ProfileModUserName />
-      <ProfileModDesc />
-      <div>
-        {response ? (
-          <img
-            src="https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/user_images/base.png"
-            alt=""
-          />
-        ) : (
-          <img
-            src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/${user?.profileImg}`}
-            alt=""
-          />
-        )}
+      <div className="grid grid-cols-1 place-items-center gap-y-20">
+        <div className="flex flex-col gap-y-">
+          {response ? (
+            <img
+              src="https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/user_images/base.png"
+              alt=""
+              className="w-80 h-80 bg-black rounded-full"
+            />
+          ) : (
+            <img
+              src={user?.profileImg}
+              alt=""
+              className="w-80 h-80 bg-black rounded-full"
+            />
+          )}
+          <ProfileModImage />
+        </div>
+
+        <div className="flex flex-row gap-x-5">
+          <p>{user?.userName}</p>
+          <ProfileModUserName />
+        </div>
+
+        <div className="flex flex-col gap-y-5">
+          <p>{user?.profileDesc}</p>
+          <ProfileModDesc />
+        </div>
       </div>
-      <ProfileModImage />
+
+      <div className="mt-10 flex flex-row gap-x-10 bg-slate-600 p-4">
+        <div className="flex flex-col gap-y-4">
+          <MyLoungesList />
+        </div>
+        <div className="flex flex-col gap-y-4">
+          <SideBox />
+          <SideBox />
+          <SideBox />
+          <SideBox />
+          <SideBox />
+        </div>
+      </div>
     </Page>
   );
 }

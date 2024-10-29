@@ -7,6 +7,9 @@ import Link from "next/link";
 import { LuFilePlus } from "react-icons/lu";
 import PostsList from "../../post/PostsList/PostsList";
 import LoungeAccessForm from "../LoungeAccess/LoungeAccessForm";
+import LoungeModImg from "../LoungeMod/LoungeModImg/LoungeModImg";
+import LoungeModIntroduction from "../LoungeMod/LoungeModIntroduction/LoungeModIntroduction";
+import LoungeModName from "../LoungeMod/LoungeModName/LoungeModName";
 
 async function LoungeDetailForm({
 	loungeId,
@@ -43,6 +46,11 @@ async function LoungeDetailForm({
 						{lounge?.introduction}
 					</p>
 				</div>
+        <div className="bg-black text-white">
+          <LoungeModImg />
+          <LoungeModName />
+          <LoungeModIntroduction />
+        </div>
 			</div>
 
 			<div className="w-full px-8 rounded-md bg-[#73020b9d] h-14 flex flex-row items-center text-white text-base font-bold text-center">
@@ -83,6 +91,7 @@ async function LoungeDetailForm({
 			</div>
 		</Page>
 	);
+
 }
 
 export default LoungeDetailForm;

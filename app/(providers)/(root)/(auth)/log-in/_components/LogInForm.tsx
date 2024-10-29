@@ -10,176 +10,169 @@ import { FaArrowRight } from "react-icons/fa";
 import { ImYelp } from "react-icons/im";
 
 type HandleSubmitLogInFormEvent = React.FormEvent<HTMLFormElement> & {
-	target: HTMLFormElement & {
-		email: HTMLInputElement;
-		password: HTMLInputElement;
-	};
+  target: HTMLFormElement & {
+    email: HTMLInputElement;
+    password: HTMLInputElement;
+  };
 };
 
 function LogInForm() {
-	const router = useRouter();
+  const router = useRouter();
 
-	const handleSubmitLoginForm: ComponentProps<"form">["onSubmit"] = async (
-		e: HandleSubmitLogInFormEvent
-	) => {
-		e.preventDefault();
+  const handleSubmitLoginForm: ComponentProps<"form">["onSubmit"] = async (
+    e: HandleSubmitLogInFormEvent
+  ) => {
+    e.preventDefault();
 
-		const email = e.target.email.value;
-		const password = e.target.password.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
 
-		if (!email) return alert("이메일 주소를 입력해 주세요.");
-		if (!password) return alert("비밀번호를 입력해 주세요.");
-		if (!email.includes("@"))
-			return alert("올바른 이메일 주소를 적어 주세요.");
-		if (password.length < 8)
-			return alert("비밀번호는 8글자 이상이어야 합니다.");
+    if (!email) return alert("이메일 주소를 입력해 주세요.");
+    if (!password) return alert("비밀번호를 입력해 주세요.");
+    if (!email.includes("@")) return alert("올바른 이메일 주소를 적어 주세요.");
+    if (password.length < 8)
+      return alert("비밀번호는 8글자 이상이어야 합니다.");
 
-		const { data, error } = await supabase.auth.signInWithPassword({
-			email,
-			password,
-		});
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
 
-		if (data.user) {
-			alert("축하합니다. 로그인에 성공하였습니다.");
-			router.push("/");
-		} else {
-			alert("로그인에 실패하였습니다.");
-		}
-	};
+    if (data.user) {
+      alert("축하합니다. 로그인에 성공하였습니다.");
+      router.push("/");
+    } else {
+      alert("로그인에 실패하였습니다.");
+    }
+  };
 
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        queryParams: {
+          access_type: "offline",
+          prompt: "consent",
+        },
+      },
+    });
 
-	const handleGoogleLogin = async () => {
-		const { error } = await supabase.auth.signInWithOAuth({
-			provider: 'google',
-			options: {
-				queryParams: {
-					access_type: 'offline',
-					prompt: 'consent',
-				},
-			},
-		})
+    if (error) {
+      alert("구글 로그인에 실패하였습니다.");
+      console.error("Kakao login error:", error.message);
+    }
+  };
 
-		if (error) {
-			alert("구글 로그인에 실패하였습니다.")
-			console.error("Kakao login error:", error.message)
-		}
-	}
+  const handleKakaoLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "kakao",
+    });
 
+    if (error) {
+      alert("카카오 로그인에 실패하였습니다.");
+      console.error("Kakao login error:", error.message);
+    }
+  };
 
+  return (
+    <Page>
+      <div className="mx-auto w-[1000px] grid grid-cols-2 gap-x-4  bg-[#433E49] p-4 rounded-xl">
+        <div className="bg-black relative rounded-lg">
+          <img
+            src="https://i.pinimg.com/enabled/564x/00/02/26/000226c3b462aa5675b4a60bc73055bf.jpg"
+            className="w-full h-[800px] opacity-80 object-cover rounded-lg"
+          />
+          <div className="absolute top-4 left-4 text-white text-4xl">
+            <ImYelp />
+          </div>
+          <div className="absolute top-4 right-4 w-36 h-7">
+            <div className="bg-white/30 rounded-full text-sm text-white">
+              <Link href={"/"}>
+                <p className="text-center flex flex-row items-center justify-center gap-x-2">
+                  Back to website
+                  <FaArrowRight className="text-xs" />
+                </p>
+              </Link>
+            </div>
+          </div>
+          <div className="w-full absolute bottom-10 left-2/4 translate-x-[-50%] text-white">
+            <p className="text-center font-medium text-2xl">
+              Enjoying your hobbies,
+              <br />
+              Let everyone know about your hobbies.
+            </p>
+          </div>
+        </div>
 
-	const handleKakaoLogin = async () => {
-		const { error } = await supabase.auth.signInWithOAuth({
-			provider: 'kakao',
-		});
+        <div className="grid place-items-center">
+          <div className="flex flex-col justify-center">
+            <h1 className="font-bold text-4xl text-white">Create an account</h1>
+            <div className="my-6 flex flex-row gap-x-3 text-sm font-semibold">
+              <p className="text-white/70">Don't have an account yet?</p>
+              <Link
+                href={"/sign-up"}
+                className="border-b text-cyan-700 border-cyan-800"
+              >
+                Sign up
+              </Link>
+            </div>
 
-		if (error) {
-			alert("카카오 로그인에 실패하였습니다.");
-			console.error("Kakao login error:", error.message);
-		}
-	};
+            <form
+              onSubmit={handleSubmitLoginForm}
+              className="w-96 grid grid-cols-1 gap-y-4"
+            >
+              {/* 이메일 */}
+              <Input
+                type="email"
+                name="email"
+                helpText="이메일을 입력해주세요."
+                placeholder="Enter your email"
+              />
 
-	return (
-		<Page>
-			<div className="mx-auto w-[1000px] grid grid-cols-2 gap-x-4  bg-[#433E49] p-4 rounded-xl">
-				<div className="bg-black relative rounded-lg">
-					<img
-						src="https://i.pinimg.com/enabled/564x/00/02/26/000226c3b462aa5675b4a60bc73055bf.jpg"
-						className="w-full h-[800px] opacity-80 object-cover rounded-lg"
-					/>
-					<div className="absolute top-4 left-4 text-white text-4xl">
-						<ImYelp />
-					</div>
-					<div className="absolute top-4 right-4 w-36 h-7">
-						<div className="bg-white/30 rounded-full text-sm text-white">
-							<Link href={"/"}>
-								<p className="text-center flex flex-row items-center justify-center gap-x-2">
-									Back to website
-									<FaArrowRight className="text-xs" />
-								</p>
-							</Link>
-						</div>
-					</div>
-					<div className="w-full absolute bottom-10 left-2/4 translate-x-[-50%] text-white">
-						<p className="text-center font-medium text-2xl">
-							Enjoying your hobbies,
-							<br />
-							Let everyone know about your hobbies.
-						</p>
-					</div>
-				</div>
+              {/* 비밀번호 */}
+              <Input
+                type="password"
+                name="password"
+                helpText="비밀번호를 입력해주세요."
+                placeholder="Enter your password"
+              />
 
-				<div className="grid place-items-center">
-					<div className="flex flex-col justify-center">
-						<h1 className="font-bold text-4xl text-white">
-							Create an account
-						</h1>
-						<div className="my-6 flex flex-row gap-x-3 text-sm font-semibold">
-							<p className="text-white/70">
-								Don't have an account yet?
-							</p>
-							<Link
-								href={"/sign-up"}
-								className="border-b text-cyan-700 border-cyan-800"
-							>
-								Sign up
-							</Link>
-						</div>
+              <button
+                type="submit"
+                className="bg-[#928490] text-white font-normal text-lg p-4 rounded-md"
+              >
+                Let's be together
+              </button>
 
-						<form
-							onSubmit={handleSubmitLoginForm}
-							className="w-96 grid grid-cols-1 gap-y-4"
-						>
-							{/* 이메일 */}
-							<Input
-								type="email"
-								name="email"
-								helpText="이메일을 입력해주세요."
-								placeholder="Enter your email"
-							/>
+              <div className="flex flex-row justify-center items-center">
+                <div className="w-full h-0.5 bg-gray-400" />
+                <p className="w-full mx-3 text-center leading-normal text-gray-400">
+                  Or register with
+                </p>
+                <div className="w-full h-0.5 bg-gray-400" />
+              </div>
 
-							{/* 비밀번호 */}
-							<Input
-								type="password"
-								name="password"
-								helpText="비밀번호를 입력해주세요."
-								placeholder="Enter your password"
-							/>
+              <div className="flex flex-row gap-x-4 text-white">
+                <button
+                  onClick={handleKakaoLogin}
+                  className="w-full inline-block border border-gray-300 rounded-md py-4 text-center"
+                >
+                  kakao
+                </button>
 
-							<button
-								type="submit"
-								className="bg-[#928490] text-white font-normal text-lg p-4 rounded-md"
-							>
-								Let's be together
-							</button>
-
-							<div className="flex flex-row justify-center items-center">
-								<div className="w-full h-0.5 bg-gray-400" />
-								<p className="w-full mx-3 text-center leading-normal text-gray-400">
-									Or register with
-								</p>
-								<div className="w-full h-0.5 bg-gray-400" />
-							</div>
-
-							<div className="flex flex-row gap-x-4 text-white">
-								<button
-									onClick={handleKakaoLogin}
-									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
-									kakao
-								</button>
-
-								<button
-									onClick={handleGoogleLogin}
-									className="w-full inline-block border border-gray-300 rounded-md py-4 text-center">
-									google
-								</button>
-							</div>
-						</form>
-
-					</div>
-				</div>
-			</div>
-		</Page>
-	);
+                <button
+                  onClick={handleGoogleLogin}
+                  className="w-full inline-block border border-gray-300 rounded-md py-4 text-center"
+                >
+                  google
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </Page>
+  );
 }
 
 export default LogInForm;
