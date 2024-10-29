@@ -7,13 +7,14 @@ import postsAPI from "./posts.api";
 import profilesAPI from "./users.api";
 
 const api = {
-	lounges: loungesAPI,
-	categories: categoriesAPI,
-	posts: postsAPI,
-	lectures: lecturesAPI,
-	likes: likesAPI,
-	users: profilesAPI,
-	followCategories: followCategoriesAPI,
+  lounges: loungesAPI,
+  categories: categoriesAPI,
+  posts: postsAPI,
+  lectures: lecturesAPI,
+  likes: likesAPI,
+  users: profilesAPI,
+  followLounges: followLoungesAPI,
+  followCategories: followCategoriesAPI,
 };
 
 export default api;
