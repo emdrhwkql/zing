@@ -48,7 +48,7 @@ function LikeButton({ postId }: LikeButtonProps) {
 	return (
 		<button
 			onClick={handleClickLikeBtn}
-			className="items-center group relative"
+			className="items-center group relative active:scale-90 active:duration-100"
 		>
 			<div>
 				{isLike ? (

@@ -6,70 +6,62 @@ import Link from "next/link";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-function LoungesList({
-  lounges,
-  pageTitle,
-}: {
-  lounges: Lounges;
-  pageTitle?: boolean;
-}) {
-  const [isShowMore, setIsShowMore] = useState(false);
+function LoungesList({ lounges }: { lounges: Lounges }) {
+	const [isShowMore, setIsShowMore] = useState(false);
 
-  const noFreeLounge = lounges?.filter((lounge) => lounge.categoryId !== 0);
+	const noFreeLounge = lounges?.filter((lounge) => lounge.categoryId !== 0);
 
 	return (
 		<MainBox>
-			{pageTitle ? (
-				<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
-					인기 라운지 목록
-				</h1>
-			) : (
-				<h1 className="mb-4 pb-4 font-bold text-2xl border-b">
-					라운지 목록
-				</h1>
-			)}
+			<h1 className="font-bold text-2xl border-b">라운지 목록</h1>
 
-      {isShowMore ? (
-        <ul className="grid grid-cols-1 gap-y-5">
-          {noFreeLounge.map((lounge) => (
-            <li
-              key={lounge.id}
-              className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center"
-            >
-              <Link href={`/lounges/${lounge.id}`}>
-                <div className="flex flex-row items-center">
-                  <img src={lounge.imageUrl} className="w-10 h-10 bg-black" />
-                  <div className="ml-3 flex flex-col">
-                    <p>{lounge.name}</p>
-                    <p>{lounge.introduction}</p>
-                  </div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <ul className="grid grid-cols-1 gap-y-5">
-          {noFreeLounge
-            .map((lounge) => (
-              <li
-                key={lounge.id}
-                className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center"
-              >
-                <Link href={`/lounges/${lounge.id}`}>
-                  <div className="flex flex-row items-center">
-                    <img src={lounge.imageUrl} className="w-10 h-10 bg-black" />
-                    <div className="ml-3 flex flex-col">
-                      <p>{lounge.name}</p>
-                      <p>{lounge.introduction}</p>
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            ))
-            .slice(0, 10)}
-        </ul>
-      )}
+			{isShowMore ? (
+				<ul className="grid grid-cols-1 gap-y-5">
+					{noFreeLounge.map((lounge) => (
+						<li
+							key={lounge.id}
+							className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center"
+						>
+							<Link href={`/lounges/${lounge.id}`}>
+								<div className="flex flex-row items-center">
+									<img
+										src={lounge.imageUrl}
+										className="w-10 h-10 bg-black"
+									/>
+									<div className="ml-3 flex flex-col">
+										<p>{lounge.name}</p>
+										<p>{lounge.introduction}</p>
+									</div>
+								</div>
+							</Link>
+						</li>
+					))}
+				</ul>
+			) : (
+				<ul className="grid grid-cols-1 gap-y-5">
+					{noFreeLounge
+						.map((lounge) => (
+							<li
+								key={lounge.id}
+								className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center"
+							>
+								<Link href={`/lounges/${lounge.id}`}>
+									<div className="flex flex-row items-center">
+										<img
+											src={lounge.imageUrl}
+											className="w-10 h-10 bg-black"
+										/>
+										<div className="ml-3 flex flex-col">
+											<p>{lounge.name}</p>
+											<p>{lounge.introduction}</p>
+										</div>
+									</div>
+								</Link>
+							</li>
+						))
+						.slice(0, 10)}
+				</ul>
+			)}
 
 			<div className="mt-3 flex justify-center relative">
 				<button
@@ -87,7 +79,6 @@ function LoungesList({
 			</div>
 		</MainBox>
 	);
-
 }
 
 export default LoungesList;
