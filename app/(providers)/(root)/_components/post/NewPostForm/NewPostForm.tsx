@@ -6,8 +6,6 @@ import Page from "@/components/Page";
 import Textarea from "@/components/Textarea";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { nanoid } from "nanoid";
-import { useState } from "react";
 import { LuFilePlus } from "react-icons/lu";
 import { MdOutlineCreate } from "react-icons/md";
 import useNewPostForm from "./NewPostForm.hooks";
@@ -15,52 +13,26 @@ import useNewPostForm from "./NewPostForm.hooks";
 function NewPostForm() {
   const queryClient = useQueryClient();
   const currentUser = useAuthStore((state) => state.currentUser);
-  const [imageFile, setImageFile] = useState<File | undefined>();
   const {
     inputTitleRef,
     inputContentRef,
     handleClickAddPost,
     isCreateOnProcess,
+    setImageFile,
   } = useNewPostForm();
 
-  const { mutateAsync: setPostImage } = useMutation({
-    mutationFn: async ({
-      filepath,
-      imageFile,
-    }: {
-      filepath: string;
-      imageFile: File;
-    }) => api.posts.setPostImage(filepath, imageFile),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-  });
+  interface UpdatePostImg {
+    imageUrl: string;
+    loungeId: number;
+  }
 
   const { mutate: updateImg } = useMutation({
-    mutationFn: async (imageUrl: string) =>
-      api.posts.updatePostImg(currentUser!, imageUrl),
+    mutationFn: async ({ imageUrl, loungeId }: UpdatePostImg) =>
+      api.lounges.updateLoungeImg(currentUser!, imageUrl, loungeId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
-
-  const handleClickAddPostImage = async () => {
-    if (!imageFile) return;
-
-    const extension = imageFile.name.split(".").slice(-1)[0];
-    const filepath = `${nanoid()}.${extension}`;
-
-    // storage에 이미지 업로드
-    const result = await setPostImage({ filepath, imageFile });
-
-    const baseURL =
-      "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/";
-
-    const postImageUrl = baseURL + result?.fullPath;
-
-    // user 테이블에
-    updateImg(postImageUrl);
-  };
 
   return (
     <Page>
@@ -75,7 +47,6 @@ function NewPostForm() {
             <button
               onClick={() => {
                 handleClickAddPost();
-                handleClickAddPostImage();
               }}
               className="ml-auto text-white p-2 font-bold rounded-md w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
               disabled={isCreateOnProcess}

@@ -9,19 +9,19 @@ import { nanoid } from "nanoid";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface UpdateLoungeImg {
+interface UpdatePostImg {
   imageUrl: string;
   loungeId: number;
 }
 
-function LoungeModImg() {
+function PostModImg() {
   const [imageFile, setImageFile] = useState<File | undefined>();
   const currentUser = useAuthStore((state) => state.currentUser);
   const queryClient = useQueryClient();
   const params = useParams();
 
-  const loungeId = Number(params.loungeId);
-  const { mutateAsync: setLoungeImage } = useMutation({
+  const postId = Number(params.postId);
+  const { mutateAsync: setPostImage } = useMutation({
     mutationFn: async ({
       filepath,
       imageFile,
@@ -35,8 +35,8 @@ function LoungeModImg() {
   });
 
   const { mutate: updateImg } = useMutation({
-    mutationFn: async ({ imageUrl, loungeId }: UpdateLoungeImg) =>
-      api.lounges.updateLoungeImg(currentUser!, imageUrl, loungeId),
+    mutationFn: async ({ imageUrl, loungeId }: UpdatePostImg) =>
+      api.posts.updatePostImg(currentUser!, imageUrl, loungeId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
@@ -46,34 +46,34 @@ function LoungeModImg() {
     if (!currentUser) return;
 
     (async () => {
-      const { data: lounges } = await supabase
-        .from("lounges")
+      const { data: posts } = await supabase
+        .from("posts")
         .select("*")
         .eq("userId", currentUser!.id);
-      console.log("lounges", lounges);
+      // console.log("lounges", posts);
 
-      if (!lounges) return;
+      if (!posts) return;
 
-      const lounge = lounges[loungeId];
+      const post = posts[postId];
     })();
   }, [currentUser]);
 
-  const handleClickUpdateLoungeImg = async () => {
+  const handleClickUpdatePostImg = async () => {
     if (!imageFile) return;
 
     const extension = imageFile.name.split(".").slice(-1)[0];
     const filepath = `${nanoid()}.${extension}`;
 
     // storage에 이미지 업로드
-    const result = await setLoungeImage({ filepath, imageFile });
+    const result = await setPostImage({ filepath, imageFile });
 
     const baseURL =
       "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/";
 
-    const loungeImageUrl = baseURL + result?.fullPath;
+    const postImageUrl = baseURL + result?.fullPath;
 
     // user 테이블에
-    updateImg({ imageUrl: loungeImageUrl, loungeId: loungeId! });
+    updateImg({ imageUrl: postImageUrl, loungeId: postId! });
   };
   return (
     // 테이블에 기본 이미지 빼기
@@ -85,9 +85,9 @@ function LoungeModImg() {
           inputClassName="mb-4"
         />
       </div>
-      <button onClick={handleClickUpdateLoungeImg}>이미지 수정하기</button>
+      <button onClick={handleClickUpdatePostImg}>이미지 수정하기</button>
     </>
   );
 }
 
-export default LoungeModImg;
+export default PostModImg;

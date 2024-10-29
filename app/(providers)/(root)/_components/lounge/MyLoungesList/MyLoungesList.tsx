@@ -7,7 +7,7 @@ function MyLoungesList() {
   const currentUser = useAuthStore((state) => state.currentUser);
   const { data: lounges } = useQuery({
     queryKey: ["lounges"],
-    queryFn: async () => api.lounges.getLoungesICreated(currentUser!),
+    queryFn: async () => api.posts.getLoungesICreated(currentUser!),
   });
 
   return (

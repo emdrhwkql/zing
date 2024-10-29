@@ -6,44 +6,45 @@ import LoungesList from "../_components/lounge/LoungesList/LoungesList";
 import FreeLoungePostsList from "../_components/post/FreeLoungePostsList/FreeLoungePostsList";
 
 async function HomePage() {
-	const lounges = await api.lounges.getAllLounges();
+  const lounges = await api.posts.getAllLounges();
 
-	const loungeId = 0;
-	const freePosts = await api.posts.getPostsByLoungeId(loungeId);
+  const loungeId = 0;
+  const freePosts = await api.posts.getPostsByLoungeId(loungeId);
 
-	return (
-		<Page>
-			<div className="flex flex-row justify-center">
-				<div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
-					<FreeLoungePostsList posts={freePosts} />
+  return (
+    <Page>
+      <div className="flex flex-row justify-center">
+        <div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
+          <FreeLoungePostsList posts={freePosts} />
 
-					<LoungesList lounges={lounges} pageTitle />
+          <PopularLoungeList lounges={lounges} />
 
-					<CategoriesHomeList />
 
-					<LecturesList isShowList={true} isShowSeeMore={true} />
-				</div>
+          <CategoriesHomeList />
 
-				<div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
-					<div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
-						내가 팔로우한 라운지
-					</div>
+          <LecturesList isShowList={true} isShowSeeMore={true} />
+        </div>
 
-					<div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
-						인기 라운지 글
-					</div>
+        <div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
+          <div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
+            내가 팔로우한 라운지
+          </div>
 
-					<div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
-						내가 팔로우한 라운지
-					</div>
+          <div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
+            인기 라운지 글
+          </div>
 
-					<div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
-						내가 팔로우한 라운지
-					</div>
-				</div>
-			</div>
-		</Page>
-	);
+          <div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
+            내가 팔로우한 라운지
+          </div>
+
+          <div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
+            내가 팔로우한 라운지
+          </div>
+        </div>
+      </div>
+    </Page>
+  );
 }
 
 export default HomePage;

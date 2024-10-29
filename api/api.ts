@@ -6,12 +6,12 @@ import postsAPI from "./posts.api";
 import profilesAPI from "./users.api";
 
 const api = {
-	lounges: loungesAPI,
-	categories: categoriesAPI,
-	posts: postsAPI,
-	lectures: lecturesAPI,
-	likes: likesAPI,
-	users: profilesAPI,
+  lounges: loungesAPI,
+  categories: categoriesAPI,
+  posts: postsAPI,
+  lectures: lecturesAPI,
+  likes: likesAPI,
+  users: profilesAPI,
 };
 
 export default api;

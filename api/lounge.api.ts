@@ -25,6 +25,7 @@ async function getLounge(loungeId: number) {
     .select("*")
     .eq("id", loungeId)
     .single();
+
   const lounges = response.data;
   if (!lounges) return;
 
