@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import MainBox from "@/components/MainBox";
 import Page from "@/components/Page";
@@ -41,7 +41,7 @@ function LecturesList({
 											className="relative bg-black"
 										>
 											<Link
-												href={`/HobbyClassList/${lecture.id}/HobbyClassListDetailPage`}
+												href={`/HobbyClassList/${lecture.id}`}
 											>
 												<img
 													src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/_class_images/${lecture.imageUrl}`}
@@ -53,14 +53,14 @@ function LecturesList({
 														{lecture["lectureTitle"]
 															.length < 25
 															? lecture[
-																	"lectureTitle"
-															  ]
+															"lectureTitle"
+															]
 															: lecture[
-																	"lectureTitle"
-															  ].substring(
-																	0,
-																	25
-															  )}
+																"lectureTitle"
+															].substring(
+																0,
+																25
+															)}
 													</h1>
 
 													<p>
@@ -69,11 +69,11 @@ function LecturesList({
 														].length < 8
 															? null
 															: lecture[
-																	"lectureCurriculum"
-															  ].substring(
-																	0,
-																	40
-															  ) + "..."}
+																"lectureCurriculum"
+															].substring(
+																0,
+																40
+															) + "..."}
 													</p>
 
 													<div className="flex flex-row items-center">
@@ -83,7 +83,7 @@ function LecturesList({
 															<p>
 																{
 																	lecture[
-																		"cityAddress"
+																	"cityAddress"
 																	]
 																}
 															</p>
@@ -124,7 +124,7 @@ function LecturesList({
 											className="relative bg-black"
 										>
 											<Link
-												href={`/lectures/${lecture.id}`}
+												href={`/HobbyClassList	/${lecture.id}`}
 											>
 												<img
 													src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/_class_images/${lecture.imageUrl}`}
@@ -136,14 +136,14 @@ function LecturesList({
 														{lecture["lectureTitle"]
 															.length < 25
 															? lecture[
-																	"lectureTitle"
-															  ]
+															"lectureTitle"
+															]
 															: lecture[
-																	"lectureTitle"
-															  ].substring(
-																	0,
-																	25
-															  )}
+																"lectureTitle"
+															].substring(
+																0,
+																25
+															)}
 													</h1>
 
 													<p>
@@ -152,11 +152,11 @@ function LecturesList({
 														].length < 8
 															? null
 															: lecture[
-																	"lectureCurriculum"
-															  ].substring(
-																	0,
-																	40
-															  ) + "..."}
+																"lectureCurriculum"
+															].substring(
+																0,
+																40
+															) + "..."}
 													</p>
 
 													<div className="flex flex-row items-center">
@@ -166,7 +166,7 @@ function LecturesList({
 															<p>
 																{
 																	lecture[
-																		"cityAddress"
+																	"cityAddress"
 																	]
 																}
 															</p>
@@ -226,7 +226,7 @@ function LecturesList({
 											className="relative bg-black"
 										>
 											<Link
-												href={`/lectures/${lecture.id}`}
+												href={`/HobbyClassList/${lecture.id}`}
 											>
 												<img
 													src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/_class_images/${lecture.imageUrl}`}
@@ -238,14 +238,14 @@ function LecturesList({
 														{lecture["lectureTitle"]
 															.length < 25
 															? lecture[
-																	"lectureTitle"
-															  ]
+															"lectureTitle"
+															]
 															: lecture[
-																	"lectureTitle"
-															  ].substring(
-																	0,
-																	25
-															  )}
+																"lectureTitle"
+															].substring(
+																0,
+																25
+															)}
 													</h1>
 
 													<p>
@@ -254,11 +254,11 @@ function LecturesList({
 														].length < 8
 															? null
 															: lecture[
-																	"lectureCurriculum"
-															  ].substring(
-																	0,
-																	40
-															  ) + "..."}
+																"lectureCurriculum"
+															].substring(
+																0,
+																40
+															) + "..."}
 													</p>
 
 													<div className="flex flex-row items-center">
@@ -268,7 +268,7 @@ function LecturesList({
 															<p>
 																{
 																	lecture[
-																		"cityAddress"
+																	"cityAddress"
 																	]
 																}
 															</p>

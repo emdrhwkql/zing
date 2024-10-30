@@ -96,11 +96,11 @@ export default function Component() {
                     </div>
                     {/* 공지에 오늘,최근 일주일, 최근 한달 쓸 필요가 없어서 지웟음 */}
                     <div className="space-y-6">
-                        {notifications.map((notification) => (
+                        {notifications.map((notification, index) => (
                             <Link
                                 key={notification.id}
                                 href={`/posts/${notification.id}`}
-                                className="flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors"
+                                className={`flex items-start gap-4 p-3 hover:bg-gray-50 rounded-lg transition-colors ${index !== 0 ? 'border-t border-gray-200' : ''}`}
                             >
                                 <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
                                     <img src="image/zii.png" alt="" className="w-full h-full rounded-full object-cover" />
@@ -115,8 +115,9 @@ export default function Component() {
                                             {new Date(notification.createdAt).toLocaleDateString('ko-KR', {
                                                 month: '2-digit',
                                                 day: '2-digit'
-                                            }).replace(/\./g, '').trim()}
+                                            }).replace(/ /g, '')}
                                         </span>
+
                                     </div>
                                     <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                                         {notification.content}
