@@ -114,6 +114,20 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          id: number
+          role: string
+        }
+        Insert: {
+          id?: number
+          role: string
+        }
+        Update: {
+          id?: number
+          role: string
+        }
+      }
       lectures: {
         Row: {
           categoryOne: string
