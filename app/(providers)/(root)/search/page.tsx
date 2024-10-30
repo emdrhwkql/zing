@@ -1,90 +1,95 @@
-import { Database } from '@/supabase/database.types'
-import { createClient } from '@supabase/supabase-js'
+"use client";
 
-const supabase = createClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
+import supabase from "@/supabase/client";
+import { Tables } from "@/supabase/database.types";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-type Post = Database['public']['Tables']['posts']['Row']
-type Lounge = Database['public']['Tables']['lounges']['Row']
+export default function SearchPage() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get("q");
+  const [posts, setPosts] = useState<Tables<"posts">[]>([]);
+  const [lounges, setLounges] = useState<Tables<"lounges">[]>([]);
 
-export default async function SearchPage({
-    searchParams
-}: {
-    searchParams: { q: string }
-}) {
-    const searchTerm = searchParams.q
+  const search = async (query: string) => {
+    const searchPostsPromise = supabase
+      .from("posts")
+      .select("*")
+      .ilike("title", `%${query}%`);
 
-    const [postsResult, loungesResult] = await Promise.all([
-        supabase
-            .from('posts')
-            .select('*')
-            .ilike('title', `%${searchTerm}%`),
-        supabase
-            .from('lounges')
-            .select('*')
-            .ilike('name', `%${searchTerm}%`)
-    ])
+    const searchLoungesPromise = supabase
+      .from("lounges")
+      .select("*")
+      .ilike("name", `%${query}%`);
 
-    let posts: Post[] = []
-    let lounges: Lounge[] = []
+    const [{ data: posts }, { data: lounges }] = await Promise.all([
+      searchPostsPromise,
+      searchLoungesPromise,
+    ]);
 
-    if (postsResult.error) {
-        console.error('포스트 검색 중 오류 발생:', postsResult.error)
-    } else {
-        posts = postsResult.data
-    }
+    setPosts(posts || []);
+    setLounges(lounges || []);
+  };
 
-    if (loungesResult.error) {
-        console.error('라운지 검색 중 오류 발생:', loungesResult.error)
-    } else {
-        lounges = loungesResult.data
-    }
+  useEffect(() => {
+    if (!query) return;
 
-    return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4 items-center justify-center">검색 결과: {searchTerm}</h1>
-            <div className="flex justify-between">
-                {/* 포스트 검색 결과 */}
-                <div className="w-1/2 pr-4">
-                    <h2 className="text-xl font-semibold mb-4">포스트 검색 결과</h2>
-                    {posts.length > 0 ? (
-                        <ul className="space-y-4">
-                            {posts.map((post) => (
-                                <li key={post.id} className="border p-4 rounded-md">
-                                    <h3 className="text-lg font-semibold">{post.title}</h3>
-                                    <p className="mt-2">{post.content}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>포스트 검색 결과가 없습니다.</p>
-                    )}
-                </div>
+    search(query);
+  }, [query]);
 
-                {/* 라운지 검색 결과 */}
-                <div className="w-1/2 pl-4">
-                    <h2 className="text-xl font-semibold mb-4">라운지 검색 결과</h2>
-                    {lounges.length > 0 ? (
-                        <ul className="space-y-4">
-                            {lounges.map((lounge) => (
-                                <li key={lounge.id} className="border p-4 rounded-md">
-                                    <h3 className="text-lg font-semibold">{lounge.name}</h3>
-                                    <p className="mt-2">{lounge.introduction}</p>
-                                    <p className="mt-2 text-sm text-gray-600">
-                                        카테고리 ID: {lounge.categoryId},
-                                        완료 여부: {lounge.isCompleted ? '완료' : '미완료'},
-                                        좋아요 여부: {lounge.isLiked ? '좋아요' : '좋아요 안함'}
-                                    </p>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>라운지 검색 결과가 없습니다.</p>
-                    )}
-                </div>
-            </div>
+  return (
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4 items-center justify-center">
+        검색 결과: {query}
+      </h1>
+
+      <div className="grid grid-cols-2 gap-x-5">
+        {/* 포스트 검색 결과 */}
+        <div>
+          <h2 className="text-xl font-bold mb-4">포스트 검색 결과</h2>
+
+          {posts.length > 0 ? (
+            <ul className="space-y-4">
+              {posts.map((post) => (
+                <li key={post.id}>
+                  <Link
+                    href={`/posts/${post.id}`}
+                    className="border p-4 rounded-md block"
+                  >
+                    <h3 className="text-lg font-semibold">{post.title}</h3>
+                    <p className="mt-2">{post.content}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>포스트 검색 결과가 없습니다.</p>
+          )}
         </div>
-    )
+
+        {/* 라운지 검색 결과 */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">라운지 검색 결과</h2>
+          {lounges.length > 0 ? (
+            <ul className="space-y-4">
+              {lounges.map((lounge) => (
+                <li key={lounge.id}>
+                  <Link
+                    href={`/lounges/${lounge.id}`}
+                    className="border p-4 rounded-md block"
+                  >
+                    <h3 className="text-lg font-semibold">{lounge.name}</h3>
+                    <p className="mt-2">{lounge.introduction}</p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>라운지 검색 결과가 없습니다.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
