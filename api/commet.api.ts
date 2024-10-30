@@ -1,6 +1,5 @@
 import supabase from "@/supabase/client";
 
-
 async function getPost(postId: number) {
 	const response = await supabase
 		.from("posts")
@@ -22,18 +21,18 @@ async function getComments(postId: number) {
 		.eq("postId", postId)
 		.order("createdAt", { ascending: false });
 
-	const posts = response.data
+	const getcomets = response.data
 
-	if (!posts) return null
+	if (!getcomets) return null
 
-	return posts;
+	return getcomets;
 }
 
 async function addComment(postId: number, content: string, userId: string) {
 	const response = await supabase
 		.from("comments")
 		.insert([{ postId, content, userId }])
-		.select()
+		.select("*")
 		.single()
 
 	const comment = response.data;

@@ -9,16 +9,21 @@ import PostModImg from "../PostMod/PostModImg/PostModImg";
 import PostModTitle from "../PostMod/PostModTitle/PostModTitle";
 
 async function PostDetailForm({ postId }: { postId: number }) {
-	const post = await commetAPI.posts.getPost(postId);
-	const comments = await commetAPI.posts.getComments(postId);
+	const post = await commetAPI.getPost(postId);
+	const comments = await commetAPI.getComments(postId);
 
 	if (!post) {
 		return <div>게시물을 찾을 수 없습니다.</div>;
 	}
 
-	// 여기에서 사용자 ID를 가져옵니다.
-	const userId = post.userId; // 예: 포스트의 사용자 ID를 사용하는 경우
-	// console.log(post);
+	const userId = post.userId;
+
+	const commentsWithUserId = comments
+		? comments.map(comment => ({
+			...comment,
+			userId: userId // 포스트의 유저 아이도로 넣음
+		}))
+		: null;
 
 	return (
 		<Page>
@@ -51,10 +56,9 @@ async function PostDetailForm({ postId }: { postId: number }) {
 				</div>
 				<CommentSection
 					postId={postId}
-					initialComments={comments}
+					initialComments={commentsWithUserId}
 					userId={userId}
 				/>
-				{/* 댓글에 사용자 ID 추가 */}
 			</MainBox>
 		</Page>
 	);
