@@ -16,15 +16,15 @@ function useNewPostForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  // 이름 input 값
+  // 제목 input 값
   const inputTitleRef = useRef<HTMLInputElement>(null);
-  // 소개글 input 값
+  // 내용 input 값
   const inputContentRef = useRef<HTMLTextAreaElement>(null);
 
   const params = useParams();
 
   // 카테고리 id 받아서 number형태로 변환
-  const categoryId = +params.categoryId;
+  const loungeId = +params.loungeId;
 
   const { mutate: updateImg } = useMutation({
     mutationFn: async ({ imageUrl, loungeId }: UpdatePostImg) =>
@@ -37,12 +37,7 @@ function useNewPostForm() {
   const { mutateAsync: createPost, isPending: isCreateOnProcess } = useMutation(
     {
       mutationFn: (args: { title: string; content: string }) =>
-        api.posts.createPost(
-          args.title,
-          args.content,
-          categoryId,
-          currentUser!
-        ),
+        api.posts.createPost(args.title, args.content, loungeId, currentUser!),
       onSuccess: (response) => {
         const loungeId = response!.id; // 확인해볼것
         // setLoungeImage({ filepath, imageFile }); // mutation 함수
@@ -85,39 +80,30 @@ function useNewPostForm() {
   const handleClickAddPost = async () => {
     if (isCreateOnProcess) return;
 
-    // 라운지 이름 input 값
+    // 게시글 이름 input 값
     const title = inputTitleRef.current!.value;
 
-    // 라운지 이름 비교를 위한 테이블 불러오기
-    const existingLounge = await api.lounges.getLoungeByName(title);
-    if (!!existingLounge) {
-      alert("이미 사용중인 라운지 이름입니다.");
-      inputTitleRef.current!.value = "";
-      inputContentRef.current!.value = "";
-
-      return;
-    }
-    // 라운지 이름 미작성시 안내문
+    // 게시글 이름 미작성시 안내문
     if (!title) return alert("라운지 이름을 작성해주세요.");
 
-    // 라운지 소개글 input 값
-    const introduction = inputContentRef.current!.value;
+    // 게시글 소개글 input 값
+    const content = inputContentRef.current!.value;
 
-    // 라운지 소개글 미작성시 안내문
-    if (!introduction) return alert("라운지 소개글을 작성해주세요.");
+    // 게시글 소개글 미작성시 안내문
+    if (!content) return alert("라운지 소개글을 작성해주세요.");
 
-    // 라운지 생성시 넣어줄 값
+    // 게시글 생성시 넣어줄 값
     const post = await createPost({
       title: title,
-      content: introduction,
+      content: content,
     });
-
+    console.log(1, post);
     const loungeImageUrl = await uploadImage();
 
     updateImg({ imageUrl: loungeImageUrl!, loungeId: post!.id });
 
-    // 라운지 생성후 해당 카테고리 디테일 페이지로 이동
-    router.push(`/categories/${categoryId}`);
+    // 게시글 생성후 해당 라운지 디테일 페이지로 이동
+    router.push(`/lounges/${loungeId}`);
   };
 
   return {

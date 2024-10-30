@@ -9,48 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      analytics_ip: {
-        Row: {
-          created_at: string
-          id: number
-          ip: string
-          pathname: string
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          ip: string
-          pathname: string
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          ip?: string
-          pathname?: string
-        }
-        Relationships: []
-      }
-      analytics_views: {
-        Row: {
-          id: number
-          pathname: string
-          updated_at: string
-          views: number
-        }
-        Insert: {
-          id?: number
-          pathname: string
-          updated_at?: string
-          views: number
-        }
-        Update: {
-          id?: number
-          pathname?: string
-          updated_at?: string
-          views?: number
-        }
-        Relationships: []
-      }
       categories: {
         Row: {
           categoryImg: string | null
@@ -360,6 +318,21 @@ export type Database = {
             referencedColumns: ["userId"]
           },
         ]
+      }
+      profiles: {
+        Row: {
+          id: string
+          role: string | null
+        }
+        Insert: {
+          id: string
+          role?: string | null
+        }
+        Update: {
+          id?: string
+          role?: string | null
+        }
+        Relationships: []
       }
       users: {
         Row: {

@@ -28,7 +28,7 @@ function NewPostForm() {
 
   const { mutate: updateImg } = useMutation({
     mutationFn: async ({ imageUrl, loungeId }: UpdatePostImg) =>
-      api.lounges.updateLoungeImg(currentUser!, imageUrl, loungeId),
+      api.posts.updatePostImg(currentUser!, imageUrl, loungeId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
