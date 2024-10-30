@@ -2,6 +2,7 @@
 
 import LikeButton from "@/components/LikeButton";
 import MainBox from "@/components/MainBox";
+import PostFeed from "@/components/PostFeed";
 import { Posts } from "@/types/posts.types";
 import Link from "next/link";
 import { useState } from "react";

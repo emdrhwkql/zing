@@ -1,82 +1,52 @@
 import supabase from "@/supabase/client";
 
-interface Post {
-	id: number;
-	title: string;
-	content: string;
-	createdAt: string;
-	userId: string;
-	// 필요한 다른 필드들...
+
+async function getPost(postId: number) {
+	const response = await supabase
+		.from("posts")
+		.select("*")
+		.eq("id", postId)
+		.single();
+
+	const posts = response.data;
+
+	if (!posts) return null;
+
+	return posts;
 }
 
-interface Comment {
-	id: number;
-	postId: number;
-	userId: string;
-	content: string;
-	createdAt: string;
+async function getComments(postId: number) {
+	const response = await supabase
+		.from("comments")
+		.select("*")
+		.eq("postId", postId)
+		.order("createdAt", { ascending: false });
+
+	const posts = response.data
+
+	if (!posts) return null
+
+	return posts;
 }
 
-const api = {
-	posts: {
-		createPost: async (
-			title: string,
-			content: string,
-			loungeId: number
-		): Promise<void> => {
-			// 게시물 생성 로직...
-		},
-		getPost: async (postId: number): Promise<Post | null> => {
-			const { data, error } = await supabase
-				.from("posts")
-				.select("*")
-				.eq("id", postId)
-				.single();
+async function addComment(postId: number, content: string, userId: string) {
+	const response = await supabase
+		.from("comments")
+		.insert([{ postId, content, userId }])
+		.select()
+		.single()
 
-			if (error) throw new Error(error.message);
-			return data as Post | null;
-		},
-		getComments: async (postId: number): Promise<Comment[]> => {
-			const { data, error } = await supabase
-				.from("comments")
-				.select("*")
-				.eq("postId", postId)
-				.order("createdAt", { ascending: false });
+	const comment = response.data;
 
-			if (error) throw new Error(error.message);
-			return (data || []).map((comment: any) => ({
-				id: comment.id,
-				postId: Number(comment.postId),
-				userId: comment.userId,
-				content: comment.content,
-				createdAt: comment.createdAt,
-			})) as Comment[];
-		},
-		addComment: async (
-			postId: number,
-			content: string,
-			userId: string
-		): Promise<Comment> => {
-			const { data, error } = await supabase
-				.from("comments")
-				.insert([{ postId, content, userId }])
-				.select()
-				.single();
+	if (!comment) return null;
 
-			if (error) throw new Error(error.message);
-			if (!data) {
-				throw new Error("댓글 추가 실패");
-			}
+	return comment
+}
 
-			return {
-				id: data.id,
-				postId: Number(data.postId),
-				userId: data.userId,
-				content: data.content,
-				createdAt: data.createdAt,
-			} as Comment;
-		},
-	},
-};
+const commentAPI = {
+	addComment,
+	getComments,
+	getPost,
+}
 
-export default api;
+export default commentAPI

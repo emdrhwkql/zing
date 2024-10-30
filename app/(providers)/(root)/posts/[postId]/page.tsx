@@ -1,10 +1,15 @@
-import { PostsIdPropsType } from "@/types/posts.types";
 import PostDetailForm from "../../_components/post/PostDetailForm/PostDetailForm";
 
-async function PostDetailPage(props: PostsIdPropsType) {
-	const postId = +props.params.postId;
+interface PostDetailPageProps {
+  params: {
+    postId: string;
+  };
+}
 
-	return <PostDetailForm postId={postId} />;
+async function PostDetailPage({ params }: PostDetailPageProps) {
+  const postId = Number(params.postId);
+
+  return <PostDetailForm postId={postId} />;
 }
 
 export default PostDetailPage;

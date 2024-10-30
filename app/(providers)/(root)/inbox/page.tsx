@@ -70,8 +70,8 @@ export default function Component() {
         <div className="min-h-screen bg-gray-50">
             <div className="container mx-auto p-6">
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold">수신함</h1>
-                    <Link href='/inbox/new' className="text-blue-600 hover:text-blue-800">포스트쓰기</Link>
+                    <h1 className="text-3xl font-bold">공지사항</h1>
+                    <Link href='/inbox/new' className="text-blue-600 hover:text-blue-800">공지 글 쓰기</Link>
                 </div>
 
                 <div className="bg-white rounded-lg shadow p-6">
