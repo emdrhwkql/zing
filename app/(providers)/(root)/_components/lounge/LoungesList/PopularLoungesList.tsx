@@ -17,7 +17,7 @@ function PopularLoungesList({ lounges }: { lounges: Lounges }) {
 					.map((lounge) => (
 						<li
 							key={lounge.id}
-							className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center hover:scale-105 hover:duration-300"
+							className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
 						>
 							<Link href={`/lounges/${lounge.id}`}>
 								<div className="flex flex-row items-center">

@@ -1,6 +1,7 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
 import CategoriesHomeList from "../_components/category/CategoryList/CategoriesHomeList";
+import MyCategoriesList from "../_components/category/MyCategoriesList/MyCategoriesList";
 import LecturesList from "../_components/lectures/LecturesList/LecturesList";
 import PopularLoungesList from "../_components/lounge/LoungesList/PopularLoungesList";
 import FreeLoungePostsList from "../_components/post/PostsList/FreeLoungePostsList";
@@ -36,11 +37,9 @@ async function HomePage() {
 						내가 팔로우한 라운지
 					</div>
 
-					<PopularLoungesList lounges={lounges} />
+					<MyCategoriesList />
 
-					<div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
-						내가 팔로우한 라운지
-					</div>
+					<PopularLoungesList lounges={lounges} />
 
 					<div className="rounded-xl w-96 h-56  bg-white grid place-items-center">
 						내가 팔로우한 라운지

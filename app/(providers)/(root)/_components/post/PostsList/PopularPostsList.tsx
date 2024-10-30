@@ -13,11 +13,9 @@ function PopularPostsList({ posts }: { posts: Posts }) {
 	return (
 		<MainBox>
 			<div className="mb-4 pb-4 border-b flex flex-row">
-				<Link href={"/lounges/0"}>
-					<h1 className="font-bold text-2xl hover:text-[27px] hover:duration-150">
-						라운지 게시글
-					</h1>
-				</Link>
+				<h1 className="font-bold text-2xl hover:text-[27px] hover:duration-150">
+					라운지 게시글
+				</h1>
 
 				<p className="h-full mt-auto ml-3 font-semibold text-xl">
 					TOP 8
