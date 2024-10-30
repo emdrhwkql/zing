@@ -48,6 +48,12 @@ function MyCategoriesList() {
 				</h1>
 			</Link>
 
+			{MyCategories?.length === 0 && (
+				<div className="grid place-items-center pt-5">
+					<p className="text-2xl">팔로우한 카테고리가 없습니다.</p>
+				</div>
+			)}
+
 			<ul className="grid grid-cols-1 gap-y-5">
 				{MyCategories?.map((category) => (
 					<li
@@ -58,7 +64,7 @@ function MyCategoriesList() {
 							<div className="flex flex-row items-center">
 								<img
 									src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_images/${category?.categoryImg}`}
-									className="w-10 h-10 bg-black"
+									className="w-10 h-10 "
 								/>
 								<div className="ml-3 flex flex-col">
 									<p className="">{category?.categoryName}</p>
@@ -70,7 +76,7 @@ function MyCategoriesList() {
 							</div>
 						</Link>
 					</li>
-				)).slice(0, 4)}
+				)).slice(0, 5)}
 			</ul>
 		</SideBox>
 	);

@@ -36,21 +36,21 @@ export type Database = {
       comments: {
         Row: {
           content: string
-          createdAt: string | null
+          createdAt: string
           id: number
           postId: number | null
           userId: string
         }
         Insert: {
           content?: string
-          createdAt?: string | null
+          createdAt?: string
           id?: number
           postId?: number | null
           userId?: string
         }
         Update: {
           content?: string
-          createdAt?: string | null
+          createdAt?: string
           id?: number
           postId?: number | null
           userId?: string
@@ -87,6 +87,32 @@ export type Database = {
             columns: ["categoryId"]
             isOneToOne: false
             referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      follow_lounges: {
+        Row: {
+          id: number
+          loungeId: number
+          userId: string
+        }
+        Insert: {
+          id?: number
+          loungeId: number
+          userId?: string
+        }
+        Update: {
+          id?: number
+          loungeId?: number
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lounges_user_loungeId_fkey"
+            columns: ["loungeId"]
+            isOneToOne: false
+            referencedRelation: "lounges"
             referencedColumns: ["id"]
           },
         ]
@@ -242,24 +268,6 @@ export type Database = {
           },
         ]
       }
-      manager: {
-        Row: {
-          id: number
-          name: string
-          userId: string
-        }
-        Insert: {
-          id?: number
-          name: string
-          userId: string
-        }
-        Update: {
-          id?: number
-          name?: string
-          userId?: string
-        }
-        Relationships: []
-      }
       posts: {
         Row: {
           content: string
@@ -270,6 +278,7 @@ export type Database = {
           title: string
           userId: string
           userName: string
+          view_count: number
         }
         Insert: {
           content?: string
@@ -280,6 +289,7 @@ export type Database = {
           title?: string
           userId?: string
           userName?: string
+          view_count?: number
         }
         Update: {
           content?: string
@@ -290,6 +300,7 @@ export type Database = {
           title?: string
           userId?: string
           userName?: string
+          view_count?: number
         }
         Relationships: [
           {
@@ -299,31 +310,12 @@ export type Database = {
             referencedRelation: "lounges"
             referencedColumns: ["id"]
           },
-        ]
-      }
-      user_lounges: {
-        Row: {
-          id: number
-          loungeId: number
-          userId: string
-        }
-        Insert: {
-          id?: number
-          loungeId: number
-          userId?: string
-        }
-        Update: {
-          id?: number
-          loungeId?: number
-          userId?: string
-        }
-        Relationships: [
           {
-            foreignKeyName: "lounges_user_loungeId_fkey"
-            columns: ["loungeId"]
+            foreignKeyName: "posts_userId_fkey1"
+            columns: ["userId"]
             isOneToOne: false
-            referencedRelation: "lounges"
-            referencedColumns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["userId"]
           },
         ]
       }
@@ -354,32 +346,23 @@ export type Database = {
         }
         Relationships: []
       }
-      views: {
-        Row: {
-          cotent: string
-          id: number
-          title: string
-          view: string
-        }
-        Insert: {
-          cotent: string
-          id?: number
-          title: string
-          view?: string
-        }
-        Update: {
-          cotent?: string
-          id?: number
-          title?: string
-          view?: string
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      get_views: {
+        Args: {
+          page_pathname: string
+        }
+        Returns: number
+      }
+      increment_view_count: {
+        Args: {
+          post_id: number
+        }
+        Returns: undefined
+      }
       views: {
         Args: {
           id: number

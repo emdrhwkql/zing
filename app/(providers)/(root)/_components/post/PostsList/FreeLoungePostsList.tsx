@@ -24,6 +24,12 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 				</p>
 			</div>
 
+			{posts.length === 0 && (
+				<div className="grid place-items-center pt-5">
+					<p className="text-2xl">라운지 게시글이 없습니다.</p>
+				</div>
+			)}
+
 			{isShowMore ? (
 				// 메인 페이지에 8개짜리
 				<ul className="grid grid-cols-4 gap-5 place-items-center">
