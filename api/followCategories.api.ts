@@ -1,4 +1,5 @@
 import supabase from "@/supabase/client";
+import { User } from "@supabase/supabase-js";
 
 async function addFollowCategoryUser(categoryId: number) {
 	const { data } = await supabase.auth.getUser();
@@ -14,12 +15,27 @@ async function getFollowCategories() {
 		.from("follow_categories")
 		.select("*", { count: "exact" });
 
-	const follow = response.data;
+	const follows = response.data;
 	const count = response.count;
 
-	if (!follow) return [];
+	if (!follows) return [];
 
-	return { follow, count };
+	return { follows, count };
+}
+
+async function getFollowCategoriesIFollow(currentUser: User) {
+	const response = await supabase
+		.from("follow_categories")
+		.select("*, category:categories (*)", { count: "exact" })
+		.eq("userId", currentUser!.id);
+
+	const follows = response.data;
+	// console.log(follow);
+	const count = response.count;
+
+	if (!follows) return {};
+
+	return { follows, count };
 }
 
 async function getFollowCategoriesByCategoryId(categoryId: number) {
@@ -28,12 +44,12 @@ async function getFollowCategoriesByCategoryId(categoryId: number) {
 		.select("*", { count: "exact" })
 		.eq("categoryId", categoryId);
 
-	const follow = response.data;
+	const follows = response.data;
 	const count = response.count;
 
-	if (!follow) return {};
+	if (!follows) return {};
 
-	return { follow, count };
+	return { follows, count };
 }
 
 async function deleteFollowCategoryUser(categoryId: number) {
@@ -46,6 +62,7 @@ async function deleteFollowCategoryUser(categoryId: number) {
 const followCategoriesAPI = {
 	addFollowCategoryUser,
 	getFollowCategories,
+	getFollowCategoriesIFollow,
 	getFollowCategoriesByCategoryId,
 	deleteFollowCategoryUser,
 };
