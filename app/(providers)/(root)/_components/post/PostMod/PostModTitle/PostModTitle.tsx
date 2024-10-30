@@ -36,7 +36,6 @@ function PostModTitle() {
         .from("posts")
         .select("*")
         .eq("userId", currentUser!.id);
-      console.log("posts", posts);
 
       if (!posts) return;
 

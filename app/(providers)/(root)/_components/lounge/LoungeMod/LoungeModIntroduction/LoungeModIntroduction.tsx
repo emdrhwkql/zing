@@ -14,15 +14,10 @@ interface UpdateIntroduction {
   loungeId: number;
 }
 
-// loungeId가 null이라서 에러가 뜸 해결 필요
-
 function LoungeModIntroduction() {
   const currentUser = useAuthStore((state) => state.currentUser);
   const [introduction, setIntroduction] = useState("");
   const params = useParams();
-
-  // 카테고리 id 받아서 number형태로 변환
-  console.log("params", params);
 
   const loungeId = Number(params.loungeId);
   const { mutate: updateIntroduction } = useMutation({
@@ -45,7 +40,6 @@ function LoungeModIntroduction() {
         .from("lounges")
         .select("*")
         .eq("userId", currentUser!.id);
-      console.log("lounges", lounges);
 
       if (!lounges) return;
 

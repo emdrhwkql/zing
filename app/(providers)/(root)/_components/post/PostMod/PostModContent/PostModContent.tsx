@@ -21,9 +21,6 @@ function PostModContent() {
   const [content, setContent] = useState("");
   const params = useParams();
 
-  // 카테고리 id 받아서 number형태로 변환
-  console.log("params", params);
-
   const postId = Number(params.postId);
   const { mutate: updateContent } = useMutation({
     mutationFn: async ({ content, loungeId }: UpdateContent) =>
@@ -41,7 +38,6 @@ function PostModContent() {
         .from("posts")
         .select("*")
         .eq("userId", currentUser!.id);
-      console.log("lounges", posts);
 
       if (!posts) return;
 

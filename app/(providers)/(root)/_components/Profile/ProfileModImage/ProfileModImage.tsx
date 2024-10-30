@@ -50,8 +50,6 @@ function ProfileModImage() {
   const handleSubmitUpdateUserImg = async () => {
     if (!imageFile) return;
 
-    console.log(user?.profileImg);
-
     const extension = imageFile.name.split(".").slice(-1)[0];
     const filepath = `${nanoid()}.${extension}`;
 

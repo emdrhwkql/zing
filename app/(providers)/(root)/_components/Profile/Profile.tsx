@@ -37,7 +37,6 @@ function Profile() {
         router.push("/");
         return;
       }
-      console.log(user?.profileImg);
     })();
   }, []);
 

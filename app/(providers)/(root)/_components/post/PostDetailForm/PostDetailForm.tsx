@@ -18,7 +18,6 @@ async function PostDetailForm({ postId }: { postId: number }) {
 
 	// 여기에서 사용자 ID를 가져옵니다.
 	const userId = post.userId; // 예: 포스트의 사용자 ID를 사용하는 경우
-	// console.log(post);
 
 	return (
 		<Page>

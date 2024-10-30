@@ -50,7 +50,6 @@ function PostModImg() {
         .from("posts")
         .select("*")
         .eq("userId", currentUser!.id);
-      // console.log("lounges", posts);
 
       if (!posts) return;
 

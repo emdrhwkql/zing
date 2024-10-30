@@ -25,7 +25,6 @@ function useNewLoungeForm() {
 
   // 카테고리 id 받아서 number형태로 변환
   const categoryId = +params.categoryId;
-  // console.log(categoryId);
 
   const { mutate: updateImg } = useMutation({
     mutationFn: async ({ imageUrl, loungeId }: UpdateLoungeImg) =>
@@ -45,8 +44,7 @@ function useNewLoungeForm() {
           currentUser!
         ),
       onSuccess: (response) => {
-        const loungeId = response!.id; // 확인해볼것
-        console.log(loungeId);
+        const loungeId = response!.id;
 
         // setLoungeImage({ filepath, imageFile }); // mutation 함수
 
@@ -107,8 +105,6 @@ function useNewLoungeForm() {
 
     // 라운지 소개글 미작성시 안내문
     if (!introduction) return alert("라운지 소개글을 작성해주세요.");
-
-    console.log("name:", name, "introduction:", introduction);
 
     // 라운지 생성시 넣어줄 값
     const lounge = await createLounge({

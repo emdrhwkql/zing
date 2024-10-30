@@ -52,8 +52,6 @@ function InboxPage() {
       if (error) {
         throw error;
       }
-
-      console.log("Post created:", data);
       router.push("/inbox");
       alert("포스트 생성에 성공하였습니다.");
     } catch (error) {
