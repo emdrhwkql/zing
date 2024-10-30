@@ -3,11 +3,12 @@
 import api from "@/api/api";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useMutation } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 function LoungeDelete() {
   const currentUser = useAuthStore((state) => state.currentUser);
   const params = useParams();
+  const router = useRouter();
 
   const loungeId = Number(params.loungeId);
 
@@ -18,6 +19,8 @@ function LoungeDelete() {
 
   const handleClickDeleteLounge = () => {
     deleteLounge(loungeId);
+
+    router.push("/");
   };
 
   return (

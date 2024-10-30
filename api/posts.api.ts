@@ -1,4 +1,4 @@
-import { Posts } from "@/schema/posts.schema";
+import { Post } from "@/schema/posts.schema";
 import supabase from "@/supabase/client";
 import { User } from "@supabase/supabase-js";
 
@@ -118,7 +118,7 @@ async function getPostsByLoungeId(loungeId: number) {
   return posts;
 }
 
-async function deletePost(post: Posts) {
+async function deletePost(post: Post) {
   await supabase.from("posts").delete().eq("id", post.id);
 }
 
