@@ -12,6 +12,12 @@ function PopularLoungesList({ lounges }: { lounges: Lounges }) {
 				<p className="h-full ml-3 mt-auto font-medium text-md">TOP 5</p>
 			</div>
 
+			{noFreeLounge?.length === 0 && (
+				<div className="grid place-items-center pt-5">
+					<p className="text-2xl">인기 라운지가 없습니다.</p>
+				</div>
+			)}
+
 			<ul className="grid grid-cols-1 gap-y-5">
 				{noFreeLounge
 					.map((lounge) => (

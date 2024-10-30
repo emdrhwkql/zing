@@ -12,7 +12,7 @@ interface FollowCategoryBtnProps {
 function FollowCategoryBtn({ categoryId }: FollowCategoryBtnProps) {
 	const queryClient = useQueryClient();
 
-	const { data: { follow, count } = {} } = useQuery({
+	const { data: { follows, count } = {} } = useQuery({
 		queryKey: ["follow_categories", { categoryId }],
 		queryFn: () =>
 			api.followCategories.getFollowCategoriesByCategoryId(categoryId),
@@ -34,7 +34,7 @@ function FollowCategoryBtn({ categoryId }: FollowCategoryBtnProps) {
 	const currentUser = useAuthStore((state) => state.currentUser);
 
 	const isFollow = currentUser
-		? !!follow?.find((follow) => follow.userId === currentUser.id)
+		? !!follows?.find((follow) => follow.userId === currentUser.id)
 		: false;
 
 	const handleClickFollowBtn = async () => {

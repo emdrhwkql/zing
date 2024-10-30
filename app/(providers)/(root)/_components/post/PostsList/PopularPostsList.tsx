@@ -10,6 +10,8 @@ import { FaMinus, FaPlus, FaShareAlt } from "react-icons/fa";
 function PopularPostsList({ posts }: { posts: Posts }) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
+	// console.log(posts);
+
 	return (
 		<MainBox>
 			<div className="mb-4 pb-4 border-b flex flex-row">
@@ -21,6 +23,12 @@ function PopularPostsList({ posts }: { posts: Posts }) {
 					TOP 8
 				</p>
 			</div>
+
+			{posts.length === 0 && (
+				<div className="grid place-items-center pt-5">
+					<p className="text-2xl">라운지 게시글이 없습니다.</p>
+				</div>
+			)}
 
 			{isShowMore ? (
 				// 메인 페이지에 8개짜리
