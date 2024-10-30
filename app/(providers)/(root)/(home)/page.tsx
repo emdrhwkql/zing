@@ -11,48 +11,44 @@ import PopularPostsList from "../_components/post/PostsList/PopularPostsList";
 async function HomePage() {
 	const lounges = await api.lounges.getAllLounges();
 	lounges.sort(
-		(postA, postB) =>
-			postB.follow_lounges.length - postA.follow_lounges.length
+		(loungeA, loungeB) =>
+			loungeB.follow_lounges.length - loungeA.follow_lounges.length
 	);
-
 	// console.log(lounges);
 
+	const loungeId = 0;
+	const freePosts = await api.posts.getPostsByLoungeId(loungeId);
+	// console.log(freePosts);
 
-  const loungeId = 0;
-  const freePosts = await api.posts.getPostsByLoungeId(loungeId);
-  console.log(freePosts);
+	const posts = await api.posts.getPosts();
+	const noFreePosts = posts.filter((post) => post.loungeId !== 0);
 
-  const posts = await api.posts.getPosts();
-  const noFreePosts = posts.filter((post) => post.loungeId !== 0);
+	freePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
+	noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
 
-  freePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
-  noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
-
-  return (
-    <Page>
-      <div className="flex flex-row justify-center">
-        <div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
-          <FreeLoungePostsList posts={freePosts} />
+	return (
+		<Page>
+			<div className="flex flex-row justify-center">
+				<div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
+					<FreeLoungePostsList posts={freePosts} />
 
 					<PopularPostsList posts={noFreePosts} />
 
+					<CategoriesHomeList />
 
-          <CategoriesHomeList />
-
-          <LecturesList isShowList={true} isShowSeeMore={true} />
-        </div>
+					<LecturesList isShowList={true} isShowSeeMore={true} />
+				</div>
 
 				<div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
 					<MyLoungesList />
 
-          <MyCategoriesList />
+					<MyCategoriesList />
 
 					<PopularLoungesList lounges={lounges} />
 				</div>
 			</div>
 		</Page>
 	);
-
 }
 
 export default HomePage;
