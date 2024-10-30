@@ -24,7 +24,6 @@ function MyProfilePage() {
 
   const response = user?.profileImg === baseURL + baseImagePath;
 
-  console.log("user", user);
   return (
     <Page>
       <div className="grid grid-cols-1 place-items-center gap-y-20">

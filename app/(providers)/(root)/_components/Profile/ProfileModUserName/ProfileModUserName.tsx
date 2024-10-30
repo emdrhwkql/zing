@@ -23,7 +23,6 @@ function ProfileModUserName() {
     const name = inputNameRef.current!.value;
 
     if (!name) return;
-    // console.log(name);
 
     // user 테이블에
     updateUserName(name);

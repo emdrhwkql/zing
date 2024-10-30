@@ -1,7 +1,6 @@
 import { Post } from "@/schema/posts.schema";
 
 function ProfilePost({ post }: { post: Post }) {
-  console.log(post);
   return (
     <ul className="">
       <li key={post.id} className="mt-4">

@@ -27,22 +27,6 @@ async function setProfileImage(filepath: string, imageFile: File) {
   return userImg;
 }
 
-// async function updateProfile(
-// 	currentUser: User,
-// 	profileDesc: string,
-// 	userName: string,
-// 	imageUrl: string
-// ) {
-// 	await supabase
-// 		.from("profile")
-// 		.update({
-// 			profileImg: imageUrl,
-// 			profileDesc: profileDesc,
-// 			userName: userName,
-// 		})
-// 		.eq("userId", currentUser!.id);
-// }
-
 async function updateUserImg(currentUser: User, profileImg: string) {
   await supabase
     .from("users")
@@ -66,7 +50,7 @@ async function updateUserDesc(currentUser: User, profileDesc: string) {
     .from("users")
     .update({
       profileDesc,
-    })  
+    })
     .eq("userId", currentUser!.id);
 }
 

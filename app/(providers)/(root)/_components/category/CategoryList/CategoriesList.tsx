@@ -10,8 +10,6 @@ function CategoriesList() {
 	// 카테고리 목록에서 자유 게시판 안보이게 처리
 	const noFreeCategory = categories?.filter((category) => category.id !== 0);
 
-	// console.log(noFreeCategory);
-
 	return (
 		<Page>
 			<div className="mx-[calc((100%-1429px)/2)] grid grid-cols-1">

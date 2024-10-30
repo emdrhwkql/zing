@@ -20,7 +20,6 @@ async function FreeLoungeDetailForm({
 
 	if (type === "popular") {
 		posts.sort((postA, postB) => postB.likes.length - postA.likes.length);
-		// console.log(posts);
 	} else if (type === "newest") {
 		posts.sort((postA, postB) =>
 			dayjs(postB.createdAt).isAfter(postA.createdAt) ? 1 : -1

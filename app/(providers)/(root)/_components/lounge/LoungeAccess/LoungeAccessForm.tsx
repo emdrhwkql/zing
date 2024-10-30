@@ -9,9 +9,7 @@ import { GrClose } from "react-icons/gr";
 
 function LoungeAccessForm({ loungeId }: { loungeId: number }) {
   const currentUser = useAuthStore((state) => state.currentUser);
-  console.log("loungeId", loungeId);
 
-  // 가입하기를 누르면 user_lounges테이블을 확인해서 뭐 뭐 끼리 비교해서 그
   const { data: checkMyLounges } = useQuery({
     queryKey: ["user_lounges"],
     queryFn: async () =>
