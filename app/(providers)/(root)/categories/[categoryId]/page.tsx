@@ -4,9 +4,9 @@ import CategoryDetailForm from "../../_components/category/CategoryDetailForm/Ca
 // export const revalidate = 0;
 
 async function CategoriesDetailPage(props: CategoryIdPropsType) {
-	const categoryId = +props.params.categoryId;
+  const categoryId = Number(props.params.categoryId);
 
-	return <CategoryDetailForm categoryId={categoryId} />;
+  return <CategoryDetailForm categoryId={categoryId} />;
 }
 
 export default CategoriesDetailPage;
