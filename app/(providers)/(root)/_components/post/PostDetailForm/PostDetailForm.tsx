@@ -4,21 +4,26 @@ import MainBox from "@/components/MainBox";
 import Page from "@/components/Page";
 import { FaShareAlt } from "react-icons/fa";
 import CommentSection from "../CommentSection/CommentSection";
-import PostDeleteButton from "../PostDelete/PostDelete";
 import PostModContent from "../PostMod/PostModContent/PostModContent";
 import PostModImg from "../PostMod/PostModImg/PostModImg";
 import PostModTitle from "../PostMod/PostModTitle/PostModTitle";
 
 async function PostDetailForm({ postId }: { postId: number }) {
-  const post = await commetAPI.posts.getPost(postId);
-  const comments = await commetAPI.posts.getComments(postId);
+  const post = await commetAPI.getPost(postId);
+  const comments = await commetAPI.getComments(postId);
 
   if (!post) {
     return <div>게시물을 찾을 수 없습니다.</div>;
   }
 
-  // 여기에서 사용자 ID를 가져옵니다.
-  const userId = post.userId; // 예: 포스트의 사용자 ID를 사용하는 경우
+  const userId = post.userId;
+
+  const commentsWithUserId = comments
+    ? comments.map(comment => ({
+      ...comment,
+      userId: userId // 포스트의 유저 아이도로 넣음
+    }))
+    : null;
 
   return (
     <Page>
@@ -27,18 +32,21 @@ async function PostDetailForm({ postId }: { postId: number }) {
           <div className="w-4 h-4 bg-gray-500 rounded-md" />
           <p>{post.userId}</p>
 
-          <img src={post.imageUrl} alt="" className="w-48 h-48 bg-black" />
+          <img
+            src={post.imageUrl}
+            alt=""
+            className="w-48 h-48 bg-black"
+          />
           <h1 className="font-semibold text-lg">{post.title}</h1>
 
           <p>{post.content}</p>
-          <div>
-            <PostModImg />
-            <PostModTitle />
-            <PostModContent />
-          </div>
-          <PostDeleteButton />
+          <PostModImg />
+          <PostModTitle />
+          <PostModContent />
           <div className="flex flex-row items-center mt-2 pt-2 border-t">
-            <span className="leading-3">{post.createdAt.slice(0, 10)}</span>
+            <span className="leading-3">
+              {post.createdAt.slice(0, 10)}
+            </span>
 
             <div className="ml-auto flex flex-row gap-x-3">
               <LikeButton postId={postId} />
@@ -48,10 +56,9 @@ async function PostDetailForm({ postId }: { postId: number }) {
         </div>
         <CommentSection
           postId={postId}
-          initialComments={comments}
+          initialComments={commentsWithUserId}
           userId={userId}
         />
-        {/* 댓글에 사용자 ID 추가 */}
       </MainBox>
     </Page>
   );

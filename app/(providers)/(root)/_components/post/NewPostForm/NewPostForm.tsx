@@ -1,115 +1,138 @@
-"use client";
-
 import api from "@/api/api";
-import Input from "@/components/Input";
-import Page from "@/components/Page";
-import Textarea from "@/components/Textarea";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { LuFilePlus } from "react-icons/lu";
-import { MdOutlineCreate } from "react-icons/md";
-import useNewPostForm from "./NewPostForm.hooks";
+import { nanoid } from "nanoid";
+import { useParams, useRouter } from "next/navigation";
+import { useRef, useState } from "react";
 
-function NewPostForm() {
-  const queryClient = useQueryClient();
+interface UpdatePostImg {
+  imageUrl: string;
+  loungeId: number;
+}
+
+function useNewPostForm() {
+  const [imageFile, setImageFile] = useState<File | undefined>(undefined);
   const currentUser = useAuthStore((state) => state.currentUser);
-  const {
-    inputTitleRef,
-    inputContentRef,
-    handleClickAddPost,
-    isCreateOnProcess,
-    setImageFile,
-  } = useNewPostForm();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  interface UpdatePostImg {
-    imageUrl: string;
-    loungeId: number;
-  }
+  // 이름 input 값
+  const inputTitleRef = useRef<HTMLInputElement>(null);
+  // 소개글 input 값
+  const inputContentRef = useRef<HTMLTextAreaElement>(null);
+
+  const params = useParams();
+
+  // 카테고리 id 받아서 number형태로 변환
+  const categoryId = +params.categoryId;
+  // console.log(categoryId);
 
   const { mutate: updateImg } = useMutation({
     mutationFn: async ({ imageUrl, loungeId }: UpdatePostImg) =>
-      api.lounges.updateLoungeImg(currentUser!, imageUrl, loungeId),
+      api.posts.updatePostImg(currentUser!, imageUrl, loungeId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
   });
 
-  return (
-    <Page>
-      <div className="flex flex-row gap-x-10 justify-center">
-        <div className="w-[1000px] bg-[#928490] rounded-md p-4">
-          <div className="pb-4 mb-4 border-b flex flex-row items-center">
-            <div className="flex flex-row gap-x-2 items-center font-bold text-4xl text-white">
-              <MdOutlineCreate />
-              <h1>Create a new post</h1>
-            </div>
+  const { mutateAsync: createPost, isPending: isCreateOnProcess } = useMutation(
+    {
+      mutationFn: (args: { title: string; content: string }) =>
+        api.posts.createPost(
+          args.title,
+          args.content,
+          categoryId,
+          currentUser!
+        ),
+      onSuccess: (response) => {
+        const loungeId = response!.id; // 확인해볼것
+        console.log(loungeId);
 
-            <button
-              onClick={() => {
-                handleClickAddPost();
-              }}
-              className="ml-auto text-white p-2 font-bold rounded-md w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
-              disabled={isCreateOnProcess}
-            >
-              <LuFilePlus />
-              <p>글 작성 완료</p>
-            </button>
-          </div>
+        // setLoungeImage({ filepath, imageFile }); // mutation 함수
 
-          <form className="w-full grid grid-cols-1 gap-y-2">
-            <div className="flex flex-row items-center">
-              <Input
-                wrapperClassName="w-[650px]"
-                ref={inputTitleRef}
-                type="text"
-                name="title"
-                placeholder="제목을 지어주세요."
-              />
-              <Input
-                type="file"
-                onChange={(e) => setImageFile(e.target.files?.[0])}
-              />
-            </div>
-
-            <Textarea
-              ref={inputContentRef}
-              name="content"
-              placeholder="내용을 작성해주세요."
-            />
-          </form>
-        </div>
-
-        <div className="bg-[#F3E8EB] rounded-md">
-          <div className="bg-black relative rounded-lg">
-            <img
-              src="https://i.pinimg.com/564x/20/01/6e/20016e676541e5c1fb7f63171033b559.jpg"
-              className="w-full h-[700px] opacity-60 object-cover rounded-lg"
-            />
-
-            <div className="w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-3/4 text-white text-center font-bold text-3xl flex flex-col gap-y-5">
-              <p>
-                Are you ready to enjoy
-                <br />
-                life with everyone?
-              </p>
-
-              <p>
-                Then share your life
-                <br />
-                on Zing right now!
-              </p>
-
-              <p>
-                Everyone is
-                <br />
-                waiting for you!
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Page>
+        // updateImg({ imageUrl, loungeId });
+      },
+    }
   );
+
+  const { mutateAsync: setPostImage } = useMutation({
+    mutationFn: async ({
+      filepath,
+      imageFile,
+    }: {
+      filepath: string;
+      imageFile: File;
+    }) => api.posts.setPostImage(filepath, imageFile),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
+  const uploadImage = async () => {
+    if (!imageFile) return;
+
+    const extension = imageFile.name.split(".").slice(-1)[0];
+    const filepath = `${nanoid()}.${extension}`;
+
+    // storage에 이미지 업로드
+    const result = await setPostImage({ filepath, imageFile });
+
+    const baseURL =
+      "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/";
+
+    const postImageUrl = baseURL + result?.fullPath;
+
+    return postImageUrl;
+  };
+
+  const handleClickAddPost = async () => {
+    if (isCreateOnProcess) return;
+
+    // 라운지 이름 input 값
+    const title = inputTitleRef.current!.value;
+
+    // 라운지 이름 비교를 위한 테이블 불러오기
+    const existingLounge = await api.lounges.getLoungeByName(title);
+    if (!!existingLounge) {
+      alert("이미 사용중인 라운지 이름입니다.");
+      inputTitleRef.current!.value = "";
+      inputContentRef.current!.value = "";
+
+      return;
+    }
+    // 라운지 이름 미작성시 안내문
+    if (!title) return alert("라운지 이름을 작성해주세요.");
+
+    // 라운지 소개글 input 값
+    const introduction = inputContentRef.current!.value;
+
+    // 라운지 소개글 미작성시 안내문
+    if (!introduction) return alert("라운지 소개글을 작성해주세요.");
+
+    console.log("name:", title, "introduction:", introduction);
+
+    // 라운지 생성시 넣어줄 값
+    const post = await createPost({
+      title: title,
+      content: introduction,
+    });
+
+    const loungeImageUrl = await uploadImage();
+
+    updateImg({ imageUrl: loungeImageUrl!, loungeId: post!.id });
+
+    // 라운지 생성후 해당 카테고리 디테일 페이지로 이동
+    router.push(`/categories/${categoryId}`);
+  };
+
+  return {
+    inputTitleRef,
+    inputContentRef,
+    createPost,
+    handleClickAddPost,
+    isCreateOnProcess,
+    setImageFile,
+  };
 }
 
-export default NewPostForm;
+export default useNewPostForm;
