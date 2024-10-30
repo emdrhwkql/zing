@@ -50,7 +50,6 @@ function LoungeModImg() {
         .from("lounges")
         .select("*")
         .eq("userId", currentUser!.id);
-      console.log("lounges", lounges);
 
       if (!lounges) return;
 

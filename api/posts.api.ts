@@ -12,9 +12,11 @@ async function createPost(
     .from("posts")
     .insert({ title, content, loungeId, userId: currentUser!.id })
     .select("*")
-    .single();
+    .maybeSingle();
 
   const post = response.data;
+
+  if (!post) return null;
 
   return post;
 }
@@ -26,11 +28,11 @@ async function getPost(postId: number) {
     .eq("id", postId)
     .single();
 
-  const posts = response.data;
+  const post = response.data;
 
-  if (!posts) return null;
+  if (!post) return null;
 
-  return posts;
+  return post;
 }
 
 async function getPosts() {
