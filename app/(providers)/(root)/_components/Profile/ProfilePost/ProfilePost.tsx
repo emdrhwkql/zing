@@ -1,4 +1,4 @@
-import { Post } from "@/schema/posts.schema";
+import { Post } from "@/types/posts.types";
 
 function ProfilePost({ post }: { post: Post }) {
   return (

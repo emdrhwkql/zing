@@ -5,9 +5,8 @@ import LikeButton from "@/components/LikeButton";
 import MainBox from "@/components/MainBox";
 import Page from "@/components/Page";
 import UpdatePostModal from "@/components/UpdatePostModal";
-import { Post } from "@/types/posts.types";
 import { useModalStore } from "@/zustand/modal.store";
-import { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FaShareAlt } from "react-icons/fa";
 import CommentSection from "../CommentSection/CommentSection";
 
@@ -23,23 +22,21 @@ interface CommentTypeProps {
 [];
 
 function PostDetailForm({ postId }: { postId: number }) {
-  const [comments, setComments] = useState<CommentTypeProps[]>([]);
-  const [post, setPost] = useState<Post>();
   const openModal = useModalStore((state) => state.openModal);
+  const queryClient = useQueryClient();
 
   const handleClickOpenModal = () => {
     openModal(<UpdatePostModal />);
   };
+  const { data: post } = useQuery({
+    queryKey: ["posts"],
+    queryFn: async () => api.posts.getPost(postId),
+  });
 
-  useEffect(() => {
-    (async () => {
-      const post = await api.posts.getPost(postId);
-      const comments = await api.comments.getComments(postId);
-
-      setPost(post);
-      setComments(comments);
-    })();
-  }, []);
+  const { data: comments } = useQuery({
+    queryKey: ["comments"],
+    queryFn: async () => api.comments.getComments(postId),
+  });
 
   if (!post) {
     return <div>게시물을 찾을 수 없습니다.</div>;
