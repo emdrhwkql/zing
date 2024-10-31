@@ -19,7 +19,7 @@ type HobbyClassListDetailProps = {
     }
 }
 
-export default function HobbyClassListDetailPage({ params }: HobbyClassListDetailProps) {
+export default function LectureClassListDetailPage({ params }: HobbyClassListDetailProps) {
     const [lecture, setLecture] = useState<Lecture | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)

@@ -46,9 +46,9 @@ function PostDetailForm({ postId }: { postId: number }) {
 
   const commentsWithUserId = comments
     ? comments.map((comment) => ({
-        ...comment,
-        userId: userId, // 포스트의 유저 아이도로 넣음
-      }))
+      ...comment,
+      userId: userId, // 포스트의 유저 아이도로 넣음
+    }))
     : null;
 
   return (

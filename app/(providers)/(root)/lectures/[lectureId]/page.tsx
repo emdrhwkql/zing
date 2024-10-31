@@ -44,7 +44,7 @@ export default async function LeturesList() {
                         key={lecture.id}
                         className="relative bg-black rounded-lg overflow-hidden"
                     >
-                        <Link href={`/HobbyClassList/${lecture.id}`}>
+                        <Link href={`/LectureClassList/${lecture.id}`}>
                         </Link>
                     </li>
                 ))}
