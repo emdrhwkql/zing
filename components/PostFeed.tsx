@@ -19,14 +19,14 @@ function PostFeed({ post }: PostFeedProps) {
 				<div className="flex flex-row gap-x-2 items-center pb-2">
 					<div className="w-8 h-8 relative">
 						<Image
-							src={post.author?.profileImg}
-							alt={post.author?.userId}
+							src={post.author.profileImg}
+							alt={post.author.userId}
 							fill
 							className="rounded-md"
 						/>
 					</div>
 
-					<span>{post.author?.userName}</span>
+					<span>{post.author.userName}</span>
 				</div>
 
 				{/* Image */}
