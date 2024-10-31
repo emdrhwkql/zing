@@ -1,5 +1,8 @@
+"use client";
+
 import api from "@/api/api";
 import Page from "@/components/Page";
+import { useQuery } from "@tanstack/react-query";
 import CategoriesHomeList from "../_components/category/CategoryList/CategoriesHomeList";
 import MyCategoriesList from "../_components/category/MyCategoriesList/MyCategoriesList";
 import LecturesList from "../_components/lectures/LecturesList/LecturesList";
@@ -8,47 +11,59 @@ import MyLoungesList from "../_components/lounge/MyLoungesList/MyLoungesList";
 import FreeLoungePostsList from "../_components/post/PostsList/FreeLoungePostsList";
 import PopularPostsList from "../_components/post/PostsList/PopularPostsList";
 
-async function HomePage() {
-	const lounges = await api.lounges.getAllLounges();
-	lounges.sort(
-		(loungeA, loungeB) =>
-			loungeB.follow_lounges.length - loungeA.follow_lounges.length
-	);
-	// console.log(lounges);
+function HomePage() {
+  const { data: lounges = [] } = useQuery({
+    queryKey: ["lounges"],
+    queryFn: async () => api.lounges.getAllLounges(),
+  });
 
-	const loungeId = 0;
-	const freePosts = await api.posts.getPostsByLoungeId(loungeId);
-	// console.log(freePosts);
+  const { data: freePosts = [] } = useQuery({
+    queryKey: ["freePosts"],
+    queryFn: async () => api.posts.getPostsByLoungeId(loungeId),
+  });
 
-	const posts = await api.posts.getPosts();
-	const noFreePosts = posts.filter((post) => post.loungeId !== 0);
+  const { data: posts = [] } = useQuery({
+    queryKey: ["posts"],
+    queryFn: async () => api.posts.getPosts(),
+  });
 
-	freePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
-	noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
+  lounges!.sort(
+    (loungeA, loungeB) =>
+      loungeB.follow_lounges.length - loungeA.follow_lounges.length
+  );
+  // console.log(lounges);
 
-	return (
-		<Page>
-			<div className="flex flex-row justify-center">
-				<div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
-					<FreeLoungePostsList posts={freePosts} />
+  const loungeId = 0;
+  // console.log(freePosts);
 
-					<PopularPostsList posts={noFreePosts} />
+  const noFreePosts = posts!.filter((post) => post.loungeId !== 0);
 
-					<CategoriesHomeList />
+  freePosts!.sort((postA, postB) => postB.likes.length - postA.likes.length);
+  noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
 
-					<LecturesList isShowList={true} isShowSeeMore={true} />
-				</div>
+  return (
+    <Page>
+      <div className="flex flex-row justify-center">
+        <div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
+          <FreeLoungePostsList posts={freePosts} />
 
-				<div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
-					<MyLoungesList />
+          <PopularPostsList posts={noFreePosts} />
 
-					<MyCategoriesList />
+          <CategoriesHomeList />
 
-					<PopularLoungesList lounges={lounges} />
-				</div>
-			</div>
-		</Page>
-	);
+          <LecturesList isShowList={true} isShowSeeMore={true} />
+        </div>
+
+        <div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
+          <MyLoungesList />
+
+          <MyCategoriesList />
+
+          <PopularLoungesList lounges={lounges} />
+        </div>
+      </div>
+    </Page>
+  );
 }
 
 export default HomePage;
