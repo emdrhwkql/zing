@@ -14,16 +14,6 @@ interface UpdateLoungeImg {
   loungeId: number;
 }
 
-interface UpdateIntroduction {
-  introduction: string;
-  loungeId: number;
-}
-
-interface UpdateName {
-  name: string;
-  loungeId: number;
-}
-
 function LoungeModImg() {
   const [imageFile, setImageFile] = useState<File | undefined>();
 

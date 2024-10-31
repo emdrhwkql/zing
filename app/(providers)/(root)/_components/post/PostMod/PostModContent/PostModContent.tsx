@@ -14,8 +14,6 @@ interface UpdateContent {
   loungeId: number;
 }
 
-// loungeId가 null이라서 에러가 뜸 해결 필요
-
 function PostModContent() {
   const currentUser = useAuthStore((state) => state.currentUser);
   const [content, setContent] = useState("");
