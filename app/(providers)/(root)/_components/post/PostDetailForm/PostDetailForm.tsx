@@ -6,35 +6,23 @@ import MainBox from "@/components/MainBox";
 import Page from "@/components/Page";
 import UpdatePostModal from "@/components/UpdatePostModal";
 import { useModalStore } from "@/zustand/modal.store";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { FaShareAlt } from "react-icons/fa";
 import CommentSection from "../CommentSection/CommentSection";
 
-interface CommentTypeProps {
-  comments: {
-    content: string;
-    createdAt: string;
-    id: number;
-    postId: number | null;
-    userId: string;
-  }[];
-}
-[];
-
 function PostDetailForm({ postId }: { postId: number }) {
   const openModal = useModalStore((state) => state.openModal);
-  const queryClient = useQueryClient();
 
   const handleClickOpenModal = () => {
     openModal(<UpdatePostModal />);
   };
   const { data: post } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts", { id: postId }],
     queryFn: async () => api.posts.getPost(postId),
   });
 
   const { data: comments } = useQuery({
-    queryKey: ["comments"],
+    queryKey: ["comments", { postId }],
     queryFn: async () => api.comments.getComments(postId),
   });
 
