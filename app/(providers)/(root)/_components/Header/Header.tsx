@@ -154,7 +154,7 @@ function Header() {
 							<Link
 								key={lounge.id}
 								href={`/lounges/${lounge.id}`}
-								className="text-lg p-4 text-gray-400 hover:text-white relative pl-8"
+								className="text-lg p-2 text-gray-400 hover:text-white relative pl-8"
 								onClick={toggleSidebar}
 							>
 								<span>{lounge.name}</span>
@@ -181,13 +181,6 @@ function Header() {
 							>
 								<span className="hover:text-white">로그아웃</span>
 							</button>
-							<Link
-								href="/pressedpost"
-								className="text-lg p-4 text-gray-400 hover:text-white relative"
-								onClick={toggleSidebar}
-							>
-								<span className="hover:text-white">좋아요한 게시물</span>
-							</Link>
 
 						</>
 					)}
