@@ -16,6 +16,7 @@ interface UpdateName {
 
 function LoungeModName() {
   const currentUser = useAuthStore((state) => state.currentUser);
+
   const [name, setName] = useState("");
   const params = useParams();
 

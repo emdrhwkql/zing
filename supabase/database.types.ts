@@ -277,7 +277,6 @@ export type Database = {
           loungeId: number
           title: string
           userId: string
-          view_count: number
         }
         Insert: {
           content?: string
@@ -287,7 +286,6 @@ export type Database = {
           loungeId: number
           title?: string
           userId?: string
-          view_count?: number
         }
         Update: {
           content?: string
@@ -297,7 +295,6 @@ export type Database = {
           loungeId?: number
           title?: string
           userId?: string
-          view_count?: number
         }
         Relationships: [
           {

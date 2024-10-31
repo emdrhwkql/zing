@@ -14,8 +14,19 @@ interface UpdateLoungeImg {
   loungeId: number;
 }
 
+interface UpdateIntroduction {
+  introduction: string;
+  loungeId: number;
+}
+
+interface UpdateName {
+  name: string;
+  loungeId: number;
+}
+
 function LoungeModImg() {
   const [imageFile, setImageFile] = useState<File | undefined>();
+
   const currentUser = useAuthStore((state) => state.currentUser);
   const queryClient = useQueryClient();
   const params = useParams();
@@ -28,7 +39,7 @@ function LoungeModImg() {
     }: {
       filepath: string;
       imageFile: File;
-    }) => api.posts.setPostImage(filepath, imageFile),
+    }) => api.lounges.setLoungeImage(filepath, imageFile),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
@@ -70,21 +81,28 @@ function LoungeModImg() {
       "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/";
 
     const loungeImageUrl = baseURL + result?.fullPath;
-
     // user 테이블에
+
     updateImg({ imageUrl: loungeImageUrl, loungeId: loungeId! });
   };
   return (
     // 테이블에 기본 이미지 빼기
     <>
-      <div className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border">
-        <Input
-          type="file"
-          onChange={(e) => setImageFile(e.target.files?.[0])}
-          inputClassName="mb-4"
-        />
+      <div className="flex-none gap-y-4 mt-4 ml-4 mr-4 justify-between">
+        <div className="flex ">
+          <Input
+            type="file"
+            onChange={(e) => setImageFile(e.target.files?.[0])}
+            inputClassName="text-black pl-4 "
+          />
+        </div>
       </div>
-      <button onClick={handleClickUpdateLoungeImg}>이미지 수정하기</button>
+      <button
+        onClick={handleClickUpdateLoungeImg}
+        className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border mt-8"
+      >
+        이미지 수정하기
+      </button>
     </>
   );
 }
