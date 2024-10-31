@@ -52,14 +52,17 @@ function Header() {
 
 	return (
 		<>
-			<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-[#433E49] text-white">
+			<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-[#9a3026] text-white">
 				<div className="ml-5 font-bold text-5xl text-center leading-4">
 					<Link href="/">ZING</Link>
 				</div>
 
 				<div className="ml-auto flex flex-row items-center gap-x-5 font-medium text-md">
 					<div className="w-64 h-8 bg-[#e0dde4]/75 rounded-full flex flex-row items-center justify-around">
-						<form onSubmit={handleSearch} className="flex items-center">
+						<form
+							onSubmit={handleSearch}
+							className="flex items-center"
+						>
 							<input
 								name="search"
 								type="text"
@@ -68,18 +71,30 @@ function Header() {
 								className="w-48 bg-transparent outline-none text-black"
 								placeholder="검색해주세요"
 							/>
-							<button type="submit" aria-label="검색" className="p-4">
+							<button
+								type="submit"
+								aria-label="검색"
+								className="p-4"
+							>
 								<FaSearch className="text-2xl" />
 							</button>
 						</form>
 					</div>
 
-					<Link href="/inbox" className="p-4 hover:text-white" aria-label="알림">
+					<Link
+						href="/inbox"
+						className="p-4 hover:text-white"
+						aria-label="알림"
+					>
 						<FaBell className="text-3xl" />
 					</Link>
 
 					{isLoggedIn ? (
-						<Link href="/my-profile" className="p-4 hover:text-white" aria-label="프로필">
+						<Link
+							href="/my-profile"
+							className="p-4 hover:text-white"
+							aria-label="프로필"
+						>
 							<img
 								src={profile?.profileImg || ""}
 								alt="프로필 이미지"
@@ -106,8 +121,9 @@ function Header() {
 			</header>
 
 			<div
-				className={`fixed top-0 right-0 h-full w-64 bg-[#433E49] text-white shadow-lg transform ${isSidebarOpen ? "translate-x-0" : "translate-x-full"
-					} transition-transform duration-300 ease-in-out z-50`}
+				className={`fixed top-0 right-0 h-full w-64 bg-[#433E49] text-white shadow-lg transform ${
+					isSidebarOpen ? "translate-x-0" : "translate-x-full"
+				} transition-transform duration-300 ease-in-out z-50`}
 			>
 				<button
 					onClick={toggleSidebar}
@@ -145,10 +161,14 @@ function Header() {
 						onClick={togglePopularLounge}
 						className="text-lg p-4 text-gray-400 hover:text-white relative"
 					>
-						<span className="hover:text-white">인기 라운지 목록</span>
+						<span className="hover:text-white">
+							인기 라운지 목록
+						</span>
 					</button>
 					<div
-						className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isPopularLoungeOpen ? "max-h-screen" : "max-h-0"}`}
+						className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
+							isPopularLoungeOpen ? "max-h-screen" : "max-h-0"
+						}`}
 					>
 						{noFreeLounge?.map((lounge) => (
 							<Link
@@ -169,7 +189,9 @@ function Header() {
 								className="text-lg p-4 text-gray-400 hover:text-white relative"
 								onClick={toggleSidebar}
 							>
-								<span className="hover:text-white">내 프로필</span>
+								<span className="hover:text-white">
+									내 프로필
+								</span>
 							</Link>
 							<button
 								onClick={() => {
@@ -179,12 +201,12 @@ function Header() {
 								className="text-lg text-left p-4 text-gray-400 hover:text-white relative"
 								aria-label="로그아웃"
 							>
-								<span className="hover:text-white">로그아웃</span>
+								<span className="hover:text-white">
+									로그아웃
+								</span>
 							</button>
-
 						</>
 					)}
-
 				</nav>
 			</div>
 
