@@ -41,7 +41,7 @@ function LecturesList({
 											className="relative bg-black"
 										>
 											<Link
-												href={`/HobbyClassList/${lecture.id}`}
+												href={`/LectureClassList/${lecture.id}`}
 											>
 												<img
 													src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/_class_images/${lecture.imageUrl}`}
