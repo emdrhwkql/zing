@@ -3,7 +3,7 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
 import SideBox from "@/components/SideBox";
-import UpdateLoungeModal from "@/components/UpdateModal";
+import UpdateLoungeModal from "@/components/UpdateLoungeModal";
 import { Lounge } from "@/schema/lounges.schema";
 import { LoungeIdPropsType } from "@/types/lounge.types";
 import { useModalStore } from "@/zustand/modal.store";
