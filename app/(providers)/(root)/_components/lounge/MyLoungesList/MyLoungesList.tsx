@@ -59,7 +59,7 @@ function MyLoungesList() {
 				</div>
 			)}
 
-			<ul className="flex flex-row justify-between">
+			<ul className="flex flex-row justify-around">
 				{MyLounges?.map((lounge) => (
 					<li
 						key={lounge?.id}
