@@ -61,7 +61,7 @@ function MyCategoriesList() {
 				{MyCategories?.map((category) => (
 					<li
 						key={category?.id}
-						className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
+						className="border-l-4 border-[#F4C6BC] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
 					>
 						<Link href={`/categories/${category?.id}`}>
 							<div className="flex flex-row items-center">

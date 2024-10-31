@@ -33,7 +33,7 @@ function PopularLoungesList({
 					{noFreeLounge.map((lounge) => (
 						<li
 							key={lounge.id}
-							className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
+							className="border-l-4 border-[#F4C6BC] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
 						>
 							<Link href={`/lounges/${lounge.id}`}>
 								<div className="flex flex-row items-center">
@@ -56,7 +56,7 @@ function PopularLoungesList({
 						.map((lounge) => (
 							<li
 								key={lounge.id}
-								className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
+								className="border-l-4 border-[#F4C6BC] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
 							>
 								<Link href={`/lounges/${lounge.id}`}>
 									<div className="flex flex-row items-center">

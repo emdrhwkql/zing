@@ -42,7 +42,7 @@ async function FreeLoungeDetailForm({
 			{/* Main Box */}
 			<div className="mt-10 mb-10 flex flex-row gap-x-10 justify-center">
 				{/* 사이드 바 */}
-				<div className="w-14 h-[1000px] rounded-md bg-[#E57264]">
+				<div className="w-14 h-[1000px] rounded-md bg-[#ba7a6fda]">
 					{/* 사이드 바 컨텐트 박스 */}
 					<div className="h-full pt-5 text-white text-4xl text-center flex flex-col gap-y-10">
 						<div className="w-full group relative grid place-items-center">
