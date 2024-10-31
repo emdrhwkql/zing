@@ -1,4 +1,5 @@
 import supabase from "@/supabase/client";
+import { User } from "@supabase/supabase-js";
 
 async function addLikeUser(postId: number) {
 	const { data } = await supabase.auth.getUser();
@@ -11,6 +12,20 @@ async function getLikes() {
 	const response = await supabase
 		.from("likes")
 		.select("*", { count: "exact" });
+	const likes = response.data;
+	const count = response.count;
+
+	if (!likes) return [];
+
+	return { likes, count };
+}
+
+async function getLikesPostsILike(currentUser: User) {
+	const response = await supabase
+		.from("likes")
+		.select("*, post:posts (*)", { count: "exact" })
+		.eq("userId", currentUser!.id);
+
 	const likes = response.data;
 	const count = response.count;
 
@@ -40,6 +55,7 @@ async function deleteLikeUser(postId: number) {
 const likesAPI = {
 	addLikeUser,
 	getLikes,
+	getLikesPostsILike,
 	getLikesByPostId,
 	deleteLikeUser,
 };
