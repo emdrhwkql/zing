@@ -1,7 +1,6 @@
 "use client";
 
 import api from "@/api/api";
-import PostFeed from "@/components/PostFeed";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useQuery } from "@tanstack/react-query";
 
@@ -27,9 +26,7 @@ function PostsICreatedList() {
 						<li
 							key={post.id}
 							className="w-48 hover:scale-105 hover:duration-200"
-						>
-							<PostFeed post={post} />
-						</li>
+						></li>
 					))
 					.slice(0, 8)}
 			</ul>

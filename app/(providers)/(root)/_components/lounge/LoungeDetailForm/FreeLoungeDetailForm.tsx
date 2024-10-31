@@ -82,12 +82,12 @@ async function FreeLoungeDetailForm({
 
 				{/* <PostsList posts={posts} loungeId={loungeId} /> */}
 
-				<ul className="grid grid-cols-4 gap-10 place-items-center">
+				<ul className="grid grid-cols-4 gap-10 justify-center">
 					{posts
 						.map((post) => (
 							<li
 								key={post.id}
-								className="w-80 p-4 bg-white rounded-md grid hover:scale-105 hover:duration-300"
+								className="w-80 h-[480px] p-4 bg-white rounded-md grid hover:scale-105 hover:duration-300"
 							>
 								<PostByLoungeIdFeed post={post} />
 							</li>

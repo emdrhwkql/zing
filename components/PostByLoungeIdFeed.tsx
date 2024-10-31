@@ -13,7 +13,7 @@ function PostByLoungeIdFeed({ post }: PostFeedProps) {
 		<article>
 			<Link
 				href={`/posts/${post.id}`}
-				className="flex flex-col max-w-sm w-full"
+				className="flex flex-col max-w-sm w-full h-full"
 			>
 				{/* Header */}
 				<div className="flex flex-row gap-x-2 items-center pb-2">
