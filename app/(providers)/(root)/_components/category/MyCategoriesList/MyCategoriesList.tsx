@@ -17,7 +17,7 @@ type MyCategoriesProps =
 	  } | null)[]
 	| undefined;
 
-function MyCategoriesList() {
+function MyCategoriesList({ isProfile }: { isProfile?: boolean }) {
 	const currentUser = useAuthStore((state) => state.currentUser!);
 
 	const [MyCategories, setMyCategories] = useState<MyCategoriesProps>([]);
@@ -45,18 +45,23 @@ function MyCategoriesList() {
 
 	return (
 		<SideBox>
-			<Link href={"/my-profile"}>
-				<h1 className="mb-4 pb-4 border-b font-bold text-xl  hover:text-[22px] hover:duration-150">
-					내 카테고리
+			{isProfile ? (
+				<h1 className="mb-4 pb-4 border-b font-bold text-xl">
+					팔로잉 카테고리
 				</h1>
-			</Link>
+			) : (
+				<Link href={"/my-profile"}>
+					<h1 className="mb-4 pb-4 border-b font-bold text-xl  hover:text-[22px] hover:duration-150">
+						내 카테고리
+					</h1>
+				</Link>
+			)}
 
 			{MyCategories?.length === 0 && (
 				<div className="grid place-items-center pt-5">
 					<p className="text-2xl">팔로우한 카테고리가 없습니다.</p>
 				</div>
 			)}
-
 			<ul className="grid grid-cols-1 gap-y-5">
 				{MyCategories?.map((category) => (
 					<li

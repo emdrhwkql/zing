@@ -20,7 +20,7 @@ type MyLoungesProps =
 	  } | null)[]
 	| undefined;
 
-function MyLoungesList() {
+function MyLoungesList({ isProfile }: { isProfile?: boolean }) {
 	const currentUser = useAuthStore((state) => state.currentUser);
 
 	const [MyLounges, setMyLounges] = useState<MyLoungesProps>([]);
@@ -47,11 +47,17 @@ function MyLoungesList() {
 
 	return (
 		<SideBox>
-			<Link href={"/my-profile"}>
-				<h1 className="mb-4 pb-4 border-b font-bold text-xl  hover:text-[22px] hover:duration-150">
-					내 라운지
+			{isProfile ? (
+				<h1 className="mb-4 pb-4 border-b font-bold text-xl">
+					팔로잉 라운지
 				</h1>
-			</Link>
+			) : (
+				<Link href={"/my-profile"}>
+					<h1 className="mb-4 pb-4 border-b font-bold text-xl  hover:text-[22px] hover:duration-150">
+						내 라운지
+					</h1>
+				</Link>
+			)}
 
 			{MyLounges?.length === 0 && (
 				<div className="grid place-items-center pt-5">

@@ -6,8 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import CategoriesHomeList from "../_components/category/CategoryList/CategoriesHomeList";
 import MyCategoriesList from "../_components/category/MyCategoriesList/MyCategoriesList";
 import LecturesList from "../_components/lectures/LecturesList/LecturesList";
+import MyLoungesList from "../_components/lounge/LoungesList/MyLoungesList";
 import PopularLoungesList from "../_components/lounge/LoungesList/PopularLoungesList";
-import MyLoungesList from "../_components/lounge/MyLoungesList/MyLoungesList";
 import FreeLoungePostsList from "../_components/post/PostsList/FreeLoungePostsList";
 import PopularPostsList from "../_components/post/PostsList/PopularPostsList";
 
@@ -41,11 +41,12 @@ function HomePage() {
   freePosts!.sort((postA, postB) => postB.likes.length - postA.likes.length);
   noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
 
-  return (
-    <Page>
-      <div className="flex flex-row justify-center">
-        <div className=" flex flex-col items-center gap-y-10 p-4 rounded-md">
-          <FreeLoungePostsList posts={freePosts} />
+	return (
+		<Page>
+			<div className="flex flex-row justify-center">
+				<div className=" flex flex-col items-center gap-y-10 p-4">
+					<FreeLoungePostsList posts={freePosts} />
+
 
           <PopularPostsList posts={noFreePosts} />
 
@@ -54,8 +55,10 @@ function HomePage() {
           <LecturesList isShowList={true} isShowSeeMore={true} />
         </div>
 
-        <div className="h-full flex flex-col items-center gap-y-6 p-3 rounded-md">
-          <MyLoungesList />
+
+				<div className="h-full flex flex-col items-center gap-y-6 p-3">
+					<MyLoungesList />
+
 
           <MyCategoriesList />
 
