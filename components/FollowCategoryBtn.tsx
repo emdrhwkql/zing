@@ -50,7 +50,7 @@ function FollowCategoryBtn({ categoryId }: FollowCategoryBtnProps) {
 	return isFollow ? (
 		<button
 			onClick={handleClickFollowBtn}
-			className="rounded-full h-10 py-2 px-4 border active:scale-90 active:duration-100 bg-black/90"
+			className="rounded-full h-10 py-2 px-4 border active:scale-90 active:duration-100 bg-black/40"
 		>
 			{isFollow ? (
 				<div className="w-32 flex flex-row gap-x-2 justify-center items-center text-center">
