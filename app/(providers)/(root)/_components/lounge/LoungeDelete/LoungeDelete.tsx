@@ -2,11 +2,13 @@
 
 import api from "@/api/api";
 import { useAuthStore } from "@/zustand/auth.store";
+import { useModalStore } from "@/zustand/modal.store";
 import { useMutation } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
 function LoungeDelete() {
   const currentUser = useAuthStore((state) => state.currentUser);
+  const closeModal = useModalStore((state) => state.closeModal);
   const params = useParams();
   const router = useRouter();
 
@@ -19,7 +21,7 @@ function LoungeDelete() {
 
   const handleClickDeleteLounge = () => {
     deleteLounge(loungeId);
-
+    closeModal();
     router.push("/");
   };
 
