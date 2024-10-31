@@ -26,7 +26,7 @@ function LecturesList({
 						<div className="mb-4 pb-4 flex flex-row justify-between items-center font-bold text-2xl border-b text-black">
 							<h1>함께 배우는 재미</h1>
 							<p className="text-sm opacity-60">
-								<Link href={"lectures"}>더보기</Link>
+								<Link href={"lectures"}>더보기.</Link>
 							</p>
 						</div>
 					)}
