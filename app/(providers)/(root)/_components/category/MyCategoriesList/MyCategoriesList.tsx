@@ -3,6 +3,7 @@
 import api from "@/api/api";
 import SideBox from "@/components/SideBox";
 import { useAuthStore } from "@/zustand/auth.store";
+import arrayShuffle from "array-shuffle";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -36,7 +37,9 @@ function MyCategoriesList() {
 
 			// console.log(categories);
 
-			setMyCategories(categories);
+			const shuffledCategories = arrayShuffle(categories!);
+
+			setMyCategories(shuffledCategories);
 		})();
 	}, [currentUser]);
 
@@ -58,9 +61,9 @@ function MyCategoriesList() {
 				{MyCategories?.map((category) => (
 					<li
 						key={category?.id}
-						className="border-l-4 border-[#DBC1AD] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
+						className="border-l-4 border-[#F4C6BC] rounded-md h-14 px-2 grid items-center hover:-translate-x-4 hover:duration-300"
 					>
-						<Link href={`/lounges/${category?.id}`}>
+						<Link href={`/categories/${category?.id}`}>
 							<div className="flex flex-row items-center">
 								<img
 									src={`https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/category_images/${category?.categoryImg}`}

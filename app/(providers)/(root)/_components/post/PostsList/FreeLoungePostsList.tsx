@@ -12,6 +12,7 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 
 	return (
 		<MainBox>
+			{/* Header */}
 			<div className="mb-4 pb-4 border-b flex flex-row">
 				<Link href={"/lounges/0"}>
 					<h1 className="font-bold text-2xl hover:text-[27px] hover:duration-150">
@@ -24,6 +25,7 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 				</p>
 			</div>
 
+			{/* 라운지 게시글이 없을 경우 */}
 			{posts.length === 0 && (
 				<div className="grid place-items-center pt-5">
 					<p className="text-2xl">라운지 게시글이 없습니다.</p>
@@ -59,7 +61,7 @@ function FreeLoungePostsList({ posts }: { posts: Posts }) {
 						.slice(0, 4)}
 				</ul>
 			)}
-
+			{/* SeeMore Btn */}
 			<div className="mt-3 flex justify-center relative ">
 				<button
 					onClick={() => {

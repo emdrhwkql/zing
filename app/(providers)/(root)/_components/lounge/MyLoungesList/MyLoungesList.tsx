@@ -59,11 +59,11 @@ function MyLoungesList() {
 				</div>
 			)}
 
-			<ul className="flex flex-row justify-between">
+			<ul className="flex flex-row justify-around">
 				{MyLounges?.map((lounge) => (
 					<li
 						key={lounge?.id}
-						className="grid items-center hover:scale-110 hover:duration-300 border-t-4 rounded-md border-[#DBC1AD] pt-2"
+						className="grid items-center hover:scale-110 hover:duration-300 border-t-4 rounded-md border-[#F4C6BC] pt-2"
 					>
 						<Link href={`/lounges/${lounge?.id}`}>
 							<div className="flex flex-col items-center">

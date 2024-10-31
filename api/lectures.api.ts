@@ -1,4 +1,4 @@
-import supabase from "@/supabase/client";
+		import supabase from "@/supabase/client";
 
 async function getAllLectures() {
 	const randomNumbs = Math.floor(Math.random() * 1000);

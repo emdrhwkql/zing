@@ -1,12 +1,12 @@
 import api from "@/api/api";
 import Page from "@/components/Page";
+import PostByLoungeIdFeed from "@/components/PostByLoungeIdFeed";
 import { LoungeIdPropsType } from "@/types/lounge.types";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import { LuFilePlus } from "react-icons/lu";
 import { TfiAlarmClock } from "react-icons/tfi";
-import PostsList from "../../post/PostsList/PostsList";
 
 async function FreeLoungeDetailForm({
 	loungeId,
@@ -28,23 +28,28 @@ async function FreeLoungeDetailForm({
 
 	return (
 		<Page>
-			<div className="TitleLine flex flex-row gap-x-4 align-text-bottom">
-				<h1 className="Name ml-[160px] font-bold text-4xl">
-					{lounge?.name}
-				</h1>
-				<p className="Introduction h-full text-xl font-semibold mt-auto">
+			{/* Header */}
+			<div className="grid place-items-center gap-y-4">
+				{/* Lounge Name */}
+				<h1 className="font-bold text-4xl">{lounge?.name}</h1>
+
+				{/* Lounge Introduction */}
+				<p className="h-full text-xl font-semibold mt-auto">
 					{lounge?.introduction}
 				</p>
 			</div>
 
+			{/* Main Box */}
 			<div className="mt-10 mb-10 flex flex-row gap-x-10 justify-center">
-				<div className="SideBar w-14 h-[1000px] rounded-md bg-[#6394bfa6]">
-					<div className="SideBarContentBox h-full pt-5 text-white text-4xl text-center flex flex-col gap-y-10">
+				{/* 사이드 바 */}
+				<div className="w-14 h-[1000px] rounded-md bg-[#ba7a6fda]">
+					{/* 사이드 바 컨텐트 박스 */}
+					<div className="h-full pt-5 text-white text-4xl text-center flex flex-col gap-y-10">
 						<div className="w-full group relative grid place-items-center">
 							<Link href={`/lounges/${loungeId}?type=popular`}>
 								<FaStar className="group-hover:scale-125 group-hover:duration-300 group-active:scale-125" />
 							</Link>
-							<div className="w-48 bg-[#477dacaf] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16">
+							<div className="w-48 bg-[#e57364d7] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
 								<p className="text-white font-bold text-3xl py-3">
 									인기 게시물
 								</p>
@@ -55,7 +60,7 @@ async function FreeLoungeDetailForm({
 							<Link href={`/lounges/${loungeId}?type=newest`}>
 								<TfiAlarmClock className="group-hover:scale-125 group-hover:duration-300" />
 							</Link>
-							<div className="w-48 bg-[#477dacaf] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16">
+							<div className="w-48 bg-[#e57364d7] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
 								<p className="text-white font-bold text-3xl py-3">
 									최신 게시물
 								</p>
@@ -66,7 +71,7 @@ async function FreeLoungeDetailForm({
 							<Link href={`/lounges/${loungeId}/posts/new`}>
 								<LuFilePlus className="group-hover:scale-125 group-hover:duration-300" />
 							</Link>
-							<div className="w-48 bg-[#477dacaf] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16">
+							<div className="w-48 bg-[#e57364d7] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
 								<p className="text-white font-bold text-3xl py-3">
 									글 작성하기
 								</p>
@@ -75,9 +80,20 @@ async function FreeLoungeDetailForm({
 					</div>
 				</div>
 
-				<div className="w-[1200px]">
-					<PostsList posts={posts} loungeId={loungeId} />
-				</div>
+				{/* <PostsList posts={posts} loungeId={loungeId} /> */}
+
+				<ul className="grid grid-cols-4 gap-10 place-items-center">
+					{posts
+						.map((post) => (
+							<li
+								key={post.id}
+								className="w-80 p-4 bg-white rounded-md grid hover:scale-105 hover:duration-300"
+							>
+								<PostByLoungeIdFeed post={post} />
+							</li>
+						))
+						.slice(0, 8)}
+				</ul>
 			</div>
 		</Page>
 	);

@@ -8,7 +8,7 @@ interface PostFeedProps {
 	post: Tables<"posts"> & { author: Tables<"users"> };
 }
 
-function PostFeed({ post }: PostFeedProps) {
+function PostByLoungeIdFeed({ post }: PostFeedProps) {
 	return (
 		<article>
 			<Link
@@ -34,7 +34,7 @@ function PostFeed({ post }: PostFeedProps) {
 
 				{/* Image */}
 				<div>
-					<div className="aspect-square w-full h-56 relative">
+					<div className="h-80 relative">
 						<Image
 							src={post.imageUrl}
 							fill
@@ -75,4 +75,4 @@ function PostFeed({ post }: PostFeedProps) {
 	);
 }
 
-export default PostFeed;
+export default PostByLoungeIdFeed;

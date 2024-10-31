@@ -12,7 +12,7 @@ interface FollowCategoryBtnProps {
 function FollowCategoryBtn({ categoryId }: FollowCategoryBtnProps) {
 	const queryClient = useQueryClient();
 
-	const { data: { follows, count } = {} } = useQuery({
+	const { data: { follows } = {} } = useQuery({
 		queryKey: ["follow_categories", { categoryId }],
 		queryFn: () =>
 			api.followCategories.getFollowCategoriesByCategoryId(categoryId),
@@ -47,25 +47,39 @@ function FollowCategoryBtn({ categoryId }: FollowCategoryBtnProps) {
 		}
 	};
 
-	return (
+	return isFollow ? (
 		<button
 			onClick={handleClickFollowBtn}
-			className="rounded-full w-full h-10 py-2 px-4  border"
+			className="rounded-full h-10 py-2 px-4 border active:scale-90 active:duration-100 bg-black/40"
 		>
-			<div>
-				{isFollow ? (
-					<div className="flex flex-row gap-x-2 justify-center items-center">
-						<CgAlbum className="text-lg" />
-						<p>관심</p>
-					</div>
-				) : (
-					<div className="flex flex-row gap-x-2 justify-center items-center">
-						<CgAlbum className="text-lg" />
-						<p>관심</p>
-					</div>
-				)}
-			</div>
-			{count}
+			{isFollow ? (
+				<div className="w-32 flex flex-row gap-x-2 justify-center items-center text-center">
+					<CgAlbum className="text-lg" />
+					<p>관심 취소하기</p>
+				</div>
+			) : (
+				<div className="w-32 flex flex-row gap-x-2 justify-center items-center">
+					<CgAlbum className="text-lg" />
+					<p>관심 추가하기</p>
+				</div>
+			)}
+		</button>
+	) : (
+		<button
+			onClick={handleClickFollowBtn}
+			className="relative rounded-full h-10 py-2 px-4 border active:scale-90 active:duration-100"
+		>
+			{isFollow ? (
+				<div className="w-32 flex flex-row gap-x-2 justify-center items-center text-center">
+					<CgAlbum className="text-lg" />
+					<p>관심 취소하기</p>
+				</div>
+			) : (
+				<div className="w-32 flex flex-row gap-x-2 justify-center items-center">
+					<CgAlbum className="text-lg" />
+					<p>관심 추가하기</p>
+				</div>
+			)}
 		</button>
 	);
 }
