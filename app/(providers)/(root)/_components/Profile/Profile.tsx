@@ -16,7 +16,7 @@ function Profile() {
 
   const { data: myLounges } = useQuery({
     queryKey: ["myLounges"],
-    queryFn: async () => await api.posts.getMyLounges(currentUser!),
+    queryFn: async () => await api.lounges.getLoungesICreated(currentUser!),
     enabled: !!currentUser,
   });
 
