@@ -80,7 +80,7 @@ function ProfileModImage() {
 
         <div className="Img">
           <button onClick={handleSubmitUpdateUserImg} className="bg-black">
-            수정하기
+            프로필 이미지 변경하기
           </button>
 
           <button onClick={handleClickBaseImage} className="bg-black ml-8">
