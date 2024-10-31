@@ -39,7 +39,7 @@ function ProfileModUserName() {
         placeholder="이름을 입력해주세요."
       />
 
-      <button onClick={handleSubmitUpdateUserName}>이름 변경</button>
+      <button onClick={handleSubmitUpdateUserName}>이름 변경하기</button>
     </div>
   );
 }

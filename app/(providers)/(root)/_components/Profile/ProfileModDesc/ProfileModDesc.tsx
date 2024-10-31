@@ -40,7 +40,7 @@ function ProfileModDesc() {
         name="userDesc"
         placeholder="소개글을 적어주세요."
       />
-      <button onClick={handleSubmitUpdateUserDesc}>소개글 수정</button>
+      <button onClick={handleSubmitUpdateUserDesc}>소개글 변경하기</button>
     </div>
   );
 }
