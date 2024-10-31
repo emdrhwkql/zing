@@ -10,32 +10,32 @@ import { useModalStore } from "@/zustand/modal.store";
 // 오픈 모달안에 들어가는 엘리먼트는 업데이트 모달이 들어가야 됨
 
 function UpdateLoungeModal() {
-  const closeModal = useModalStore((state) => state.closeModal);
-  const handleClickOut = () => {
-    closeModal();
-  };
-  return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className="w-[650px] h-[800px] flex justify-center items-center bg-white"
-    >
-      <div className="w-[400px] h-[400px] bg-black text-white border-b-4">
-        <div className="">
-          <LoungeModImg />
-        </div>
-        <div className="">
-          <LoungeModName />
-        </div>
-        <div className="">
-          <LoungeModIntroduction />
-        </div>
-        <div>
-          <LoungeDelete />
-        </div>
-        <button onClick={handleClickOut}>수정 완료</button>
-      </div>
-    </div>
-  );
+	const closeModal = useModalStore((state) => state.closeModal);
+	const handleClickOut = () => {
+		closeModal();
+	};
+	return (
+		<div
+			onClick={(e) => e.stopPropagation()}
+			className="w-[600px] h-[700px] p-10 bg-black/80 rounded-xl flex flex-col gap-y-10 justify-center"
+		>
+			<LoungeModImg />
+
+			<LoungeModName />
+
+			<LoungeModIntroduction />
+
+			<div className="flex flex-row justify-between gap-x-4">
+				<LoungeDelete />
+				<button
+					onClick={handleClickOut}
+					className="bg-white w-full rounded-md p-2 hover:duration-300 hover:bg-gray-400 active:scale-95"
+				>
+					수정 완료
+				</button>
+			</div>
+		</div>
+	);
 }
 
 export default UpdateLoungeModal;

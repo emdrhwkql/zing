@@ -2,99 +2,116 @@
 
 import api from "@/api/api";
 import Input from "@/components/Input";
+import { Lounge } from "@/schema/lounges.schema";
 import supabase from "@/supabase/client";
 import { useAuthStore } from "@/zustand/auth.store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { nanoid } from "nanoid";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { FaCheckSquare } from "react-icons/fa";
 
 interface UpdateLoungeImg {
-  imageUrl: string;
-  loungeId: number;
+	imageUrl: string;
+	loungeId: number;
 }
 
 function LoungeModImg() {
-  const [imageFile, setImageFile] = useState<File | undefined>();
+	const [imageFile, setImageFile] = useState<File | undefined>();
 
-  const currentUser = useAuthStore((state) => state.currentUser);
-  const queryClient = useQueryClient();
-  const params = useParams();
+	const [lounge, setLounge] = useState<Lounge>();
 
-  const loungeId = Number(params.loungeId);
-  const { mutateAsync: setLoungeImage } = useMutation({
-    mutationFn: async ({
-      filepath,
-      imageFile,
-    }: {
-      filepath: string;
-      imageFile: File;
-    }) => api.lounges.setLoungeImage(filepath, imageFile),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-  });
+	useEffect(() => {
+		(async () => {
+			const lounge = await api.lounges.getLounge(loungeId);
 
-  const { mutate: updateImg } = useMutation({
-    mutationFn: async ({ imageUrl, loungeId }: UpdateLoungeImg) =>
-      api.lounges.updateLoungeImg(currentUser!, imageUrl, loungeId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-    },
-  });
+			setLounge(lounge);
+		})();
+	}, []);
 
-  useEffect(() => {
-    if (!currentUser) return;
+	const currentUser = useAuthStore((state) => state.currentUser);
+	const queryClient = useQueryClient();
+	const params = useParams();
 
-    (async () => {
-      const { data: lounges } = await supabase
-        .from("lounges")
-        .select("*")
-        .eq("userId", currentUser!.id);
+	const loungeId = Number(params.loungeId);
 
-      if (!lounges) return;
+	const { mutateAsync: setLoungeImage } = useMutation({
+		mutationFn: async ({
+			filepath,
+			imageFile,
+		}: {
+			filepath: string;
+			imageFile: File;
+		}) => api.lounges.setLoungeImage(filepath, imageFile),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["users"] });
+		},
+	});
 
-      const lounge = lounges[loungeId];
-    })();
-  }, [currentUser]);
+	const { mutate: updateImg } = useMutation({
+		mutationFn: async ({ imageUrl, loungeId }: UpdateLoungeImg) =>
+			api.lounges.updateLoungeImg(currentUser!, imageUrl, loungeId),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["users"] });
+		},
+	});
 
-  const handleClickUpdateLoungeImg = async () => {
-    if (!imageFile) return;
+	useEffect(() => {
+		if (!currentUser) return;
 
-    const extension = imageFile.name.split(".").slice(-1)[0];
-    const filepath = `${nanoid()}.${extension}`;
+		(async () => {
+			const { data: lounges } = await supabase
+				.from("lounges")
+				.select("*")
+				.eq("userId", currentUser!.id);
 
-    // storage에 이미지 업로드
-    const result = await setLoungeImage({ filepath, imageFile });
+			if (!lounges) return;
 
-    const baseURL =
-      "https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/";
+			const lounge = lounges[loungeId];
+		})();
+	}, [currentUser]);
 
-    const loungeImageUrl = baseURL + result?.fullPath;
-    // user 테이블에
+	const handleClickUpdateLoungeImg = async () => {
+		if (!imageFile) return;
 
-    updateImg({ imageUrl: loungeImageUrl, loungeId: loungeId! });
-  };
-  return (
-    // 테이블에 기본 이미지 빼기
-    <>
-      <div className="flex-none gap-y-4 mt-4 ml-4 mr-4 justify-between">
-        <div className="flex ">
-          <Input
-            type="file"
-            onChange={(e) => setImageFile(e.target.files?.[0])}
-            inputClassName="text-black pl-4 "
-          />
-        </div>
-      </div>
-      <button
-        onClick={handleClickUpdateLoungeImg}
-        className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border mt-8"
-      >
-        이미지 수정하기
-      </button>
-    </>
-  );
+		const extension = imageFile.name.split(".").slice(-1)[0];
+		const filepath = `${nanoid()}.${extension}`;
+
+		// storage에 이미지 업로드
+		const result = await setLoungeImage({ filepath, imageFile });
+
+		const baseURL =
+			"https://vcvunmefpfrcskztejms.supabase.co/storage/v1/object/public/";
+
+		const loungeImageUrl = baseURL + result?.fullPath;
+		// user 테이블에
+
+		updateImg({ imageUrl: loungeImageUrl, loungeId: loungeId! });
+	};
+	return (
+		// 테이블에 기본 이미지 빼기
+		<div className="flex flex-col gap-y-4 justify-center">
+			<div className="w-60 h-60 border rounded-md">
+				<img
+					src={`${lounge?.imageUrl}`}
+					alt="loungeImg"
+					className="w-full h-full rounded-md object-cover"
+				/>
+			</div>
+
+			<div className="flex flex-row gap-x-4 w-full">
+				<Input
+					type="file"
+					onChange={(e) => setImageFile(e.target.files?.[0])}
+					wrapperClassName="p-1"
+				/>
+
+				<button onClick={handleClickUpdateLoungeImg}>
+					<FaCheckSquare className="w-full h-full text-white active:scale-90 hover:text-gray-400 hover:duration-300" />
+				</button>
+			</div>
+		</div>
+	);
 }
 
 export default LoungeModImg;
