@@ -1,3 +1,4 @@
+import PostDeleteButton from "@/app/(providers)/(root)/_components/post/PostDelete/PostDelete";
 import PostModContent from "@/app/(providers)/(root)/_components/post/PostMod/PostModContent/PostModContent";
 import PostModImg from "@/app/(providers)/(root)/_components/post/PostMod/PostModImg/PostModImg";
 import PostModTitle from "@/app/(providers)/(root)/_components/post/PostMod/PostModTitle/PostModTitle";
@@ -24,6 +25,7 @@ function UpdatePostModal() {
           <PostModContent />
         </div>
         <button onClick={handleClickOut}>수정 완료</button>
+        <PostDeleteButton />
       </div>
     </div>
   );
