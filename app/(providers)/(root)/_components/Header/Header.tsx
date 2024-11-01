@@ -135,7 +135,7 @@ function Header() {
 					&times;
 				</button>
 				{/* 로그아웃 일 때 보기 보여주기 */}
-				<nav className="flex flex-col p-4 gap-y-1 mt-6">
+				<nav className="flex flex-col">
 					<Link
 						href="/"
 						className="text-lg p-4 text-gray-400 hover:text-white relative"
@@ -159,14 +159,17 @@ function Header() {
 					>
 						<span className="hover:text-white">자유게시판</span>
 					</Link>
-					<button
-						onClick={togglePopularLounge}
-						className="text-lg p-4 text-gray-400 hover:text-white relative"
-					>
-						<span className="hover:text-white">
-							인기 라운지 목록
-						</span>
-					</button>
+
+					<div>
+						<button
+							onClick={togglePopularLounge}
+							className="text-lg p-4 text-gray-400 hover:text-white relative"
+						>
+							<span className="hover:text-white">
+								인기 라운지 목록
+							</span>
+						</button>
+					</div>
 					<div
 						className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
 							isPopularLoungeOpen ? "max-h-screen" : "max-h-0"
@@ -183,6 +186,7 @@ function Header() {
 							</Link>
 						))}
 					</div>
+
 					{isLoggedIn && (
 						<>
 							{/* 로그인 상태 일 때 보여주기 */}
