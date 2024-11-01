@@ -12,34 +12,34 @@ import FreeLoungePostsList from "../_components/post/PostsList/FreeLoungePostsLi
 import PopularPostsList from "../_components/post/PostsList/PopularPostsList";
 
 function HomePage() {
-  const { data: lounges = [] } = useQuery({
-    queryKey: ["lounges"],
-    queryFn: async () => api.lounges.getAllLounges(),
-  });
+	const { data: lounges = [] } = useQuery({
+		queryKey: ["lounges"],
+		queryFn: async () => api.lounges.getAllLounges(),
+	});
 
-  const { data: freePosts = [] } = useQuery({
-    queryKey: ["freePosts"],
-    queryFn: async () => api.posts.getPostsByLoungeId(loungeId),
-  });
+	const { data: freePosts = [] } = useQuery({
+		queryKey: ["freePosts"],
+		queryFn: async () => api.posts.getPostsByLoungeId(loungeId),
+	});
 
-  const { data: posts = [] } = useQuery({
-    queryKey: ["posts"],
-    queryFn: async () => api.posts.getPosts(),
-  });
+	const { data: posts = [] } = useQuery({
+		queryKey: ["posts"],
+		queryFn: async () => api.posts.getPosts(),
+	});
 
-  lounges!.sort(
-    (loungeA, loungeB) =>
-      loungeB.follow_lounges.length - loungeA.follow_lounges.length
-  );
-  // console.log(lounges);
+	lounges!.sort(
+		(loungeA, loungeB) =>
+			loungeB.follow_lounges.length - loungeA.follow_lounges.length
+	);
+	// console.log(lounges);
 
-  const loungeId = 0;
-  // console.log(freePosts);
+	const loungeId = 0;
+	// console.log(freePosts);
 
-  const noFreePosts = posts!.filter((post) => post.loungeId !== 0);
+	const noFreePosts = posts!.filter((post) => post.loungeId !== 0);
 
-  freePosts!.sort((postA, postB) => postB.likes.length - postA.likes.length);
-  noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
+	freePosts!.sort((postA, postB) => postB.likes.length - postA.likes.length);
+	noFreePosts.sort((postA, postB) => postB.likes.length - postA.likes.length);
 
 	return (
 		<Page>
@@ -47,26 +47,23 @@ function HomePage() {
 				<div className=" flex flex-col items-center gap-y-10 p-4">
 					<FreeLoungePostsList posts={freePosts} />
 
+					<PopularPostsList posts={noFreePosts} />
 
-          <PopularPostsList posts={noFreePosts} />
+					<CategoriesHomeList />
 
-          <CategoriesHomeList />
-
-          <LecturesList isShowList={true} isShowSeeMore={true} />
-        </div>
-
+					<LecturesList isShowList={true} isShowSeeMore={true} />
+				</div>
 
 				<div className="h-full flex flex-col items-center gap-y-6 p-3">
 					<MyLoungesList />
 
+					<MyCategoriesList />
 
-          <MyCategoriesList />
-
-          <PopularLoungesList lounges={lounges} />
-        </div>
-      </div>
-    </Page>
-  );
+					<PopularLoungesList lounges={lounges} />
+				</div>
+			</div>
+		</Page>
+	);
 }
 
 export default HomePage;

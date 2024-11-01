@@ -52,7 +52,7 @@ function Header() {
 
 	return (
 		<>
-			<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-[#9a3026] text-white">
+			<header className="px-[calc((100%-1500px)/2)] h-20 border-b flex flex-row items-center bg-[#E2803F] text-white">
 				<div className="ml-5 font-bold text-5xl text-center leading-4">
 					<Link href="/">ZING</Link>
 				</div>
@@ -81,42 +81,44 @@ function Header() {
 						</form>
 					</div>
 
-					<Link
-						href="/inbox"
-						className="p-4 hover:text-white"
-						aria-label="알림"
-					>
-						<FaBell className="text-3xl" />
-					</Link>
-
-					{isLoggedIn ? (
+					<div className="flex flex-row gap-x-5 items-center">
 						<Link
-							href="/my-profile"
-							className="p-4 hover:text-white"
-							aria-label="프로필"
+							href="/inbox"
+							className="hover:text-white hover:scale-110 hover:duration-300"
+							aria-label="알림"
 						>
-							<img
-								src={profile?.profileImg || ""}
-								alt="프로필 이미지"
-								className="w-10 h-10 rounded-full bg-black"
-							/>
+							<FaBell className="text-3xl " />
 						</Link>
-					) : (
-						<Link
-							href="/sign-up"
-							className="font-medium text-base rounded-[15px] border border-white py-1.5 px-2.5 hover:text-white"
-						>
-							로그인/회원가입
-						</Link>
-					)}
 
-					<button
-						aria-label="메뉴 열기"
-						onClick={toggleSidebar}
-						className="p-4 hover:text-white"
-					>
-						<TiThMenu className="text-4xl" />
-					</button>
+						{isLoggedIn ? (
+							<Link
+								href="/my-profile"
+								className="hover:text-white hover:scale-110 hover:duration-300"
+								aria-label="프로필"
+							>
+								<img
+									src={profile?.profileImg || ""}
+									alt="프로필 이미지"
+									className="w-10 h-10 rounded-full bg-black"
+								/>
+							</Link>
+						) : (
+							<Link
+								href="/sign-up"
+								className="font-medium text-base rounded-[15px] border border-white py-1.5 px-2.5 hover:text-white hover:scale-110 hover:duration-300"
+							>
+								로그인/회원가입
+							</Link>
+						)}
+
+						<button
+							aria-label="메뉴 열기"
+							onClick={toggleSidebar}
+							className="hover:text-white hover:scale-110 hover:duration-300	"
+						>
+							<TiThMenu className="text-4xl" />
+						</button>
+					</div>
 				</div>
 			</header>
 
