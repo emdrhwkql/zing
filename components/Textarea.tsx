@@ -13,7 +13,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 		{
 			wrapperClassName: passedWrapperClassName,
 			inputClassName: passedInputClassName,
-			label,
 			helpText,
 			...props
 		},
@@ -52,5 +51,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 		);
 	}
 );
+
+Textarea.displayName = "Textarea";
 
 export default Textarea;

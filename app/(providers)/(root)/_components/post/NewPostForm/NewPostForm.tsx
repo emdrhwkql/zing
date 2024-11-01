@@ -26,7 +26,7 @@ function NewPostForm() {
 		loungeId: number;
 	}
 
-	const { mutate: updateImg } = useMutation({
+	useMutation({
 		mutationFn: async ({ imageUrl, loungeId }: UpdatePostImg) =>
 			api.posts.updatePostImg(currentUser!, imageUrl, loungeId),
 		onSuccess: () => {

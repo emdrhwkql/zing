@@ -41,7 +41,7 @@ function LoungeModName() {
 
 			if (!lounges) return;
 
-			const lounge = lounges[loungeId];
+			// const lounge = lounges[loungeId];
 		})();
 	}, [currentUser]);
 

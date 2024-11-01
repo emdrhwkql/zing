@@ -14,7 +14,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 		{
 			wrapperClassName: passedWrapperClassName,
 			inputClassName: passedInputClassName,
-			label,
 			helpText,
 			...props
 		},
@@ -55,6 +54,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 	}
 );
 
-// Input.displayName = "Input";
+Input.displayName = "Input";
 
 export default Input;

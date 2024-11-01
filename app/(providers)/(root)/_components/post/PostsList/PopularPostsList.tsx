@@ -2,11 +2,15 @@
 
 import MainBox from "@/components/MainBox";
 import PostFeed from "@/components/PostFeed";
-import { Posts } from "@/types/posts.types";
+import { Tables } from "@/supabase/database.types";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-function PopularPostsList({ posts }: { posts: Posts }) {
+function PopularPostsList({
+	posts,
+}: {
+	posts: (Tables<"posts"> & { author: Tables<"users"> | null })[];
+}) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
 	// console.log(posts);

@@ -20,17 +20,22 @@ interface Lounge {
   userId: string;
 }
 
-interface Lounges extends Array<Lounge> { }
+// interface Lounges extends Array<Lounge> { }
 
-interface SearchPageProps {
-  lounges?: Lounge[];
-  full?: boolean;
-}
+// interface SearchPageProps {
+//   lounges?: Lounge[];
+//   full?: boolean;
+// }
 
 // 메인 컴포넌트
-export default function Component({ lounges = [], full = false }: SearchPageProps) {
+// full 사용 안해서 일단 지움
+// export default function Component({ lounges = [], full = false }: SearchPageProps) {
+
+// 사용 안해서 lounges 지움
+//export default function Component({ lounges = [] }: SearchPageProps) {
+export default function Component() {
   // 상태 선언
-  const [filteredLounges, setFilteredLounges] = useState<Lounge[]>([]);
+  // const [filteredLounges, setFilteredLounges] = useState<Lounge[]>([]);
   const [isShowMore, setIsShowMore] = useState(false);
   const [loungesByCategory, setLoungesByCategory] = useState<Lounge[]>([]);
   const searchParams = useSearchParams();
@@ -89,14 +94,14 @@ export default function Component({ lounges = [], full = false }: SearchPageProp
       setCategories(categories || []);
 
       // 카테고리가 검색되면 해당 카테고리에 속한 라운지 필터링
-      if (categories) {
-        const filteredLounges = lounges.filter((lounge: Lounge) =>
-          categories.some(category => category.id === lounge.categoryId)
-        );
-        setFilteredLounges(filteredLounges);
-      } else {
-        setFilteredLounges([]);
-      }
+      // if (categories) {
+      //   const filteredLounges = lounges.filter((lounge: Lounge) =>
+      //     categories.some(category => category.id === lounge.categoryId)
+      //   );
+        // setFilteredLounges(filteredLounges);
+      // } else {
+        // setFilteredLounges([]);
+      // }
 
     } catch (error) {
       console.error("Error searching:", error);
@@ -109,7 +114,7 @@ export default function Component({ lounges = [], full = false }: SearchPageProp
   //검색하고나서 동작을 할 때마다 자동초기화
   useEffect(() => {
     if (query) {
-      setFilteredLounges([]);
+      // setFilteredLounges([]);
       setPosts([]);
       setCategories([]);
       search(query);
