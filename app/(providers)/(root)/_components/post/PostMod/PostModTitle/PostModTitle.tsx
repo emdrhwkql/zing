@@ -60,7 +60,7 @@ function PostModTitle() {
       />
 
       <button
-        className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border"
+        className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border text-white"
         onClick={handleClickModTitle}
       >
         <p>제목 수정하기</p>
