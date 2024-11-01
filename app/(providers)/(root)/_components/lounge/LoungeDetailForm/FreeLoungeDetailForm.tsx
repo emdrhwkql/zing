@@ -90,8 +90,6 @@ function FreeLoungeDetailForm({
           </div>
         </div>
 
-        {/* <PostsList posts={posts} loungeId={loungeId} /> */}
-
         <ul className="grid grid-cols-4 gap-10 justify-center">
           {posts
             .map((post) => (
@@ -107,6 +105,7 @@ function FreeLoungeDetailForm({
       </div>
     </Page>
   );
+
 }
 
 export default FreeLoungeDetailForm;
