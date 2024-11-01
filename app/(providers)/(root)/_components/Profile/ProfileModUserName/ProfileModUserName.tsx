@@ -31,7 +31,7 @@ function ProfileModUserName() {
   };
 
   return (
-    <div className="Name">
+    <div className="Name text-black">
       <Input
         ref={inputNameRef}
         type="text"
@@ -39,7 +39,7 @@ function ProfileModUserName() {
         placeholder="이름을 입력해주세요."
       />
 
-      <button onClick={handleSubmitUpdateUserName}>이름 변경하기</button>
+      <button onClick={handleSubmitUpdateUserName} className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border text-white">이름 변경하기</button>
     </div>
   );
 }

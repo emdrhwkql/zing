@@ -11,19 +11,19 @@ function UpdateProfileModal() {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="w-[650px] h-[800px] flex justify-center items-center bg-white"
+      className="w-[500px] h-[600px] flex justify-center items-center bg-black"
     >
-      <div className="w-[400px] h-[400px] bg-black text-white border-b-4">
+      <div className="w-[600px] h-[700px] p-10 bg-black/80 rounded-xl flex flex-col gap-y-10 justify-center">
         <div>
           <ProfileModImage />
         </div>
-        <div>
+        <div className="bg-black text-white">
           <ProfileModUserName />
         </div>
-        <div>
+        <div className="bg-black text-white">
           <ProfileModDesc />
         </div>
-        <button onClick={handleClickOut}>수정 완료</button>
+        <button onClick={handleClickOut} className="bg-white text-black w-full rounded-md p-2 hover:duration-300 hover:bg-gray-400 active:scale-95" >수정 완료</button>
       </div>
     </div>
   );
