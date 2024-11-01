@@ -13,7 +13,9 @@ interface FollowLoungeBtnProps {
 function FollowLoungeBtn({ loungeId }: FollowLoungeBtnProps) {
 	const queryClient = useQueryClient();
 
-	const { data: { follows, count } = {} } = useQuery({
+	// count 사용 안해서 일단 지움
+	//const { data: { follows, count } = {} } = useQuery({
+	const { data: { follows } = {} } = useQuery({
 		queryKey: ["follow_lounges", { loungeId }],
 		queryFn: () => api.followLounges.getFollowLoungesByLoungesId(loungeId),
 	});

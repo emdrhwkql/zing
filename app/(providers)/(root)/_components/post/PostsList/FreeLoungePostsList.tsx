@@ -2,12 +2,16 @@
 
 import MainBox from "@/components/MainBox";
 import PostFeed from "@/components/PostFeed";
-import { Posts } from "@/types/posts.types";
+import { Tables } from "@/supabase/database.types";
 import Link from "next/link";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 
-function FreeLoungePostsList({ posts }: { posts: Posts }) {
+function FreeLoungePostsList({
+	posts,
+}: {
+	posts: (Tables<"posts"> & { author: Tables<"users"> | null })[];
+}) {
 	const [isShowMore, setIsShowMore] = useState(false);
 
 	return (

@@ -5,7 +5,7 @@ import { FaShareAlt } from "react-icons/fa";
 import LikeButton from "./LikeButton";
 
 interface PostFeedProps {
-	post: Tables<"posts"> & { author: Tables<"users"> };
+	post: Tables<"posts"> & { author: Tables<"users"> | null };
 }
 
 function PostFeed({ post }: PostFeedProps) {
@@ -19,16 +19,16 @@ function PostFeed({ post }: PostFeedProps) {
 				<div className="flex flex-row gap-x-2 items-center pb-2">
 					<div className="w-8 h-8 relative">
 						<Image
-							src={post.author.profileImg}
-							alt={post.author.userId}
+							src={post.author!.profileImg}
+							alt={post.author!.userId}
 							fill
 							className="rounded-md"
 						/>
 					</div>
-					{post.author.userName.length > 9 ? (
-						<span>{post.author.userName.slice(0, 7)} • • •</span>
+					{post.author!.userName.length > 9 ? (
+						<span>{post.author!.userName.slice(0, 7)} • • •</span>
 					) : (
-						<span>{post.author.userName}</span>
+						<span>{post.author!.userName}</span>
 					)}
 				</div>
 

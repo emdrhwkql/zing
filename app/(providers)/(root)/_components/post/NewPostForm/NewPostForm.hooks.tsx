@@ -11,7 +11,7 @@ interface UpdatePostImg {
 }
 
 function useNewPostForm() {
-	const [imageFile, setImageFile] = useState<File | undefined>([]);
+	const [imageFile, setImageFile] = useState<File | undefined>();
 	const currentUser = useAuthStore((state) => state.currentUser);
 	const router = useRouter();
 	const queryClient = useQueryClient();
@@ -43,12 +43,12 @@ function useNewPostForm() {
 					loungeId,
 					currentUser!
 				),
-			onSuccess: (response) => {
-				const loungeId = response!.id; // 확인해볼것
-				// setLoungeImage({ filepath, imageFile }); // mutation 함수
+			// onSuccess: (response) => {
+			// 	const loungeId = response!.id; // 확인해볼것
+			// 	// setLoungeImage({ filepath, imageFile }); // mutation 함수
 
-				// updateImg({ imageUrl, loungeId });
-			},
+			// 	// updateImg({ imageUrl, loungeId });
+			// },
 		});
 
 	const { mutateAsync: setPostImage } = useMutation({

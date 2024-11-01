@@ -39,7 +39,7 @@ function PostModTitle() {
 
       if (!posts) return;
 
-      const post = posts[postId];
+      // const post = posts[postId];
     })();
   }, [currentUser]);
 
