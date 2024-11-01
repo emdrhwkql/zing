@@ -1,21 +1,21 @@
 export type Lounge = {
-	categoryId: number;
-	createdAt: string;
-	id: number;
-	imageUrl: string;
-	introduction: string;
-	isCompleted: boolean;
-	name: string;
-	userId: string | null;
+  categoryId: number;
+  createdAt: string;
+  id: number;
+  imageUrl: string;
+  introduction: string;
+  isCompleted: boolean;
+  name: string;
+  userId: string | null;
 };
 
 export type Lounges = Lounge[];
 
 export type LoungeIdPropsType = {
-	params: {
-		loungeId: string;
-	};
-	searchParams: {
-		type?: "popular" | "newest" | undefined;
-	};
+  params: {
+    loungeId: string;
+  };
+  searchParams: {
+    type?: "popular" | "newest" | undefined;
+  };
 };
