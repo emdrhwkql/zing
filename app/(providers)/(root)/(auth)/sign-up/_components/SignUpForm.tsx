@@ -16,7 +16,7 @@ type HandleSubmitSignUpFormEvent = React.FormEvent<HTMLFormElement> & {
 	target: HTMLFormElement & {
 		email: HTMLInputElement;
 		password: HTMLInputElement;
-		passwordConfirmInputRef: HTMLInputElement;
+		passwordConfirm: HTMLInputElement;
 	};
 };
 
@@ -46,7 +46,7 @@ function SignUpForm() {
 
 		const email = e.target.email.value;
 		const password = e.target.password.value;
-		const passwordConfirm = e.target.password.value;
+		const passwordConfirm = e.target.passwordConfirm.value;
 
 		// 예외 처리
 		if (!userName) return alert("닉네임을 입력해 주세요.");
@@ -54,6 +54,7 @@ function SignUpForm() {
 		if (!email) return alert("이메일 주소를 입력해 주세요.");
 		if (!password) return alert("비밀번호를 입력해 주세요.");
 		if (!passwordConfirm) return alert("비밀번호 확인을 입력해 주세요.");
+
 		if (!email.includes("@"))
 			return alert("올바른 이메일 주소를 적어 주세요.");
 		if (password.length < 8)
