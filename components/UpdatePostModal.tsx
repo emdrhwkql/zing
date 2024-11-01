@@ -21,7 +21,7 @@ function UpdatePostModal() {
         <div>
           <PostModTitle />
         </div>
-        <div>
+        <div className="text-white">
           <PostModContent />
         </div>
         <button onClick={handleClickOut} className="bg-white w-full rounded-md p-2 hover:duration-300 hover:bg-gray-400 active:scale-95">수정 완료</button>
