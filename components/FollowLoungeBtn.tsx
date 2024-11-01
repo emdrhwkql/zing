@@ -52,7 +52,7 @@ function FollowLoungeBtn({ loungeId }: FollowLoungeBtnProps) {
 	return (
 		<button
 			onClick={handleClickFollowBtn}
-			className="border rounded-full w-full h-10 py-2 px-4"
+			className="border rounded-full w-full h-10 py-2 px-4 hover:bg-[#FF9648] hover:duration-300"
 		>
 			<div>
 				{isFollow ? (

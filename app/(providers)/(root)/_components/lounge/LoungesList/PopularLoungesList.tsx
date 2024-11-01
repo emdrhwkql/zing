@@ -66,7 +66,17 @@ function PopularLoungesList({
 										/>
 										<div className="ml-3 flex flex-col">
 											<p>{lounge.name}</p>
-											<p>{lounge.introduction}</p>
+											{lounge.introduction.length > 20 ? (
+												<p>
+													{lounge.introduction.slice(
+														0,
+														20
+													)}
+													• • •
+												</p>
+											) : (
+												<p>{lounge.introduction}</p>
+											)}
 										</div>
 									</div>
 								</Link>

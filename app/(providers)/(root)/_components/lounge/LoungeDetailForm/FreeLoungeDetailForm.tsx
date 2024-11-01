@@ -42,14 +42,14 @@ async function FreeLoungeDetailForm({
 			{/* Main Box */}
 			<div className="mt-10 mb-10 flex flex-row gap-x-10 justify-center">
 				{/* 사이드 바 */}
-				<div className="w-14 h-[1000px] rounded-md bg-[#ba7a6fda]">
+				<div className="w-14 h-[1000px] rounded-md bg-[#c65d20cc]">
 					{/* 사이드 바 컨텐트 박스 */}
 					<div className="h-full pt-5 text-white text-4xl text-center flex flex-col gap-y-10">
 						<div className="w-full group relative grid place-items-center">
 							<Link href={`/lounges/${loungeId}?type=popular`}>
 								<FaStar className="group-hover:scale-125 group-hover:duration-300 group-active:scale-125" />
 							</Link>
-							<div className="w-48 bg-[#e57364d7] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
+							<div className="w-48 bg-[#c65d20b4] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
 								<p className="text-white font-bold text-3xl py-3">
 									인기 게시물
 								</p>
@@ -60,7 +60,7 @@ async function FreeLoungeDetailForm({
 							<Link href={`/lounges/${loungeId}?type=newest`}>
 								<TfiAlarmClock className="group-hover:scale-125 group-hover:duration-300" />
 							</Link>
-							<div className="w-48 bg-[#e57364d7] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
+							<div className="w-48 bg-[#c65d20b4] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
 								<p className="text-white font-bold text-3xl py-3">
 									최신 게시물
 								</p>
@@ -71,7 +71,7 @@ async function FreeLoungeDetailForm({
 							<Link href={`/lounges/${loungeId}/posts/new`}>
 								<LuFilePlus className="group-hover:scale-125 group-hover:duration-300" />
 							</Link>
-							<div className="w-48 bg-[#e57364d7] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
+							<div className="w-48 bg-[#c65d20b4] absolute top-1/2 left-0 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none rounded-md group-hover:duration-300 group-hover:left-16 z-50">
 								<p className="text-white font-bold text-3xl py-3">
 									글 작성하기
 								</p>
