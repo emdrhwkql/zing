@@ -33,14 +33,14 @@ function ProfileModDesc() {
   };
 
   return (
-    <div className="Desc">
+    <div className="Desc text-black">
       <Input
         ref={inputDescRef}
         type="text"
         name="userDesc"
         placeholder="소개글을 적어주세요."
       />
-      <button onClick={handleSubmitUpdateUserDesc}>소개글 변경하기</button>
+      <button onClick={handleSubmitUpdateUserDesc} className="text-white rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border">소개글 변경하기</button>
     </div>
   );
 }

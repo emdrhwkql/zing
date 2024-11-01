@@ -23,7 +23,7 @@ function PostDeleteButton() {
     router.push("/");
   };
   return (
-    <button onClick={handleClickDeletePost} className="bg-white border-black">
+    <button onClick={handleClickDeletePost} className="bg-black border-black text-white justify-between">
       게시글 삭제
     </button>
   );

@@ -77,14 +77,15 @@ function PostModImg() {
 	return (
 		// 테이블에 기본 이미지 빼기
 		<>
-			<div className="rounded-full w-36 h-10 py-2 flex flex-row gap-x-2 justify-center items-center border">
+			<div className="rounded-full w-60 h-10 py-2 flex flex-row gap-x-2 justify-center items-center">
 				<Input
+
 					type="file"
 					onChange={(e) => setImageFile(e.target.files?.[0])}
 					inputClassName="mb-4"
 				/>
 			</div>
-			<button onClick={handleClickUpdatePostImg}>이미지 수정하기</button>
+			<button onClick={handleClickUpdatePostImg} className="justify-center h-4">이미지 수정하기</button>
 		</>
 	);
 }
