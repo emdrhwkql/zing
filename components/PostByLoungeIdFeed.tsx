@@ -57,20 +57,18 @@ function PostByLoungeIdFeed({ post }: PostFeedProps) {
 					)}
 				</div>
 				{/* Title and Content */}
-
-				{/* Footer */}
-				<div className="flex flex-row items-center mt-2 pt-2 border-t">
-					<span className="leading-3">
-						{post.createdAt.slice(0, 10)}
-					</span>
-
-					<div className="ml-auto flex flex-row gap-x-2 items-center">
-						<LikeButton postId={post.id} />
-
-						<FaShareAlt />
-					</div>
-				</div>
 			</Link>
+
+			{/* Footer */}
+			<div className="flex flex-row items-center mt-2 pt-2 border-t">
+				<span className="leading-3">{post.createdAt.slice(0, 10)}</span>
+
+				<div className="ml-auto flex flex-row gap-x-2 items-center">
+					<LikeButton postId={post.id} />
+
+					<FaShareAlt />
+				</div>
+			</div>
 		</article>
 	);
 }
